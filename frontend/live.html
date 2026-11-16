@@ -1,0 +1,302 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IONM Live</title>
+  <link rel="stylesheet" href="/styles.css?v=20260622-features-v1">
+  <script src="/i18n.js?v=20260622-features-v1"></script>
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <h1>IONM Live</h1>
+      <p data-i18n="live.header_sub">Live clinical workstation</p>
+    </div>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="nav-link" href="/" data-i18n="nav.home">Αρχική</a>
+      <a class="nav-link active" href="/live.html" data-i18n="nav.live">Live</a>
+      <a class="nav-link" href="/cases.html" data-i18n="nav.cases">Περιστατικά</a>
+      <a class="nav-link" href="/academy.html" data-i18n="nav.academy">Ακαδημία</a>
+      <a class="nav-link" href="/manual.html" data-i18n="nav.manual">Εγχειρίδιο</a>
+      <a class="nav-link" href="/admin.html" data-i18n="nav.admin">Διαχείριση</a>
+      <button class="nav-link nav-button" type="button" data-logout data-i18n="nav.logout">Αποσύνδεση</button>
+      <div class="status" id="health-status">Σύνδεση...</div>
+    </nav>
+  </header>
+
+  <main class="workspace">
+    <section class="decision-panel">
+      <div class="panel-title" data-i18n="live.decision_tree">Decision Tree</div>
+      <div id="decision-path" class="decision-path"></div>
+      <div id="tree-root" class="decision-board" aria-label="IONM decision tree"></div>
+    </section>
+
+    <section class="content-grid">
+      <section class="detail-panel">
+        <div class="panel-title" data-i18n="live.clinical_context">Clinical Context</div>
+        <div id="node-detail" class="node-detail empty-state">
+          Διάλεξε διαδρομή από το decision tree για να εμφανιστούν μύες, ηλεκτρόδια, πρωτόκολλα και χάρτης σώματος.
+        </div>
+      </section>
+
+      <aside class="work-panel" data-active-tab="map">
+        <div class="work-tabs" role="tablist" data-i18n-aria-label="live.tools_aria" aria-label="Εργαλεία workstation">
+          <button class="work-tab active" type="button" role="tab" data-work-tab="map" aria-selected="true" data-i18n="live.tab_map">Χάρτης</button>
+          <button class="work-tab" type="button" role="tab" data-work-tab="case" aria-selected="false" data-i18n="live.tab_case">Σύνοδος</button>
+          <button class="work-tab" type="button" role="tab" data-work-tab="signals" aria-selected="false" data-i18n="live.tab_signals">Σήματα</button>
+          <button class="work-tab" type="button" role="tab" data-work-tab="ai" aria-selected="false" data-i18n="live.tab_ai">AI</button>
+          <button class="work-tab" type="button" role="tab" data-work-tab="tele" aria-selected="false"><span data-i18n="live.tab_tele">Tele</span><span class="work-tab-badge" id="tele-tab-badge" hidden></span></button>
+          <button class="work-tab" type="button" role="tab" data-work-tab="archive" aria-selected="false" data-i18n="live.tab_archive">Αρχείο</button>
+        </div>
+
+        <div class="work-pane" data-work-pane="map">
+      <section class="body-card">
+        <div class="panel-title" data-i18n="map.title">Body Map</div>
+        <div id="map-view-controls" class="map-view-controls" aria-label="Body map focus views"></div>
+        <div class="map-legend" aria-label="Body map calibration">
+          <span data-i18n="map.calibrated">percentage calibrated</span>
+          <span data-i18n="map.laterality">L/R/C laterality</span>
+          <span id="map-view-count">0 pins</span>
+        </div>
+        <div class="bodymap" id="bodymap" role="img" data-i18n-aria-label="map.aria" aria-label="Ανατομικό μοντέλο με IONM ηλεκτρόδια">
+          <img id="bodymap-image" src="/assets/body.jpg?v=20260531-highres-openstax" alt="" aria-hidden="true">
+          <div id="pins-layer" class="pins-layer"></div>
+          <div id="tele-annotations-layer" class="tele-annotations-layer" aria-hidden="true"></div>
+        </div>
+      </section>
+        </div>
+
+        <div class="work-pane" data-work-pane="case">
+      <section class="case-card">
+        <div class="panel-title" data-i18n="live.case">Case</div>
+        <label>
+          <span data-i18n="live.case_title">Τίτλος</span>
+          <input id="case-title" type="text" placeholder="Περιγραφικός τίτλος επέμβασης" data-i18n-placeholder="live.case_title_ph">
+        </label>
+        <label>
+          <span data-i18n="live.case_ref">Μη αναγνωριστικό ref</span>
+          <input id="case-ref" type="text" placeholder="χωρίς προσωπικά δεδομένα" data-i18n-placeholder="command.ref_ph">
+        </label>
+        <button id="create-case-btn" class="primary-btn" data-i18n="live.create_case">Δημιουργία case</button>
+        <div id="case-result" class="small-output"></div>
+        <div id="active-case" class="case-current hidden"></div>
+        <div class="event-form">
+          <div class="panel-title small-title" data-i18n="live.timeline">Timeline</div>
+          <label>
+            <span data-i18n="live.event_type">Τύπος event</span>
+            <select id="event-type">
+              <option value="baseline" data-i18n="evt.baseline">Baseline</option>
+              <option value="signal_change" data-i18n="evt.signal_change">Signal change</option>
+              <option value="surgeon_alert" data-i18n="evt.surgeon_alert">Surgeon alert</option>
+              <option value="recovery" data-i18n="evt.recovery">Recovery</option>
+              <option value="note" data-i18n="evt.note">Note</option>
+            </select>
+          </label>
+          <label>
+            <span data-i18n="live.event_title">Τίτλος event</span>
+            <input id="event-title" type="text" placeholder="Σύντομος τίτλος κλινικού συμβάντος" data-i18n-placeholder="live.event_title_ph">
+          </label>
+          <label>
+            <span data-i18n="live.event_desc">Περιγραφή</span>
+            <textarea id="event-description" class="event-textarea" placeholder="σύντομη καταγραφή χωρίς προσωπικά δεδομένα" data-i18n-placeholder="live.event_desc_ph"></textarea>
+          </label>
+          <button id="create-event-btn" class="secondary-btn" disabled data-i18n="live.log_event">Καταγραφή event</button>
+          <div id="case-timeline" class="timeline empty-state">Δεν υπάρχει ενεργό case.</div>
+          <div class="debrief-actions">
+            <button id="run-debrief-btn" class="secondary-btn" type="button" disabled data-i18n="live.generate_debrief">Generate Debrief</button>
+          </div>
+          <div id="case-debrief-output" class="debrief-output small-output">Create or load a case to generate debrief.</div>
+          <div id="case-debrief-history" class="debrief-history"></div>
+        </div>
+      </section>
+        </div>
+
+        <div class="work-pane" data-work-pane="signals">
+      <section class="signal-card" id="signal-import-card">
+        <div class="panel-title" data-i18n="live.import_title">Vendor-neutral import</div>
+        <p class="card-hint" data-i18n="live.import_hint">Φόρτωσε EDF/EDF+ export από οποιοδήποτε σύστημα (Cadwell, Natus, IONOMED). Εξάγονται κανάλια + πραγματικές μετρήσεις peak-to-peak.</p>
+        <div class="import-controls">
+          <input id="signal-file" type="file" accept=".edf,.bdf,.rec" aria-label="EDF/EDF+ recording">
+          <button id="import-signal-btn" class="secondary-btn" type="button" data-i18n="live.import_btn">Import recording</button>
+        </div>
+        <div id="signal-import-output" class="signal-import-output small-output">Δεν έχει φορτωθεί recording.</div>
+      </section>
+
+      <section class="signal-card ontology-card" id="ontology-card">
+        <div class="panel-title"><span data-i18n="live.ontology_title">Canonical channel map</span> <span class="ontology-tagline" data-i18n="live.ontology_tag">interoperability layer</span></div>
+        <p class="card-hint" data-i18n-html="live.ontology_hint">Τα ακατάστατα labels κάθε μηχανήματος («L-Tib», «Lt Tibial P37») χαρτογραφούνται σε μία κανονική κλινική ταυτότητα. Το AI/heuristic <strong>προτείνει</strong>· εσύ <strong>επιβεβαιώνεις</strong>· μόνο το επιβεβαιωμένο σφραγίζεται. Κάθε επιβεβαίωση εμπλουτίζει τον επικυρωμένο χάρτη.</p>
+        <div id="ontology-channels" class="ontology-channels">Κάνε import recording για να χαρτογραφηθούν τα κανάλια.</div>
+      </section>
+
+      <section class="signal-card alert-card" id="alert-response-card">
+        <div class="panel-title" data-i18n="live.alert_title">Alert Response Protocol</div>
+        <p class="card-hint" data-i18n="live.alert_hint">Σύγκριση baseline → current με δημοσιευμένα κριτήρια συναγερμού (SSEP, TcMEP, D-wave, BAEP, triggered/free-running EMG) και δομημένο διαφορικό πρωτόκολλο.</p>
+        <label class="alert-field">
+          <span data-i18n="live.modality">Modality</span>
+          <select id="alert-family">
+            <option value="ssep_upper" data-i18n="live.mod_ssep_upper">SSEP — άνω άκρο</option>
+            <option value="ssep_lower" data-i18n="live.mod_ssep_lower">SSEP — κάτω άκρο</option>
+            <option value="tcmep" data-i18n="live.mod_tcmep">TcMEP (muscle MEP)</option>
+            <option value="dwave" data-i18n="live.mod_dwave">D-wave</option>
+            <option value="baep" data-i18n="live.mod_baep">BAEP</option>
+            <option value="temg" data-i18n="live.mod_temg">Triggered EMG (pedicle)</option>
+            <option value="cranial_emg" data-i18n="live.mod_cranial_emg">Free-running / cranial EMG</option>
+          </select>
+        </label>
+        <label class="alert-field">
+          <span data-i18n="live.channel">Channel</span>
+          <input id="alert-channel" type="text" placeholder="π.χ. APB αριστερά, Cz'-Fpz" data-i18n-placeholder="live.channel_ph">
+        </label>
+        <div class="alert-grid">
+          <label><span data-i18n="live.amp_baseline">Baseline amp (µV)</span><input id="alert-baseline-amp" type="number" step="0.01" min="0" inputmode="decimal"></label>
+          <label><span data-i18n="live.amp_current">Current amp (µV)</span><input id="alert-current-amp" type="number" step="0.01" min="0" inputmode="decimal"></label>
+          <label><span data-i18n="live.lat_baseline">Baseline lat (ms)</span><input id="alert-baseline-lat" type="number" step="0.1" min="0" inputmode="decimal"></label>
+          <label><span data-i18n="live.lat_current">Current lat (ms)</span><input id="alert-current-lat" type="number" step="0.1" min="0" inputmode="decimal"></label>
+          <label><span data-i18n="live.threshold">Threshold (mA)</span><input id="alert-threshold" type="number" step="0.1" min="0" inputmode="decimal"></label>
+        </div>
+        <div class="alert-signature">
+          <label><span data-i18n="live.laterality">Laterality</span>
+            <select id="alert-laterality">
+              <option value="">—</option>
+              <option value="unilateral" data-i18n="live.lat_unilateral">Unilateral</option>
+              <option value="bilateral" data-i18n="live.lat_bilateral">Bilateral</option>
+              <option value="global" data-i18n="live.lat_global">Global</option>
+            </select>
+          </label>
+          <label><span data-i18n="live.onset">Onset</span>
+            <select id="alert-onset">
+              <option value="">—</option>
+              <option value="abrupt" data-i18n="live.onset_abrupt">Abrupt</option>
+              <option value="gradual" data-i18n="live.onset_gradual">Gradual</option>
+            </select>
+          </label>
+          <label><span data-i18n="live.scope">Scope</span>
+            <select id="alert-scope">
+              <option value="">—</option>
+              <option value="single_channel" data-i18n="live.scope_single">Single channel</option>
+              <option value="multichannel" data-i18n="live.scope_multi">Multichannel</option>
+              <option value="focal" data-i18n="live.scope_focal">Focal</option>
+            </select>
+          </label>
+          <label class="alert-check"><input id="alert-after-maneuver" type="checkbox"> <span data-i18n="live.after_maneuver">Μετά από χειρισμό</span></label>
+        </div>
+        <div class="alert-actions">
+          <button id="alert-evaluate-btn" class="primary-btn" type="button" data-i18n="live.evaluate">Evaluate</button>
+          <button id="alert-proposals-btn" class="secondary-btn" type="button" data-i18n="live.ai_proposals">AI proposals</button>
+          <button id="alert-log-btn" class="secondary-btn" type="button" disabled data-i18n="live.log_timeline">Log to timeline</button>
+        </div>
+        <div id="alert-output" class="alert-output small-output">Συμπλήρωσε baseline/current και πάτησε Evaluate.</div>
+      </section>
+        </div>
+
+        <div class="work-pane" data-work-pane="ai">
+      <section class="ai-card">
+        <div class="panel-title" data-i18n="live.copilot_title">Clinical Copilot</div>
+        <div class="copilot-toolbar" aria-label="Clinical Copilot modes">
+          <button class="copilot-mode active" type="button" data-copilot-focus="setup" data-i18n="live.copilot_setup">Setup</button>
+          <button class="copilot-mode" type="button" data-copilot-focus="signal_change" data-i18n="live.copilot_signal">Signal</button>
+          <button class="copilot-mode" type="button" data-copilot-focus="evidence" data-i18n="live.copilot_evidence">Evidence</button>
+        </div>
+        <textarea id="copilot-observation" class="copilot-observation" placeholder="Προαιρετικό: φάση, παρατήρηση waveform ή πρακτικό ερώτημα χωρίς προσωπικά δεδομένα" data-i18n-placeholder="live.copilot_obs_ph"></textarea>
+        <button id="run-copilot-btn" class="primary-btn" type="button" data-i18n="live.run_copilot">Run Clinical Copilot</button>
+        <div id="copilot-output" class="copilot-output small-output">Select node and run Copilot for a structured clinical brief.</div>
+      </section>
+
+      <section class="ai-card">
+        <div class="panel-title" data-i18n="live.deepseek_title">DeepSeek Assistant</div>
+        <textarea id="ai-question" placeholder="Ρώτησε με βάση το επιλεγμένο node..." data-i18n-placeholder="live.ai_question_ph"></textarea>
+        <button id="ask-ai-btn" class="secondary-btn" data-i18n="academy.ask">Ερώτηση</button>
+        <div id="ai-answer" class="small-output"></div>
+      </section>
+        </div>
+
+        <div class="work-pane" data-work-pane="tele">
+      <section class="tele-card" id="tele-card">
+        <div class="panel-title"><span data-i18n="live.tele_title">Tele-IONM</span> <span id="tele-status" class="tele-status tele-status-offline">offline</span></div>
+        <p class="card-hint" data-i18n="live.tele_hint">Ζωντανή απομακρυσμένη επίβλεψη σε πραγματικό χρόνο: παρουσία ειδικών, αίτημα υποστήριξης, κοινός συγχρονισμένος χώρος (node + body map), shared annotations, chat και πλήρες audit. Ο κοινός χάρτης σώματος εμφανίζεται στην καρτέλα «Χάρτης».</p>
+
+        <div class="tele-availability" id="tele-availability-row" hidden>
+          <label class="tele-toggle"><input id="tele-available" type="checkbox"> <span data-i18n="live.tele_available">Διαθέσιμος ως ειδικός για απομακρυσμένη υποστήριξη</span></label>
+        </div>
+
+        <div id="tele-idle" class="tele-idle">
+          <div class="tele-experts" id="tele-experts">
+            <div class="tele-empty">Σύνδεση…</div>
+          </div>
+          <label class="tele-field"><span data-i18n="live.tele_msg">Σύντομο μήνυμα (προαιρετικό)</span>
+            <input id="tele-request-message" type="text" maxlength="2000" placeholder="π.χ. SSEP drop άνω άκρο αριστερά — ζητώ γνώμη" data-i18n-placeholder="live.tele_msg_ph">
+          </label>
+          <button id="tele-request-btn" class="primary-btn" type="button" disabled data-i18n="live.tele_request">Request remote support</button>
+        </div>
+
+        <div id="tele-pending" class="tele-pending hidden">
+          <span class="tele-spinner" aria-hidden="true"></span>
+          <span class="tele-pending-text" data-i18n="live.tele_pending">Αναμονή για αποδοχή ειδικού…</span>
+          <button id="tele-cancel-btn" class="secondary-btn" type="button" data-i18n="live.cancel">Άκυρο</button>
+        </div>
+
+        <div id="tele-incoming" class="tele-incoming"></div>
+
+        <div id="tele-session" class="tele-session hidden">
+          <div class="tele-session-head">
+            <span class="tele-peer" id="tele-peer"></span>
+            <span class="tele-session-role" id="tele-session-role"></span>
+          </div>
+          <div class="tele-consent">
+            <label class="tele-toggle"><input id="tele-consent" type="checkbox"> <span data-i18n="live.tele_consent">Συγκατάθεση κοινής προβολής</span></label>
+            <span id="tele-consent-state" class="tele-consent-state">όχι ακόμη</span>
+          </div>
+          <div class="tele-sync-row">
+            <span class="tele-sync-indicator" id="tele-sync-indicator">Κοινός χώρος: συγχρονισμένος</span>
+            <button id="tele-pointer-btn" class="ghost-btn" type="button" aria-pressed="false">Pointer: off</button>
+          </div>
+          <div class="tele-media">
+            <div class="tele-media-controls">
+              <button id="tele-mic-btn" class="ghost-btn tele-media-btn" type="button" aria-pressed="false" disabled data-i18n="app.tele_ptt">Κράτα για ομιλία</button>
+              <button id="tele-screen-btn" class="ghost-btn tele-media-btn" type="button" aria-pressed="false" disabled data-i18n="app.tele_screen_off">Κοινή οθόνη</button>
+              <button id="tele-share-trace-btn" class="ghost-btn tele-media-btn" type="button" disabled data-i18n="app.tele_share_trace">Κοινή χρήση κυματομορφής</button>
+              <span id="tele-media-status" class="tele-media-status" aria-live="polite"></span>
+            </div>
+            <div id="tele-video-stage" class="tele-video-stage">
+              <video id="tele-remote-video" class="tele-remote-video" autoplay playsinline hidden></video>
+              <video id="tele-local-video" class="tele-local-video" autoplay playsinline muted hidden></video>
+            </div>
+          </div>
+          <div class="tele-chat" id="tele-chat" aria-live="polite"></div>
+          <form class="tele-chat-form" id="tele-chat-form">
+            <input id="tele-chat-input" type="text" maxlength="2000" placeholder="Μήνυμα προς τον συνεργάτη…" autocomplete="off" data-i18n-placeholder="live.tele_chat_ph">
+            <button class="secondary-btn" type="submit" data-i18n="live.send">Send</button>
+          </form>
+          <div class="tele-session-actions">
+            <button id="tele-end-btn" class="danger-btn" type="button">End session</button>
+            <button id="tele-link-case-btn" class="secondary-btn" type="button" disabled data-i18n="live.tele_attach">Attach to active case</button>
+          </div>
+        </div>
+
+        <div id="tele-feedback" class="tele-feedback small-output" role="status"></div>
+      </section>
+        </div>
+
+        <div class="work-pane" data-work-pane="archive">
+      <section class="archive-card" id="archive-card">
+        <div class="panel-title"><span data-i18n="live.archive_title">Sealed case record</span> <span class="archive-tagline" data-i18n="live.archive_tag">system of record</span></div>
+        <p class="card-hint" data-i18n-html="live.archive_hint">Σφράγισε το ενεργό case σε <strong>αμετάβλητο, hash-chained</strong> αντικείμενο: κανονικά κανάλια + timeline + ερμηνείες, με κρυπτογραφική απόδειξη ακεραιότητας. Append-only — κάθε διόρθωση είναι νέα σφραγισμένη έκδοση. Αυτό είναι το νομικά υπερασπίσιμο αρχείο.</p>
+        <div class="archive-actions">
+          <button id="archive-seal-btn" class="primary-btn" type="button" disabled data-i18n="live.seal_btn">Σφράγισε & κλείδωσε</button>
+          <button id="archive-verify-btn" class="secondary-btn" type="button" disabled data-i18n="live.verify_btn">Επαλήθευση ακεραιότητας</button>
+          <button id="archive-refresh-btn" class="ghost-btn" type="button" data-i18n="live.refresh_btn">Ανανέωση αρχείου</button>
+        </div>
+        <div id="archive-output" class="archive-output small-output">Διάλεξε/δημιούργησε case για να ενεργοποιηθεί η σφράγιση.</div>
+        <div class="panel-subtitle" data-i18n="live.archive_pacs">Αρχείο σφραγισμένων (PACS)</div>
+        <div id="archive-list" class="archive-list">Φόρτωση…</div>
+      </section>
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="/session.js?v=20260601-handoff-v1" type="module"></script>
+  <script src="/app.js?v=20260622-features-v1" type="module"></script>
+</body>
+</html>

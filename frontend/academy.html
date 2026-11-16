@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IONM Academy</title>
+  <link rel="stylesheet" href="/styles.css?v=20260622-features-v1">
+  <script src="/i18n.js?v=20260622-features-v1"></script>
+</head>
+<body class="academy-page">
+  <header class="topbar">
+    <div>
+      <h1>IONM Academy</h1>
+      <p data-i18n="academy.header_sub">Curriculum, simulation, tutor, evidence</p>
+    </div>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="nav-link" href="/" data-i18n="nav.home">Αρχική</a>
+      <a class="nav-link" href="/live.html" data-i18n="nav.live">Live</a>
+      <a class="nav-link" href="/cases.html" data-i18n="nav.cases">Περιστατικά</a>
+      <a class="nav-link active" href="/academy.html" data-i18n="nav.academy">Ακαδημία</a>
+      <a class="nav-link" href="/manual.html" data-i18n="nav.manual">Εγχειρίδιο</a>
+      <a class="nav-link" href="/admin.html" data-i18n="nav.admin">Διαχείριση</a>
+      <button class="nav-link nav-button" type="button" data-logout data-i18n="nav.logout">Αποσύνδεση</button>
+      <div class="status" id="health-status">Σύνδεση...</div>
+    </nav>
+  </header>
+
+  <main class="academy-shell">
+    <aside class="academy-sidebar">
+      <div class="panel-title" data-i18n="academy.curriculum">Curriculum</div>
+      <div id="academy-metrics" class="academy-overview compact-grid"></div>
+      <div id="learner-panel" class="learner-panel empty-state compact">Φόρτωση learner...</div>
+      <div id="academy-modules" class="academy-modules vertical-list empty-state compact">Φόρτωση curriculum...</div>
+      <div class="panel-title spaced-title" data-i18n="academy.sim_library">Simulation Library</div>
+      <div id="academy-library" class="academy-sim-grid sidebar-grid"></div>
+    </aside>
+
+    <section class="academy-main" data-active-panel="lesson">
+      <nav id="academy-workspace-tabs" class="academy-workspace-tabs" aria-label="Academy workspace views">
+        <button class="academy-tab active" type="button" data-academy-tab="lesson" data-i18n="academy.tab_lesson">Lesson</button>
+        <button class="academy-tab" type="button" data-academy-tab="simulation" data-i18n="academy.tab_placement">Placement</button>
+        <button class="academy-tab" type="button" data-academy-tab="waveforms" data-i18n="academy.tab_waveforms">Waveforms</button>
+        <button class="academy-tab" type="button" data-academy-tab="tutor" data-i18n="academy.tab_tutor">Tutor</button>
+        <button class="academy-tab" type="button" data-academy-tab="evidence" data-i18n="academy.tab_evidence">Evidence</button>
+      </nav>
+      <section id="lesson-detail" class="academy-panel empty-state compact" data-academy-panel="lesson">Φόρτωση lesson...</section>
+      <section id="simulation-panel" class="academy-panel simulator-section empty-state compact" data-academy-panel="simulation">Δεν έχει επιλεγεί simulation.</section>
+      <section id="waveform-panel" class="academy-panel waveform-section empty-state compact" data-academy-panel="waveforms">Φόρτωση κυματομορφών...</section>
+      <section id="tutor-panel" class="academy-panel tutor-panel" data-academy-panel="tutor">
+        <div class="section-heading">
+          <h3 data-i18n="academy.ai_tutor">AI Tutor</h3>
+          <span data-i18n="academy.rag_grounded">RAG grounded</span>
+        </div>
+        <textarea id="tutor-question" data-i18n-placeholder="academy.tutor_ph" placeholder="Ρώτησε για το επιλεγμένο lesson..."></textarea>
+        <button id="ask-tutor-btn" class="secondary-btn" type="button" data-i18n="academy.ask">Ερώτηση</button>
+        <div id="tutor-answer" class="small-output"></div>
+      </section>
+      <section id="evidence-panel" class="academy-panel empty-state compact" data-academy-panel="evidence">Δεν υπάρχουν evidence δεδομένα για το επιλεγμένο lesson.</section>
+    </section>
+
+    <aside class="academy-lab-panel">
+      <section class="body-card">
+        <div class="panel-title" data-i18n="map.title">Body Map</div>
+        <div id="map-view-controls" class="map-view-controls" aria-label="Body map focus views"></div>
+        <div class="map-legend" aria-label="Body map calibration">
+          <span data-i18n="map.calibrated">percentage calibrated</span>
+          <span data-i18n="map.laterality">L/R/C laterality</span>
+          <span id="map-view-count">0 pins</span>
+        </div>
+        <div class="bodymap" id="bodymap" role="img" data-i18n-aria-label="map.aria" aria-label="Ανατομικό μοντέλο με IONM ηλεκτρόδια">
+          <img id="bodymap-image" src="/assets/body.jpg?v=20260531-highres-openstax" alt="" aria-hidden="true">
+          <div id="pins-layer" class="pins-layer"></div>
+        </div>
+      </section>
+    </aside>
+  </main>
+
+  <script src="/session.js?v=20260601-gated-manual" type="module"></script>
+  <script src="/academy.js?v=20260622-features-v1" type="module"></script>
+</body>
+</html>

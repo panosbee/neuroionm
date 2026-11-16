@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeuroIONM Cases</title>
+  <link rel="stylesheet" href="/styles.css?v=20260622-features-v1">
+  <script src="/i18n.js?v=20260622-features-v1"></script>
+</head>
+<body class="case-library-page">
+  <header class="topbar">
+    <div>
+      <h1>NeuroIONM</h1>
+      <p data-i18n="cases.header_sub">Case Intelligence</p>
+    </div>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="nav-link" href="/" data-i18n="nav.home">Αρχική</a>
+      <a class="nav-link" href="/live.html" data-i18n="nav.live">Live</a>
+      <a class="nav-link active" href="/cases.html" data-i18n="nav.cases">Περιστατικά</a>
+      <a class="nav-link" href="/academy.html" data-i18n="nav.academy">Ακαδημία</a>
+      <a class="nav-link" href="/manual.html" data-i18n="nav.manual">Εγχειρίδιο</a>
+      <a class="nav-link" href="/admin.html" data-i18n="nav.admin">Διαχείριση</a>
+      <button class="nav-link nav-button" type="button" data-logout data-i18n="nav.logout">Αποσύνδεση</button>
+    </nav>
+  </header>
+
+  <main class="case-library-shell">
+    <section class="case-library-hero">
+      <div>
+        <div class="panel-title" data-i18n="cases.hero_kicker">Delivery View</div>
+        <h2 data-i18n="cases.hero_title">Cases, debriefs and reports in one clinical surface.</h2>
+        <p data-i18n="cases.hero_sub">Άνοιγμα σε Live, επισκόπηση saved AI debriefs και print-ready report για γρήγορο review.</p>
+      </div>
+      <div class="case-metrics" id="case-metrics" aria-live="polite">
+        <span>Cases loading</span>
+        <span>Events loading</span>
+        <span>Debriefs loading</span>
+      </div>
+    </section>
+
+    <section class="case-dashboard">
+      <section class="case-list-panel" aria-labelledby="case-list-title">
+        <div class="section-heading compact-heading">
+          <div>
+            <div class="panel-title" data-i18n="cases.library">Case Library</div>
+            <h2 id="case-list-title" data-i18n="cases.recent">Recent cases</h2>
+          </div>
+          <span id="case-count">Loading</span>
+        </div>
+        <label class="case-search-label">
+          <span data-i18n="cases.search">Search</span>
+          <input id="case-search" type="search" data-i18n-placeholder="cases.search_ph" placeholder="title, ref, procedure, debrief">
+        </label>
+        <div id="case-list" class="case-list empty-state">Loading cases...</div>
+      </section>
+
+      <aside class="case-detail-panel" aria-live="polite">
+        <div id="case-detail" class="case-detail empty-state">
+          Select a case to preview timeline, latest debrief and report actions.
+        </div>
+      </aside>
+    </section>
+  </main>
+
+  <script src="/session.js?v=20260601-handoff-v1" type="module"></script>
+  <script src="/cases.js?v=20260601-prodready-v1" type="module"></script>
+</body>
+</html>

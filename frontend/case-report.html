@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeuroIONM Case Report</title>
+  <link rel="stylesheet" href="/styles.css?v=20260622-features-v1">
+  <script src="/i18n.js?v=20260622-features-v1"></script>
+</head>
+<body class="case-report-page">
+  <header class="topbar report-topbar">
+    <div>
+      <h1>NeuroIONM</h1>
+      <p data-i18n="report.header_sub">Case Report</p>
+    </div>
+    <nav class="top-nav no-print" aria-label="Primary navigation">
+      <a class="nav-link" href="/cases.html" data-i18n="nav.cases">Cases</a>
+      <a class="nav-link" href="/live.html" data-i18n="nav.live">Live</a>
+      <button id="print-report-btn" class="nav-link nav-button" type="button" data-i18n="report.print">Print / PDF</button>
+      <button class="nav-link nav-button" type="button" data-logout data-i18n="nav.logout">Logout</button>
+    </nav>
+  </header>
+
+  <main class="case-report-shell">
+    <article id="case-report" class="case-report-document empty-state">Loading report...</article>
+  </main>
+
+  <script src="/session.js?v=20260601-handoff-v1" type="module"></script>
+  <script src="/case-report.js?v=20260601-handoff-v1" type="module"></script>
+</body>
+</html>

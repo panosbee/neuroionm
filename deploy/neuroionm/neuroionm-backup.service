@@ -1,0 +1,16 @@
+[Unit]
+Description=NeuroIONM local Mongo and application backup
+Documentation=file:/var/backups/neuroionm/latest/RESTORE_NOTES.txt
+Wants=mongod.service
+After=network-online.target mongod.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/neuroionm_backup.sh
+Nice=10
+IOSchedulingClass=best-effort
+IOSchedulingPriority=7
+CPUWeight=20
+MemoryMax=2G
+PrivateTmp=true
+NoNewPrivileges=true

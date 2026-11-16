@@ -1,0 +1,34 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IONM Login</title>
+  <link rel="stylesheet" href="/styles.css?v=20260622-features-v1">
+  <script src="/i18n.js?v=20260622-features-v1"></script>
+</head>
+<body class="login-page">
+  <main class="auth-shell">
+    <section class="auth-panel">
+      <div data-lang-switch></div>
+      <div class="panel-title" data-i18n="login.restricted">Περιορισμένη πρόσβαση</div>
+      <h1 data-i18n="login.title">IONM Workbench</h1>
+      <p data-i18n="login.subtitle">Απαιτείται σύνδεση για Live, Ακαδημία, Εγχειρίδιο και Διαχείριση.</p>
+      <form id="login-form" class="admin-form compact-form" action="/api/admin/login" method="post">
+        <input id="login-next" name="next" type="hidden" value="/">
+        <label>
+          <span data-i18n="login.username">Όνομα χρήστη</span>
+          <input name="username" type="text" autocomplete="username" required autofocus>
+        </label>
+        <label>
+          <span data-i18n="login.password">Κωδικός</span>
+          <input name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="primary-btn" type="submit" data-i18n="login.submit">Σύνδεση</button>
+      </form>
+      <div id="login-output" class="small-output"></div>
+    </section>
+  </main>
+  <script src="/login.js?v=20260613-i18n-v1" type="module"></script>
+</body>
+</html>

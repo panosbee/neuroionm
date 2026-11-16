@@ -1,0 +1,13 @@
+[Unit]
+Description=NeuroIONM readiness watchdog
+After=network-online.target nginx.service mongod.service neuroionm.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/neuroionm_healthcheck.sh
+Nice=5
+CPUWeight=20
+MemoryMax=256M
+PrivateTmp=true
+NoNewPrivileges=true

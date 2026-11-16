@@ -1,0 +1,176 @@
+{
+  "Iliopsoas": [
+    { "view": "anterior", "x": 30.7, "y": 42, "side": "L" },
+    { "view": "anterior", "x": 23.7, "y": 42, "side": "R" }
+  ],
+  "Cremaster": [
+    { "view": "anterior", "x": 27.2, "y": 41, "side": "C" }
+  ],
+  "Adductor longus": [
+    { "view": "anterior", "x": 30.2, "y": 46, "side": "L" },
+    { "view": "anterior", "x": 24.2, "y": 46, "side": "R" }
+  ],
+  "Vastus medialis": [
+    { "view": "anterior", "x": 30.5, "y": 58, "side": "L" },
+    { "view": "anterior", "x": 23.9, "y": 58, "side": "R" }
+  ],
+  "Tibialis anterior": [
+    { "view": "anterior", "x": 29.7, "y": 68, "side": "L" },
+    { "view": "anterior", "x": 24.7, "y": 68, "side": "R" }
+  ],
+  "Peroneus longus": [
+    { "view": "anterior", "x": 32.2, "y": 68, "side": "L" },
+    { "view": "anterior", "x": 22.2, "y": 68, "side": "R" }
+  ],
+  "Extensor hallucis longus": [
+    { "view": "anterior", "x": 28.5, "y": 78, "side": "L" },
+    { "view": "anterior", "x": 25.9, "y": 78, "side": "R" }
+  ],
+  "Abductor hallucis": [
+    { "view": "anterior", "x": 29, "y": 95, "side": "L" },
+    { "view": "anterior", "x": 25.4, "y": 95, "side": "R" }
+  ],
+  "Gluteus medius": [
+    { "view": "posterior", "x": 66, "y": 39, "side": "L" },
+    { "view": "posterior", "x": 75.6, "y": 39, "side": "R" }
+  ],
+  "Biceps femoris": [
+    { "view": "posterior", "x": 66.3, "y": 52, "side": "L" },
+    { "view": "posterior", "x": 75.3, "y": 52, "side": "R" }
+  ],
+  "Gastrocnemius medial": [
+    { "view": "posterior", "x": 69, "y": 68, "side": "L" },
+    { "view": "posterior", "x": 72.6, "y": 68, "side": "R" }
+  ],
+  "External anal sphincter": [
+    { "view": "posterior", "x": 70.8, "y": 42, "side": "C" }
+  ],
+  "Deltoid": [
+    { "view": "anterior", "x": 39, "y": 23, "side": "L" },
+    { "view": "anterior", "x": 15.4, "y": 23, "side": "R" }
+  ],
+  "Biceps brachii": [
+    { "view": "anterior", "x": 39.5, "y": 28, "side": "L" },
+    { "view": "anterior", "x": 14.9, "y": 28, "side": "R" }
+  ],
+  "Brachioradialis": [
+    { "view": "anterior", "x": 41.5, "y": 33, "side": "L" },
+    { "view": "anterior", "x": 12.9, "y": 33, "side": "R" }
+  ],
+  "Flexor carpi radialis": [
+    { "view": "anterior", "x": 40, "y": 36, "side": "L" },
+    { "view": "anterior", "x": 14.4, "y": 36, "side": "R" }
+  ],
+  "Flexor digitorum profundus": [
+    { "view": "anterior", "x": 40.5, "y": 39, "side": "L" },
+    { "view": "anterior", "x": 13.9, "y": 39, "side": "R" }
+  ],
+  "Abductor pollicis brevis": [
+    { "view": "anterior", "x": 41, "y": 44, "side": "L" },
+    { "view": "anterior", "x": 13.4, "y": 44, "side": "R" }
+  ],
+  "Abductor digiti minimi": [
+    { "view": "anterior", "x": 43.5, "y": 44.5, "side": "L" },
+    { "view": "anterior", "x": 10.9, "y": 44.5, "side": "R" }
+  ],
+  "Triceps brachii": [
+    { "view": "posterior", "x": 64, "y": 28, "side": "L" },
+    { "view": "posterior", "x": 77.6, "y": 28, "side": "R" }
+  ],
+  "Extensor carpi radialis": [
+    { "view": "posterior", "x": 58, "y": 33, "side": "L" },
+    { "view": "posterior", "x": 83.6, "y": 33, "side": "R" }
+  ],
+  "Extensor digitorum": [
+    { "view": "posterior", "x": 58.5, "y": 36, "side": "L" },
+    { "view": "posterior", "x": 83.1, "y": 36, "side": "R" }
+  ],
+  "First dorsal interosseous": [
+    { "view": "posterior", "x": 62, "y": 45, "side": "L" },
+    { "view": "posterior", "x": 79.6, "y": 45, "side": "R" }
+  ],
+  "Intercostals": [
+    { "view": "anterior", "x": 27.2, "y": 24, "side": "C" }
+  ],
+  "Rectus abdominis (upper)": [
+    { "view": "anterior", "x": 28.5, "y": 28, "side": "L" },
+    { "view": "anterior", "x": 25.9, "y": 28, "side": "R" }
+  ],
+  "Rectus abdominis (mid)": [
+    { "view": "anterior", "x": 28.5, "y": 32, "side": "L" },
+    { "view": "anterior", "x": 25.9, "y": 32, "side": "R" }
+  ],
+  "Rectus abdominis (lower)": [
+    { "view": "anterior", "x": 28.5, "y": 36, "side": "L" },
+    { "view": "anterior", "x": 25.9, "y": 36, "side": "R" }
+  ],
+  "Medial rectus": [
+    { "view": "anterior", "x": 28.3, "y": 11.5, "side": "L" },
+    { "view": "anterior", "x": 26.1, "y": 11.5, "side": "R" }
+  ],
+  "Inferior rectus": [
+    { "view": "anterior", "x": 28.3, "y": 12.5, "side": "L" },
+    { "view": "anterior", "x": 26.1, "y": 12.5, "side": "R" }
+  ],
+  "Superior oblique": [
+    { "view": "anterior", "x": 28.7, "y": 10.5, "side": "L" },
+    { "view": "anterior", "x": 25.7, "y": 10.5, "side": "R" }
+  ],
+  "Lateral rectus": [
+    { "view": "anterior", "x": 29.7, "y": 11.5, "side": "L" },
+    { "view": "anterior", "x": 24.7, "y": 11.5, "side": "R" }
+  ],
+  "Masseter": [
+    { "view": "anterior", "x": 29.7, "y": 15, "side": "L" },
+    { "view": "anterior", "x": 24.7, "y": 15, "side": "R" }
+  ],
+  "Temporalis": [
+    { "view": "anterior", "x": 31, "y": 11, "side": "L" },
+    { "view": "anterior", "x": 23.4, "y": 11, "side": "R" }
+  ],
+  "Frontalis": [
+    { "view": "anterior", "x": 28.5, "y": 10, "side": "L" },
+    { "view": "anterior", "x": 25.9, "y": 10, "side": "R" }
+  ],
+  "Orbicularis oculi": [
+    { "view": "anterior", "x": 29.7, "y": 12, "side": "L" },
+    { "view": "anterior", "x": 24.7, "y": 12, "side": "R" }
+  ],
+  "Orbicularis oris": [
+    { "view": "anterior", "x": 28, "y": 15.5, "side": "L" },
+    { "view": "anterior", "x": 26.4, "y": 15.5, "side": "R" }
+  ],
+  "Mentalis": [
+    { "view": "anterior", "x": 27.2, "y": 16.5, "side": "C" }
+  ],
+  "Platysma": [
+    { "view": "anterior", "x": 29, "y": 18, "side": "L" },
+    { "view": "anterior", "x": 25.4, "y": 18, "side": "R" }
+  ],
+  "Auditory brainstem responses": [
+    { "view": "anterior", "x": 27.2, "y": 11, "side": "C" }
+  ],
+  "Stylopharyngeus": [
+    { "view": "anterior", "x": 27.2, "y": 14.5, "side": "C" }
+  ],
+  "Soft palate": [
+    { "view": "anterior", "x": 27.2, "y": 13.5, "side": "C" }
+  ],
+  "Vocalis (via NIM ETT)": [
+    { "view": "anterior", "x": 27.2, "y": 20, "side": "C" }
+  ],
+  "Cricothyroid": [
+    { "view": "anterior", "x": 27.2, "y": 20.5, "side": "C" }
+  ],
+  "Sternocleidomastoid": [
+    { "view": "anterior", "x": 30.5, "y": 19, "side": "L" },
+    { "view": "anterior", "x": 23.9, "y": 19, "side": "R" }
+  ],
+  "Genioglossus": [
+    { "view": "anterior", "x": 27.2, "y": 15, "side": "C" }
+  ],
+  "Trapezius (upper)": [
+    { "view": "posterior", "x": 68.5, "y": 21, "side": "L" },
+    { "view": "posterior", "x": 73, "y": 21, "side": "R" }
+  ]
+}

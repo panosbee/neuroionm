@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IONM Admin</title>
+  <link rel="stylesheet" href="/styles.css?v=20260622-features-v1">
+  <script src="/i18n.js?v=20260622-features-v1"></script>
+</head>
+<body class="admin-page">
+  <header class="topbar">
+    <div>
+      <h1>IONM Admin</h1>
+      <p data-i18n="admin.header_sub">Users, knowledge base, OCR ingestion</p>
+    </div>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="nav-link" href="/" data-i18n="nav.home">Αρχική</a>
+      <a class="nav-link" href="/live.html" data-i18n="nav.live">Live</a>
+      <a class="nav-link" href="/cases.html" data-i18n="nav.cases">Περιστατικά</a>
+      <a class="nav-link" href="/academy.html" data-i18n="nav.academy">Ακαδημία</a>
+      <a class="nav-link" href="/manual.html" data-i18n="nav.manual">Εγχειρίδιο</a>
+      <a class="nav-link active" href="/admin.html" data-i18n="nav.admin">Διαχείριση</a>
+      <button class="nav-link nav-button" type="button" data-logout data-i18n="nav.logout">Αποσύνδεση</button>
+      <div class="status" id="admin-status">Σύνδεση...</div>
+    </nav>
+  </header>
+
+  <main class="admin-shell">
+    <section id="login-panel" class="admin-panel login-panel">
+      <div class="section-heading">
+        <h3 data-i18n="admin.login_title">Admin Login</h3>
+        <span data-i18n="admin.restricted">restricted</span>
+      </div>
+      <form id="login-form" class="admin-form compact-form" action="/api/admin/login" method="post">
+        <label>
+          <span data-i18n="admin.username">Username</span>
+          <input id="login-username" name="username" type="text" autocomplete="username" required>
+        </label>
+        <label>
+          <span data-i18n="admin.password">Password</span>
+          <input id="login-password" name="password" type="password" autocomplete="current-password" required>
+        </label>
+        <button class="primary-btn" type="submit" data-i18n="admin.login_btn">Login</button>
+      </form>
+      <div id="login-output" class="small-output"></div>
+    </section>
+
+    <section id="admin-workspace" class="admin-workspace hidden">
+      <aside class="admin-sidebar">
+        <div class="panel-title" data-i18n="admin.sidebar_title">Admin</div>
+        <div id="admin-profile" class="admin-profile"></div>
+        <div id="admin-metrics" class="academy-overview compact-grid"></div>
+        <button id="logout-btn" class="secondary-btn" type="button" data-i18n="admin.logout_btn">Logout</button>
+      </aside>
+
+      <section class="admin-main">
+        <section class="admin-panel" id="account-panel">
+          <div class="section-heading">
+            <h3 data-i18n="account.title">My account</h3>
+            <span data-i18n="account.subtitle">access security</span>
+          </div>
+          <p class="muted-text" data-i18n="account.hint">You manage your own credentials. Changes take effect immediately.</p>
+          <div class="account-grid">
+            <form id="account-password-form" class="admin-form account-form">
+              <div class="form-subheading" data-i18n="account.section_password">Change password</div>
+              <label><span data-i18n="account.current_pw">Current password</span><input id="account-current-password" name="current_password" type="password" autocomplete="current-password" required></label>
+              <label><span data-i18n="account.new_pw">New password</span><input id="account-new-password" name="new_password" type="text" autocomplete="new-password" minlength="8" required></label>
+              <div class="form-actions">
+                <button id="account-generate-password" class="secondary-btn" type="button" data-i18n="account.gen_pw">Generate</button>
+                <button class="primary-btn" type="submit" data-i18n="account.change_pw_btn">Update password</button>
+              </div>
+              <div id="account-password-output" class="small-output"></div>
+            </form>
+            <form id="account-username-form" class="admin-form account-form">
+              <div class="form-subheading" data-i18n="account.section_username">Change username</div>
+              <label><span data-i18n="account.current_pw">Current password</span><input id="account-username-current-password" name="current_password" type="password" autocomplete="current-password" required></label>
+              <label><span data-i18n="account.new_username">New username</span><input id="account-new-username" name="new_username" type="text" autocomplete="username" minlength="3" maxlength="80" required></label>
+              <div class="form-actions">
+                <button class="primary-btn" type="submit" data-i18n="account.change_username_btn">Update username</button>
+              </div>
+              <div id="account-username-output" class="small-output"></div>
+            </form>
+          </div>
+        </section>
+
+        <section class="admin-panel" id="create-user-panel">
+          <div class="section-heading">
+            <h3 data-i18n="admin.create_user">Create User</h3>
+            <span data-i18n="admin.account">account</span>
+          </div>
+          <form id="user-form" class="admin-form user-form-grid">
+            <label><span data-i18n="admin.f_username">Username</span><input name="username" type="text" required></label>
+            <label><span data-i18n="admin.f_password">Password</span><input id="user-password" name="password" type="text" autocomplete="new-password" required></label>
+            <label><span data-i18n="admin.f_first">First name</span><input name="first_name" type="text" required></label>
+            <label><span data-i18n="admin.f_last">Last name</span><input name="last_name" type="text" required></label>
+            <label><span data-i18n="admin.f_email">Email</span><input name="email" type="email" required></label>
+            <label><span data-i18n="admin.f_phone">Phone</span><input name="phone" type="tel" required></label>
+            <label><span data-i18n="admin.f_title">Professional title</span><input name="professional_title" type="text"></label>
+            <label><span data-i18n="admin.f_specialty">Specialty</span><input name="specialty" type="text"></label>
+            <label><span data-i18n="admin.f_org">Organization</span><input name="organization" type="text"></label>
+            <label><span data-i18n="admin.f_dept">Department</span><input name="department" type="text"></label>
+            <label><span data-i18n="admin.f_city">City</span><input name="city" type="text"></label>
+            <label><span data-i18n="admin.f_country">Country</span><input name="country" type="text"></label>
+            <label><span data-i18n="admin.f_license">License number</span><input name="license_number" type="text"></label>
+            <label><span data-i18n="admin.access_level">Access level</span>
+              <select name="access_level">
+                <option value="learner" data-i18n="admin.al_learner">Learner</option>
+                <option value="clinician" data-i18n="admin.al_clinician">Clinician</option>
+                <option value="educator" data-i18n="admin.al_educator">Educator</option>
+                <option value="admin" data-i18n="admin.al_admin">Admin</option>
+              </select>
+            </label>
+            <label><span data-i18n="admin.status_label">Status</span>
+              <select name="status">
+                <option value="active" data-i18n="admin.st_active">Active</option>
+                <option value="pending" data-i18n="admin.st_pending">Pending</option>
+                <option value="inactive" data-i18n="admin.st_inactive">Inactive</option>
+              </select>
+            </label>
+            <label class="wide-field"><span data-i18n="admin.notes">Notes</span><textarea name="notes"></textarea></label>
+            <div class="form-actions wide-field">
+              <button id="generate-user-password" class="secondary-btn" type="button" data-i18n="admin.gen_password">Generate password</button>
+              <button class="primary-btn" type="submit" data-i18n="admin.create_user_btn">Create user</button>
+              <div id="user-output" class="small-output"></div>
+            </div>
+          </form>
+        </section>
+
+        <section class="admin-panel">
+          <div class="section-heading">
+            <h3 data-i18n="admin.users">Users</h3>
+            <span id="users-count">0 records</span>
+          </div>
+          <div id="users-list" class="admin-list empty-state compact">Δεν υπάρχουν χρήστες.</div>
+        </section>
+
+        <section class="admin-panel">
+          <div class="section-heading">
+            <h3 data-i18n="admin.kb_title">AI Knowledge Base</h3>
+            <span data-i18n="admin.kb_tag">PDF OCR + RAG</span>
+          </div>
+          <form id="knowledge-form" class="admin-form knowledge-form-grid" enctype="multipart/form-data">
+            <label><span data-i18n="admin.kb_title_f">Title</span><input name="title" type="text" required></label>
+            <label><span data-i18n="admin.kb_domain">Domain</span><input name="domain" type="text" value="ionm" required></label>
+            <label><span data-i18n="admin.kb_tags">Tags</span><input name="tags" type="text"></label>
+            <label class="wide-field"><span data-i18n="admin.kb_pdf">PDF</span><input name="file" type="file" accept="application/pdf" required></label>
+            <div class="form-actions wide-field">
+              <button id="knowledge-submit" class="primary-btn" type="submit" data-i18n="admin.kb_upload">Upload and index</button>
+              <div id="knowledge-output" class="small-output"></div>
+            </div>
+          </form>
+        </section>
+
+        <section class="admin-panel">
+          <div class="section-heading">
+            <h3 data-i18n="admin.docs_title">Knowledge Documents</h3>
+            <span id="documents-count">0 documents</span>
+          </div>
+          <div id="documents-list" class="admin-list empty-state compact">Δεν υπάρχουν έγγραφα.</div>
+        </section>
+
+        <section class="admin-panel bodymap-curation-panel">
+          <div class="section-heading">
+            <h3 data-i18n="admin.curation_title">Body Map Curation</h3>
+            <span data-i18n="admin.curation_tag">coordinate editor</span>
+          </div>
+          <div id="bodymap-asset-summary" class="curation-asset-summary empty-state compact">Φόρτωση body-map metadata...</div>
+          <div class="curation-layout">
+            <div class="curation-controls">
+              <div class="curation-anchor-controls" id="curation-anchor-controls" data-i18n-aria-label="admin.anchors_aria" aria-label="C4-C5 calibration anchors">
+                <button class="map-view-btn" type="button" data-anchor-target="Deltoid">Deltoid</button>
+                <button class="map-view-btn" type="button" data-anchor-target="Biceps brachii">Biceps brachii</button>
+                <button class="map-view-btn" type="button" data-anchor-target="Triceps brachii" data-anchor-view="posterior_upper_limb">Triceps</button>
+                <button class="map-view-btn" type="button" data-anchor-target="Extensor carpi radialis" data-anchor-view="posterior_upper_limb">ECR</button>
+              </div>
+              <div class="calibration-panel" aria-label="Regional calibration preview">
+                <div class="calibration-panel-title">
+                  <strong data-i18n="admin.regional_calibration">Regional calibration</strong>
+                  <span id="curation-preview-count">no preview</span>
+                </div>
+                <div class="calibration-actions">
+                  <button id="curation-preview-upper" class="secondary-btn" type="button" data-i18n="admin.preview_btn">C4-C5 view-aware preview</button>
+                  <button id="curation-apply-preview" class="primary-btn" type="button" disabled data-i18n="admin.use_target">Use for target</button>
+                  <button id="curation-clear-preview" class="secondary-btn" type="button" disabled data-i18n="admin.clear">Clear</button>
+                </div>
+                <div id="curation-preview-summary" class="calibration-preview-summary empty-state compact">No active preview.</div>
+              </div>
+              <label><span data-i18n="admin.muscle_target">Muscle / target</span><select id="curation-muscle-select"></select></label>
+              <label><span data-i18n="admin.pin">Pin</span><select id="curation-pin-select"></select></label>
+              <div class="curation-view-controls" id="curation-view-controls"></div>
+              <div id="curation-pin-detail" class="small-output"></div>
+              <div class="form-actions">
+                <button id="curation-save" class="primary-btn" type="button" data-i18n="admin.save_coord">Save coordinate</button>
+                <button id="curation-discard" class="secondary-btn" type="button" data-i18n="admin.discard">Discard unsaved</button>
+                <button id="curation-reset" class="secondary-btn danger-btn" type="button" data-i18n="admin.reset_target">Reset target from seed</button>
+                <button id="curation-export" class="secondary-btn" type="button" data-i18n="admin.export_json">Export JSON</button>
+              </div>
+              <div id="curation-output" class="small-output"></div>
+            </div>
+            <div>
+              <div id="curation-map" class="curation-map" role="img" data-i18n-aria-label="admin.curation_canvas_aria" aria-label="Body map coordinate curation canvas">
+                <div id="curation-pins-layer" class="curation-pins-layer"></div>
+              </div>
+              <div class="map-legend">
+                <span data-i18n="admin.legend_click">click map to move selected pin</span>
+                <span id="curation-coordinate-readout">0, 0</span>
+              </div>
+            </div>
+          </div>
+        </section>
+      </section>
+    </section>
+  </main>
+
+  <script src="/session.js?v=20260601-gated-manual" type="module"></script>
+  <script src="/admin.js?v=20260614-account-v1" type="module"></script>
+</body>
+</html>

@@ -1,0 +1,18 @@
+[Unit]
+Description=NeuroIONM FastAPI platform
+After=network.target mongod.service
+Wants=mongod.service
+
+[Service]
+User=www-data
+Group=www-data
+WorkingDirectory=/var/www/sites/neuroionm/current
+EnvironmentFile=/var/www/sites/neuroionm/shared/.env.production
+ExecStart=/var/www/sites/neuroionm/shared/.venv/bin/gunicorn backend.app.main:app --worker-class uvicorn.workers.UvicornWorker --workers 2 --bind 127.0.0.1:8200 --timeout 240 --graceful-timeout 30 --access-logfile - --error-logfile -
+Restart=always
+RestartSec=5
+NoNewPrivileges=true
+PrivateTmp=true
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>NeuroIONM Command Center</title>
+  <link rel="stylesheet" href="/styles.css?v=20260622-features-v1">
+  <script src="/i18n.js?v=20260622-features-v1"></script>
+</head>
+<body class="landing-page command-page">
+  <header class="topbar">
+    <div>
+      <h1>NeuroIONM</h1>
+      <p data-i18n="brand.subtitle">Κέντρο Ελέγχου</p>
+    </div>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="nav-link active" href="/" data-i18n="nav.home">Αρχική</a>
+      <a class="nav-link" href="/live.html" data-i18n="nav.live">Live</a>
+      <a class="nav-link" href="/cases.html" data-i18n="nav.cases">Περιστατικά</a>
+      <a class="nav-link" href="/academy.html" data-i18n="nav.academy">Ακαδημία</a>
+      <a class="nav-link" href="/manual.html" data-i18n="nav.manual">Εγχειρίδιο</a>
+      <a class="nav-link" href="/admin.html" data-i18n="nav.admin">Διαχείριση</a>
+      <button class="nav-link nav-button" type="button" data-logout data-i18n="nav.logout">Αποσύνδεση</button>
+    </nav>
+  </header>
+
+  <main class="command-shell">
+    <section class="command-hero" aria-label="Command center status">
+      <div class="command-identity">
+        <div class="panel-title" data-i18n="command.hero.kicker">Κλινική Επιφάνεια Λειτουργίας</div>
+        <h2 data-i18n="command.hero.title">Ξεκινήστε το σωστό workspace με το σωστό κλινικό πλαίσιο.</h2>
+        <p><span data-i18n="session.prefix">Σύνδεση:</span> <span data-session-name>έλεγχος συνεδρίας</span></p>
+      </div>
+      <div class="command-vitals" id="command-vitals" aria-live="polite">
+        <span data-i18n="vitals.checking.api">Έλεγχος API</span>
+        <span data-i18n="vitals.checking.mongo">Έλεγχος Mongo</span>
+        <span data-i18n="vitals.checking.ai">Έλεγχος AI</span>
+        <span data-i18n="vitals.checking.rag">Έλεγχος RAG</span>
+      </div>
+    </section>
+
+    <section class="command-layout">
+      <section class="start-case-panel" aria-labelledby="start-case-title">
+        <div class="section-heading compact-heading">
+          <div>
+            <div class="panel-title" data-i18n="command.start.kicker">Έναρξη Περιστατικού</div>
+            <h2 id="start-case-title" data-i18n="command.start.title">Ενημέρωση ζωντανού περιστατικού</h2>
+          </div>
+          <span id="procedure-count" data-i18n="common.loading">Φόρτωση</span>
+        </div>
+
+        <form id="start-case-form" class="command-form">
+          <label class="wide-field">
+            <span data-i18n="command.case_title">Τίτλος περιστατικού</span>
+            <input id="command-case-title" type="text" maxlength="180" placeholder="Μη αναγνωρίσιμος τίτλος επέμβασης" data-i18n-placeholder="command.case_title_ph" required>
+          </label>
+          <label>
+            <span data-i18n="command.procedure">Επέμβαση / επίπεδο</span>
+            <select id="command-procedure" required>
+              <option value="" data-i18n="command.procedure_loading">Φόρτωση επεμβάσεων</option>
+            </select>
+          </label>
+          <label>
+            <span data-i18n="command.phase">Χειρουργική φάση</span>
+            <select id="command-phase">
+              <option value="setup" data-i18n="phase.setup">Προετοιμασία</option>
+              <option value="positioning" data-i18n="phase.positioning">Τοποθέτηση</option>
+              <option value="baseline" data-i18n="phase.baseline">Baseline</option>
+              <option value="exposure" data-i18n="phase.exposure">Έκθεση</option>
+              <option value="decompression" data-i18n="phase.decompression">Αποσυμπίεση</option>
+              <option value="closure" data-i18n="phase.closure">Σύγκλειση</option>
+            </select>
+          </label>
+          <label>
+            <span data-i18n="command.ref">Μη αναγνωρίσιμη αναφορά</span>
+            <input id="command-case-ref" type="text" maxlength="120" placeholder="χωρίς προσωπικά δεδομένα" data-i18n-placeholder="command.ref_ph">
+          </label>
+          <label>
+            <span data-i18n="command.risk">Εστίαση κινδύνου</span>
+            <select id="command-risk">
+              <option value="standard" data-i18n="risk.standard">Τυπική παρακολούθηση</option>
+              <option value="motor_root" data-i18n="risk.motor_root">Κίνδυνος κινητικής ρίζας</option>
+              <option value="cord_risk" data-i18n="risk.cord_risk">Κίνδυνος αιμάτωσης νωτιαίου / MEP</option>
+              <option value="cranial_nerve" data-i18n="risk.cranial_nerve">Κίνδυνος εγκεφαλικής συζυγίας</option>
+              <option value="positioning" data-i18n="risk.positioning">Κίνδυνος τοποθέτησης</option>
+            </select>
+          </label>
+          <label class="wide-field">
+            <span data-i18n="command.notes">Σημειώσεις ενημέρωσης</span>
+            <textarea id="command-notes" maxlength="4000" placeholder="σύντομη, μη αναγνωριστική κλινική σημείωση" data-i18n-placeholder="command.notes_ph"></textarea>
+          </label>
+          <div class="form-actions wide-field">
+            <button class="primary-btn" id="command-start-btn" type="submit" data-i18n="command.start_btn">Έναρξη Ζωντανού Περιστατικού</button>
+            <a class="secondary-link" href="/live.html" data-i18n="command.open_live">Άνοιγμα Live χωρίς περιστατικό</a>
+          </div>
+        </form>
+        <div id="start-case-status" class="small-output" aria-live="polite"></div>
+      </section>
+
+      <aside class="command-rail" aria-label="Workspace shortcuts">
+        <section class="planner-preview" id="planner-preview">
+          <div class="panel-title" data-i18n="command.preview.kicker">Κλινική Προεπισκόπηση</div>
+          <div class="empty-state compact" data-i18n="command.preview.empty">Επιλέξτε επέμβαση για προεπισκόπηση καναλιών, πρωτοκόλλων και σημείων ελέγχου.</div>
+        </section>
+
+        <nav class="command-actions" aria-label="Primary workspaces">
+          <a class="command-action" href="/cases.html">
+            <span data-i18n="command.actions.review_tag">Ανασκόπηση</span>
+            <strong data-i18n="command.actions.review_title">Case Intelligence</strong>
+            <small data-i18n="command.actions.review_desc">Αποθηκευμένα debriefs, αναφορές και επανάληψη περιστατικού για ανασκόπηση.</small>
+          </a>
+          <a class="command-action" href="/academy.html">
+            <span data-i18n="command.actions.train_tag">Εκπαίδευση</span>
+            <strong data-i18n="command.actions.train_title">Προσομοιωτής Ακαδημίας</strong>
+            <small data-i18n="command.actions.train_desc">Ασκήσεις επάρκειας, τοποθέτησης, κυματομορφών και περιστατικών.</small>
+          </a>
+          <a class="command-action" href="/admin.html">
+            <span data-i18n="command.actions.curate_tag">Επιμέλεια</span>
+            <strong data-i18n="command.actions.curate_title">Γνώση & Χάρτης Σώματος</strong>
+            <small data-i18n="command.actions.curate_desc">Εισαγωγή τεκμηρίων και έλεγχος συντεταγμένων.</small>
+          </a>
+          <a class="command-action" href="/manual.html">
+            <span data-i18n="command.actions.ref_tag">Αναφορά</span>
+            <strong data-i18n="command.actions.ref_title">Εγχειρίδιο Λειτουργίας</strong>
+            <small data-i18n="command.actions.ref_desc">Σημειώσεις ανάπτυξης, ροής εργασίας και λειτουργίας AI/RAG.</small>
+          </a>
+        </nav>
+      </aside>
+    </section>
+  </main>
+
+  <script src="/session.js?v=20260601-command-center" type="module"></script>
+  <script src="/command-center.js?v=20260601-command-center" type="module"></script>
+</body>
+</html>

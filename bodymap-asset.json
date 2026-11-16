@@ -1,0 +1,32 @@
+{
+  "asset": "body.jpg",
+  "title": "Major muscles of the body, anterior and posterior views",
+  "source": "OpenStax Anatomy and Physiology / Wikimedia Commons",
+  "source_url": "https://commons.wikimedia.org/wiki/File:1105_Anterior_and_Posterior_Views_of_Muscles.jpg",
+  "license": "CC BY 4.0",
+  "license_url": "https://creativecommons.org/licenses/by/4.0/",
+  "download_url": "https://upload.wikimedia.org/wikipedia/commons/9/91/1105_Anterior_and_Posterior_Views_of_Muscles.jpg",
+  "width": 1304,
+  "height": 3033,
+  "status": "high_res_asset_installed_coordinates_require_recuration",
+  "coordinate_system": "percentage_of_full_image",
+  "view_bounds": {
+    "anterior": { "x1": 31, "y1": 2, "x2": 65, "y2": 47 },
+    "posterior": { "x1": 31, "y1": 52, "x2": 66, "y2": 96 },
+    "cranial": { "x1": 36, "y1": 1, "x2": 62, "y2": 18 },
+    "upper_limb": { "x1": 22, "y1": 8, "x2": 73, "y2": 32 },
+    "posterior_upper_limb": { "x1": 30, "y1": 58, "x2": 68, "y2": 76 },
+    "lumbosacral": { "x1": 27, "y1": 23, "x2": 70, "y2": 70 },
+    "lower_limb": { "x1": 26, "y1": 31, "x2": 69, "y2": 96 }
+  },
+  "legacy_view_bounds": {
+    "anterior": { "x1": 6, "y1": 3, "x2": 48.5, "y2": 97 },
+    "posterior": { "x1": 52, "y1": 3, "x2": 90, "y2": 97 }
+  },
+  "notes": [
+    "This replaces the previous 587x612 image with a high-resolution anatomical asset.",
+    "Existing ionm-coords.json coordinates were created on the previous image and must be clinically re-curated against this exact asset before production training use.",
+    "Until every point is clinically re-curated, legacy ionm-coords.json points are normalized at runtime from legacy anterior/posterior bounds into the current body.jpg asset bounds.",
+    "The image includes printed labels and leader lines; future final asset may use a clean unlabeled anatomical plate if a licensed source is selected."
+  ]
+}

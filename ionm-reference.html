@@ -1,0 +1,2349 @@
+<!DOCTYPE html>
+<html lang="el">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>IONM Reference · Σπονδυλική / ΩΡΛ / Θυρεοειδής</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,700&family=Manrope:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #0a0d12;
+    --bg-elev: #11161e;
+    --bg-elev2: #1a2029;
+    --bg-elev3: #232b37;
+    --border: #2a323e;
+    --border-bright: #3d4856;
+    --text: #e8ecf1;
+    --text-dim: #8a95a5;
+    --text-faint: #5a6373;
+    --accent: #7dd3a8;
+    --accent-bright: #a3e6c4;
+    --accent-dim: #2d5742;
+    --root-color: #6db5e8;
+    --cn-color: #d8a3e6;
+    --warn: #f0b86e;
+    --danger: #e87b7b;
+    --safe: #7dd3a8;
+
+    --font-display: 'Fraunces', Georgia, serif;
+    --font-body: 'Manrope', -apple-system, sans-serif;
+    --font-mono: 'JetBrains Mono', 'SF Mono', Menlo, monospace;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  html, body { height: 100%; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font-body);
+    font-weight: 400;
+    line-height: 1.55;
+    min-height: 100vh;
+    background-image:
+      radial-gradient(ellipse at top left, rgba(125, 211, 168, 0.045), transparent 55%),
+      radial-gradient(ellipse at bottom right, rgba(109, 181, 232, 0.035), transparent 55%);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* === HEADER === */
+  header {
+    padding: 2rem 2rem 1.5rem;
+    border-bottom: 1px solid var(--border);
+    display: flex;
+    align-items: flex-end;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    max-width: 1500px;
+    margin: 0 auto;
+  }
+  .brand h1 {
+    font-family: var(--font-display);
+    font-weight: 300;
+    font-size: clamp(1.7rem, 3.5vw, 2.4rem);
+    letter-spacing: -0.025em;
+    line-height: 1;
+  }
+  .brand h1 em { font-style: italic; color: var(--accent); font-weight: 500; }
+  .brand .sub {
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    margin-top: 0.5rem;
+    font-family: var(--font-mono);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+  }
+  .signal {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    letter-spacing: 0.1em;
+  }
+  .signal::before {
+    content: '';
+    width: 7px; height: 7px;
+    border-radius: 50%;
+    background: var(--accent);
+    box-shadow: 0 0 10px var(--accent);
+    animation: pulse 1.8s infinite;
+  }
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.4; transform: scale(0.85); }
+  }
+
+  /* === TABS === */
+  .tabs {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 0 2rem;
+    display: flex;
+    gap: 0;
+    border-bottom: 1px solid var(--border);
+    overflow-x: auto;
+    scrollbar-width: thin;
+  }
+  .tab-btn {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 1rem 1.4rem;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-bottom: 2px solid transparent;
+    transition: all 0.2s;
+    white-space: nowrap;
+  }
+  .tab-btn:hover { color: var(--text); }
+  .tab-btn.active { color: var(--accent); border-bottom-color: var(--accent); }
+  .tab-btn .count {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 1px 6px;
+    border-radius: 8px;
+    margin-left: 0.4rem;
+    font-weight: 700;
+    vertical-align: middle;
+  }
+
+  main {
+    max-width: 1500px;
+    margin: 0 auto;
+    padding: 2rem;
+    padding-bottom: 8rem;
+  }
+  section.tab-content { display: none; }
+  section.tab-content.active { display: block; }
+
+  /* === CONTROLS === */
+  .controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-bottom: 1.6rem;
+  }
+  .toggle-group {
+    display: inline-flex;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 4px;
+  }
+  .toggle-group button {
+    background: transparent;
+    border: none;
+    color: var(--text-dim);
+    padding: 0.5rem 1rem;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    font-weight: 500;
+    cursor: pointer;
+    border-radius: 3px;
+    transition: all 0.2s;
+  }
+  .toggle-group button:hover { color: var(--text); }
+  .toggle-group button.active {
+    background: var(--bg-elev2);
+    color: var(--accent);
+    box-shadow: inset 0 0 0 1px var(--border-bright);
+  }
+  .hint {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+  .section-title {
+    font-family: var(--font-display);
+    font-weight: 400;
+    font-size: 1.4rem;
+    font-style: italic;
+    letter-spacing: -0.01em;
+    margin: 2rem 0 1rem;
+    padding-bottom: 0.6rem;
+    border-bottom: 1px solid var(--border);
+  }
+  .section-title:first-child { margin-top: 0; }
+  .section-intro {
+    color: var(--text-dim);
+    font-size: 0.88rem;
+    margin-bottom: 1.4rem;
+    max-width: 800px;
+    line-height: 1.6;
+  }
+
+  /* === LEVEL CARDS === */
+  .levels {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 0.9rem;
+    margin-bottom: 2rem;
+  }
+  .level {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+    transition: border-color 0.2s, background 0.2s;
+    position: relative;
+  }
+  .level:hover { border-color: var(--border-bright); }
+  .level.selected { border-color: var(--accent); background: var(--bg-elev2); }
+  .level.selected::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 3px; height: 100%;
+    background: var(--accent);
+    box-shadow: 0 0 14px var(--accent);
+  }
+  .level-header {
+    padding: 1.1rem 1.3rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    user-select: none;
+    gap: 0.8rem;
+  }
+  .level-label {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.5rem;
+    letter-spacing: -0.02em;
+    transition: color 0.2s;
+  }
+  .level.selected .level-label { color: var(--accent); }
+  .level-meta {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    text-align: right;
+  }
+  .level-body { max-height: 0; overflow: hidden; transition: max-height 0.4s ease; }
+  .level.selected .level-body { max-height: 1500px; }
+  .level-content { padding: 1rem 1.3rem 1.3rem; border-top: 1px solid var(--border); }
+
+  .root-group { margin-top: 1rem; }
+  .root-group:first-child { margin-top: 0; }
+  .root-tag {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--root-color);
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    margin-bottom: 0.6rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  .root-tag::before { content: ''; width: 10px; height: 1px; background: var(--root-color); }
+
+  .muscles {
+    list-style: none;
+    border-left: 1px solid var(--border-bright);
+    margin-left: 4px;
+    padding-left: 1.1rem;
+  }
+  .muscle {
+    padding: 0.55rem 0 0.65rem;
+    border-bottom: 1px dashed var(--border);
+    position: relative;
+  }
+  .muscle:last-child { border-bottom: none; padding-bottom: 0.2rem; }
+  .muscle::before {
+    content: '';
+    position: absolute;
+    left: -1.1rem;
+    top: 1.05rem;
+    width: 0.8rem; height: 1px;
+    background: var(--border-bright);
+  }
+  .muscle-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1rem;
+    letter-spacing: -0.01em;
+  }
+  .muscle-name-lat {
+    color: var(--text-dim);
+    font-family: var(--font-display);
+    font-style: italic;
+    font-weight: 400;
+    font-size: 0.83rem;
+    margin-left: 0.4rem;
+  }
+  .muscle-detail {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-faint);
+    margin-top: 0.28rem;
+    line-height: 1.55;
+  }
+  .muscle-detail b { color: var(--accent); font-weight: 600; margin-right: 0.3rem; }
+
+  /* === REFERENCE CARDS === */
+  .ref-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .ref-card {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.3rem 1.4rem;
+    transition: border-color 0.2s;
+  }
+  .ref-card:hover { border-color: var(--border-bright); }
+  .ref-card.accent { border-left: 3px solid var(--accent); }
+  .ref-card.warn { border-left: 3px solid var(--warn); }
+  .ref-card.danger { border-left: 3px solid var(--danger); }
+  .ref-card.safe { border-left: 3px solid var(--safe); }
+  .ref-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.15rem;
+    margin-bottom: 0.3rem;
+    letter-spacing: -0.01em;
+  }
+  .ref-subtitle {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--text-dim);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.9rem;
+  }
+  .ref-body { font-size: 0.88rem; color: var(--text-dim); line-height: 1.65; }
+  .ref-body p { margin-bottom: 0.5rem; }
+  .ref-body p:last-child { margin-bottom: 0; }
+  .ref-body strong { color: var(--text); font-weight: 600; }
+  .ref-body code {
+    font-family: var(--font-mono);
+    font-size: 0.85em;
+    background: var(--bg);
+    padding: 1px 6px;
+    border-radius: 3px;
+    color: var(--accent);
+  }
+  .ref-body ul { padding-left: 1.2rem; margin: 0.4rem 0; }
+  .ref-body li { margin-bottom: 0.25rem; }
+  .kv {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 0.4rem 1rem;
+    font-size: 0.82rem;
+    margin: 0.6rem 0;
+    align-items: baseline;
+  }
+  .kv dt {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-faint);
+    white-space: nowrap;
+  }
+  .kv dd { color: var(--text); }
+
+  /* === THRESHOLD TABLE === */
+  .threshold-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 1rem 0;
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .threshold-table th, .threshold-table td {
+    padding: 0.9rem 1.2rem;
+    text-align: left;
+    border-bottom: 1px solid var(--border);
+  }
+  .threshold-table th {
+    background: var(--bg-elev2);
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-dim);
+    font-weight: 600;
+  }
+  .threshold-table tr:last-child td { border-bottom: none; }
+  .threshold-table .range {
+    font-family: var(--font-mono);
+    font-size: 0.95rem;
+    font-weight: 600;
+  }
+  .threshold-table .range.safe { color: var(--safe); }
+  .threshold-table .range.warn { color: var(--warn); }
+  .threshold-table .range.danger { color: var(--danger); }
+
+  /* === ENT TEMPLATES === */
+  .templates {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 0.7rem;
+    margin-bottom: 1.6rem;
+  }
+  .template {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+    cursor: pointer;
+    transition: all 0.2s;
+    text-align: left;
+    color: var(--text);
+    font-family: inherit;
+  }
+  .template:hover { border-color: var(--border-bright); background: var(--bg-elev2); }
+  .template-name {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.05rem;
+    font-weight: 500;
+    margin-bottom: 0.3rem;
+  }
+  .template-cns {
+    font-family: var(--font-mono);
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 0.05em;
+  }
+
+  /* === SUMMARY === */
+  .summary {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.4rem 1.7rem;
+    margin-top: 1rem;
+    position: sticky;
+    bottom: 1rem;
+    backdrop-filter: blur(8px);
+    box-shadow: 0 -8px 24px rgba(0,0,0,0.3);
+  }
+  .summary-empty {
+    color: var(--text-faint);
+    text-align: center;
+    font-family: var(--font-mono);
+    font-size: 0.76rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    padding: 0.4rem 0;
+  }
+  .summary-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 0.9rem;
+    padding-bottom: 0.8rem;
+    border-bottom: 1px solid var(--border);
+    gap: 1rem;
+    flex-wrap: wrap;
+  }
+  .summary-title {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-style: italic;
+    font-size: 1.25rem;
+  }
+  .summary-meta {
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    font-size: 0.7rem;
+    margin-top: 0.25rem;
+    letter-spacing: 0.05em;
+  }
+  .summary-meta b { color: var(--accent); font-weight: 600; }
+  .summary-list {
+    list-style: none;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 0.3rem 1.4rem;
+  }
+  .summary-item {
+    display: flex;
+    align-items: baseline;
+    gap: 0.7rem;
+    padding: 0.5rem 0;
+    border-bottom: 1px dashed var(--border);
+  }
+  .summary-roots {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    font-weight: 600;
+    color: var(--root-color);
+    background: rgba(109, 181, 232, 0.08);
+    padding: 3px 7px;
+    border-radius: 3px;
+    border: 1px solid rgba(109, 181, 232, 0.25);
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+  .summary-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 0.93rem;
+  }
+  .summary-name-lat {
+    color: var(--text-dim);
+    font-style: italic;
+    font-family: var(--font-display);
+    font-size: 0.76rem;
+    display: block;
+    margin-top: 1px;
+  }
+  .summary-actions { display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+  .btn {
+    background: transparent;
+    border: 1px solid var(--border-bright);
+    color: var(--text-dim);
+    padding: 0.5rem 0.9rem;
+    border-radius: 3px;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+  .btn:hover { color: var(--accent); border-color: var(--accent); }
+  .btn.primary {
+    background: var(--accent);
+    color: var(--bg);
+    border-color: var(--accent);
+    font-weight: 600;
+  }
+  .btn.primary:hover { background: var(--accent-bright); border-color: var(--accent-bright); }
+  .btn.danger:hover { color: var(--danger); border-color: var(--danger); }
+
+  /* === SAVED CASES === */
+  .saved-list { display: grid; gap: 0.7rem; }
+  .saved-item {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1.1rem 1.4rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1rem;
+    flex-wrap: wrap;
+    transition: border-color 0.2s;
+  }
+  .saved-item:hover { border-color: var(--border-bright); }
+  .saved-info { flex: 1; min-width: 0; }
+  .saved-name {
+    font-family: var(--font-display);
+    font-weight: 500;
+    font-size: 1.1rem;
+    margin-bottom: 0.3rem;
+  }
+  .saved-preview {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--text-dim);
+    letter-spacing: 0.03em;
+  }
+  .saved-preview b { color: var(--accent); font-weight: 600; }
+  .saved-date {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    color: var(--text-faint);
+    margin-top: 0.25rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+  }
+  .saved-empty {
+    text-align: center;
+    padding: 3rem 1rem;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+  }
+
+  /* ============================================== */
+  /* === BODY MAP === */
+  /* ============================================== */
+  .bodymap-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1.4fr) minmax(280px, 1fr);
+    gap: 1.5rem;
+    align-items: start;
+  }
+  @media (max-width: 900px) {
+    .bodymap-layout { grid-template-columns: 1fr; }
+  }
+
+  .bodymap-wrap {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem;
+    position: sticky;
+    top: 1rem;
+  }
+  .bodymap {
+    position: relative;
+    width: 100%;
+    user-select: none;
+  }
+  .bodymap img {
+    width: 100%;
+    height: auto;
+    display: block;
+    border-radius: 3px;
+    /* Επειδή το εικόνα έχει λευκό background, προσαρμόζουμε χρωματικά για το dark theme */
+    filter: invert(0.05) hue-rotate(0deg);
+    mix-blend-mode: normal;
+  }
+  .pins-layer {
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+  }
+  .pin {
+    position: absolute;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    cursor: pointer;
+    pointer-events: auto;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: 2px solid #fff;
+    z-index: 5;
+  }
+  .pin.spine {
+    background: var(--accent);
+    box-shadow: 0 0 0 1px var(--bg-elev), 0 0 12px rgba(125, 211, 168, 0.7);
+  }
+  .pin.cn {
+    background: var(--cn-color);
+    box-shadow: 0 0 0 1px var(--bg-elev), 0 0 12px rgba(216, 163, 230, 0.7);
+  }
+  .pin:hover {
+    transform: translate(-50%, -50%) scale(1.5);
+    z-index: 20;
+  }
+  .pin.highlight {
+    animation: pinPulse 1.5s infinite;
+  }
+  @keyframes pinPulse {
+    0%, 100% { transform: translate(-50%, -50%) scale(1); }
+    50% { transform: translate(-50%, -50%) scale(1.3); }
+  }
+  .pin .pin-tooltip {
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--bg-elev3);
+    border: 1px solid var(--border-bright);
+    padding: 0.5rem 0.75rem;
+    border-radius: 4px;
+    font-family: var(--font-body);
+    font-size: 0.8rem;
+    white-space: nowrap;
+    display: none;
+    pointer-events: none;
+    z-index: 100;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.6);
+    color: var(--text);
+  }
+  .pin .pin-tooltip strong {
+    display: block;
+    font-family: var(--font-display);
+    font-style: italic;
+    color: var(--accent);
+    margin-bottom: 2px;
+  }
+  .pin.cn .pin-tooltip strong { color: var(--cn-color); }
+  .pin .pin-tooltip .tooltip-meta {
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-dim);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+  }
+  .pin:hover .pin-tooltip { display: block; }
+
+  .view-labels {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 0.6rem;
+    font-family: var(--font-mono);
+    font-size: 0.68rem;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+  }
+
+  .bodymap-empty {
+    background: var(--bg-elev);
+    border: 1px dashed var(--border-bright);
+    border-radius: 4px;
+    padding: 3rem 1.5rem;
+    text-align: center;
+    color: var(--text-faint);
+    font-family: var(--font-mono);
+    font-size: 0.85rem;
+    line-height: 1.7;
+  }
+
+  .bodymap-side-panel {
+    display: flex;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+  .map-stats {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+  }
+  .map-stats-title {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    margin-bottom: 0.4rem;
+  }
+  .map-stats-num {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    font-weight: 500;
+    color: var(--accent);
+    line-height: 1;
+  }
+  .map-stats-detail {
+    font-size: 0.78rem;
+    color: var(--text-dim);
+    margin-top: 0.3rem;
+  }
+
+  .pin-list {
+    background: var(--bg-elev);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    padding: 1rem 1.2rem;
+  }
+  .pin-list-title {
+    font-family: var(--font-mono);
+    font-size: 0.66rem;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-faint);
+    margin-bottom: 0.6rem;
+  }
+  .pin-list ul { list-style: none; }
+  .pin-list li {
+    padding: 0.4rem 0;
+    border-bottom: 1px dashed var(--border);
+    font-size: 0.83rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    cursor: pointer;
+    transition: color 0.15s;
+  }
+  .pin-list li:last-child { border-bottom: none; }
+  .pin-list li:hover { color: var(--accent); }
+  .pin-list li::before {
+    content: '';
+    width: 8px; height: 8px;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+  .pin-list li.spine::before { background: var(--accent); }
+  .pin-list li.cn::before { background: var(--cn-color); }
+  .pin-list .pin-list-tag {
+    font-family: var(--font-mono);
+    font-size: 0.65rem;
+    color: var(--text-faint);
+    margin-left: auto;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .legend {
+    display: flex;
+    gap: 1rem;
+    padding: 0.6rem 0.9rem;
+    background: var(--bg-elev2);
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    flex-wrap: wrap;
+    font-size: 0.75rem;
+    font-family: var(--font-mono);
+    color: var(--text-dim);
+    align-items: center;
+  }
+
+  /* === EDIT / CALIBRATION MODE === */
+  .edit-toolbar {
+    background: var(--bg-elev2);
+    border: 1px solid var(--warn);
+    border-radius: 4px;
+    padding: 0.9rem 1.2rem;
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 0.7rem;
+    align-items: center;
+    flex-wrap: wrap;
+  }
+  .edit-toolbar.hidden { display: none; }
+  .edit-toolbar-title {
+    font-family: var(--font-mono);
+    font-size: 0.72rem;
+    color: var(--warn);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-right: 0.5rem;
+  }
+  .edit-toolbar .selected-info {
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--text);
+    background: var(--bg);
+    padding: 0.4rem 0.7rem;
+    border-radius: 3px;
+    border: 1px solid var(--border-bright);
+  }
+  .edit-toolbar .selected-info.empty { color: var(--text-faint); font-style: italic; }
+
+  .bodymap.edit-mode { cursor: crosshair; }
+  .bodymap.edit-mode .pin { cursor: grab; }
+  .bodymap.edit-mode .pin:active { cursor: grabbing; }
+  .bodymap.edit-mode .pin.dragging {
+    transform: translate(-50%, -50%) scale(1.5);
+    z-index: 50;
+    box-shadow: 0 0 0 3px var(--warn), 0 0 20px rgba(240, 184, 110, 0.8);
+  }
+
+  .coord-display {
+    position: absolute;
+    top: 8px; left: 8px;
+    background: rgba(10, 13, 18, 0.92);
+    border: 1px solid var(--warn);
+    border-radius: 3px;
+    padding: 6px 10px;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    color: var(--warn);
+    z-index: 30;
+    pointer-events: none;
+    display: none;
+  }
+  .bodymap.edit-mode .coord-display { display: block; }
+
+  .crosshair-h, .crosshair-v {
+    position: absolute;
+    background: rgba(240, 184, 110, 0.4);
+    pointer-events: none;
+    z-index: 4;
+    display: none;
+  }
+  .crosshair-h { left: 0; right: 0; height: 1px; }
+  .crosshair-v { top: 0; bottom: 0; width: 1px; }
+  .bodymap.edit-mode .crosshair-h,
+  .bodymap.edit-mode .crosshair-v { display: block; }
+
+  /* Grid overlay σε edit mode */
+  .bodymap.edit-mode::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    pointer-events: none;
+    z-index: 3;
+    background-image:
+      linear-gradient(to right, rgba(125, 211, 168, 0.08) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(125, 211, 168, 0.08) 1px, transparent 1px);
+    background-size: 10% 10%;
+  }
+
+  .export-modal {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(0,0,0,0.8);
+    z-index: 1000;
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
+  .export-modal.active { display: flex; }
+  .export-modal-content {
+    background: var(--bg-elev);
+    border: 1px solid var(--border-bright);
+    border-radius: 6px;
+    padding: 1.5rem;
+    max-width: 700px;
+    width: 100%;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .export-modal h3 {
+    font-family: var(--font-display);
+    font-style: italic;
+    font-size: 1.3rem;
+    color: var(--accent);
+  }
+  .export-modal textarea {
+    flex: 1;
+    background: var(--bg);
+    border: 1px solid var(--border);
+    color: var(--text);
+    padding: 1rem;
+    font-family: var(--font-mono);
+    font-size: 0.78rem;
+    border-radius: 4px;
+    min-height: 300px;
+    resize: vertical;
+  }
+  .legend-item { display: flex; align-items: center; gap: 0.4rem; }
+  .legend-dot { width: 10px; height: 10px; border-radius: 50%; border: 1.5px solid #fff; }
+  .legend-dot.spine { background: var(--accent); }
+  .legend-dot.cn { background: var(--cn-color); }
+
+  /* === FOOTER === */
+  footer {
+    max-width: 1500px;
+    margin: 3rem auto 0;
+    padding: 1.5rem 2rem 2rem;
+    color: var(--text-faint);
+    font-size: 0.7rem;
+    text-align: center;
+    font-family: var(--font-mono);
+    border-top: 1px solid var(--border);
+    letter-spacing: 0.05em;
+  }
+
+  @media print {
+    body { background: white; color: black; background-image: none; }
+    header, .tabs, .controls, .summary-actions, footer, .signal,
+    .templates, .toggle-group { display: none !important; }
+    main { padding: 0; padding-bottom: 0; }
+    section.tab-content { display: block !important; }
+    .summary { position: static; border: 1px solid #999; background: white; box-shadow: none; }
+    .levels, .ref-grid { display: none; }
+  }
+
+  @media (max-width: 600px) {
+    header { padding: 1.5rem 1rem 1.2rem; }
+    main { padding: 1rem; padding-bottom: 6rem; }
+    .tabs { padding: 0 1rem; }
+    .tab-btn { padding: 0.8rem 0.9rem; font-size: 0.82rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="brand">
+    <h1>IONM <em>Reference</em></h1>
+    <div class="sub">Σπονδυλική · ΩΡΛ · Θυρεοειδής · Body Map</div>
+  </div>
+  <div class="signal">SYSTEM READY</div>
+</header>
+
+<nav class="tabs">
+  <button class="tab-btn active" data-tab="spine">Σπονδυλική</button>
+  <button class="tab-btn" data-tab="bodymap">🗺️ Χάρτης σώματος <span class="count" id="map-count" style="display:none">0</span></button>
+  <button class="tab-btn" data-tab="ssep">SSEP</button>
+  <button class="tab-btn" data-tab="pedicle">Pedicle Screws</button>
+  <button class="tab-btn" data-tab="cn">ΩΡΛ / Κρανιακά</button>
+  <button class="tab-btn" data-tab="thyroid">Θυρεοειδής</button>
+  <button class="tab-btn" data-tab="saved">💾 Αποθηκευμένα <span class="count" id="saved-count" style="display:none">0</span></button>
+</nav>
+
+<main>
+
+  <!-- ============ SPINE TAB ============ -->
+  <section class="tab-content active" id="tab-spine">
+    <div class="controls">
+      <div class="toggle-group" id="region-toggle">
+        <button data-region="cervical">Αυχενική</button>
+        <button data-region="thoracic">Θωρακική</button>
+        <button data-region="lumbar" class="active">Οσφυϊκή</button>
+      </div>
+      <div class="toggle-group" id="mode-toggle">
+        <button data-mode="disc" class="active">Επίπεδα δίσκου</button>
+        <button data-mode="root">Νευρικές ρίζες</button>
+      </div>
+      <div class="hint">Κλικ για άνοιγμα · πολλαπλή επιλογή</div>
+    </div>
+
+    <div class="levels" id="spine-levels"></div>
+
+    <div class="summary" id="spine-summary">
+      <div class="summary-empty">Επίλεξε επίπεδα για συγκεντρωτική λίστα μυών</div>
+    </div>
+  </section>
+
+  <!-- ============ BODY MAP TAB ============ -->
+  <section class="tab-content" id="tab-bodymap">
+    <h2 class="section-title">Χάρτης σώματος — θέσεις ηλεκτροδίων</h2>
+    <p class="section-intro">
+      Οι μύες που έχεις επιλέξει στα tabs <em>Σπονδυλική</em> και <em>ΩΡΛ / Κρανιακά</em> εμφανίζονται ως pins πάνω στο σώμα. Hover σε κάθε pin για λεπτομέρειες. Αμφίπλευρα = δύο pins ανά μύ.
+    </p>
+
+    <div class="legend">
+      <div class="legend-item"><span class="legend-dot spine"></span> Σπονδυλική (EMG/myotome)</div>
+      <div class="legend-item"><span class="legend-dot cn"></span> Κρανιακά νεύρα (CN)</div>
+      <button class="btn" id="edit-mode-btn" style="margin-left:auto;">✏️ Calibration mode</button>
+    </div>
+
+    <div class="edit-toolbar hidden" id="edit-toolbar">
+      <span class="edit-toolbar-title">⚠️ Edit mode</span>
+      <span class="selected-info empty" id="edit-selected-info">Σύρε ένα pin για να το μετακινήσεις</span>
+      <button class="btn primary" id="import-coords-btn">📥 Import JSON</button>
+      <button class="btn" id="export-coords-btn">📋 Export JSON</button>
+      <button class="btn danger" id="reset-coords-btn">↺ Reset σε defaults</button>
+    </div>
+
+    <div style="height: 1.2rem;"></div>
+
+    <div class="bodymap-layout">
+      <div class="bodymap-wrap">
+        <div class="bodymap" id="bodymap">
+          <img src="body.jpg" alt="Ανατομικό μοντέλο" id="bodymap-img"
+               onerror="this.style.display='none'; document.getElementById('img-fallback').style.display='block';">
+          <div id="img-fallback" style="display:none; padding: 4rem 2rem; text-align:center; color:var(--text-faint); font-family:var(--font-mono); font-size:0.85rem; border:1px dashed var(--border-bright); border-radius:4px;">
+            ⚠️ Δεν βρέθηκε <code style="color:var(--accent)">body.jpg</code> στον φάκελο.<br><br>
+            Βάλε το αρχείο εικόνας στον ίδιο φάκελο με το HTML, ή άλλαξε το <code style="color:var(--accent)">src=&quot;body.jpg&quot;</code> στο &lt;img&gt; tag.
+          </div>
+          <div class="crosshair-h" id="crosshair-h"></div>
+          <div class="crosshair-v" id="crosshair-v"></div>
+          <div class="coord-display" id="coord-display">x: 0% · y: 0%</div>
+          <div class="pins-layer" id="pins-layer"></div>
+        </div>
+        <div class="view-labels">
+          <span>← Πρόσθια όψη</span>
+          <span>Οπίσθια όψη →</span>
+        </div>
+      </div>
+
+      <div class="bodymap-side-panel">
+        <div class="map-stats">
+          <div class="map-stats-title">Σύνολο σημείων</div>
+          <div class="map-stats-num" id="map-stats-num">0</div>
+          <div class="map-stats-detail" id="map-stats-detail">Δεν έχεις κάνει επιλογές</div>
+        </div>
+        <div class="pin-list">
+          <div class="pin-list-title">Λίστα μυών (κλικ → highlight)</div>
+          <ul id="pin-list-ul"><li style="color:var(--text-faint); cursor:default;">—</li></ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SSEP TAB ============ -->
+  <section class="tab-content" id="tab-ssep">
+    <h2 class="section-title">Somatosensory Evoked Potentials</h2>
+    <p class="section-intro">
+      Παρακολούθηση αισθητικών οδών (οπίσθιες δεσμίδες). Συμπληρώνει το EMG/MEP σε επεμβάσεις σπονδυλικής, αορτής, καρωτίδας.
+    </p>
+    <div class="ref-grid" id="ssep-grid"></div>
+
+    <h2 class="section-title">Κριτήρια ειδοποίησης</h2>
+    <div class="ref-grid">
+      <div class="ref-card warn">
+        <div class="ref-title">Warning criteria</div>
+        <div class="ref-subtitle">Cortical SSEP changes</div>
+        <div class="ref-body">
+          <ul>
+            <li><strong>50% πτώση πλάτους</strong> από baseline</li>
+            <li><strong>10% αύξηση λανθάνουσας</strong> από baseline</li>
+            <li>Πλήρης απώλεια κύματος → άμεση ειδοποίηση χειρουργού</li>
+          </ul>
+          <p>Έλεγχος πρώτα τεχνικά (ηλεκτρόδια, πίεση, θερμοκρασία, αναισθησία) πριν κρίνεις χειρουργικό συμβάν.</p>
+        </div>
+      </div>
+      <div class="ref-card accent">
+        <div class="ref-title">Anesthesia notes</div>
+        <div class="ref-subtitle">Optimal protocol</div>
+        <div class="ref-body">
+          <p><strong>Volatile</strong>: ≤ 0.5 MAC (ιδανικά TIVA)</p>
+          <p><strong>N₂O</strong>: αποφυγή — μειώνει cortical SSEP</p>
+          <p><strong>Propofol/remi TCI</strong>: συνιστώμενο</p>
+          <p><strong>NMB</strong>: ΟΚ για SSEP (όχι για EMG/MEP)</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ PEDICLE SCREW TAB ============ -->
+  <section class="tab-content" id="tab-pedicle">
+    <h2 class="section-title">Pedicle Screw Stimulation (t-EMG)</h2>
+    <p class="section-intro">
+      Ηλεκτρική διέγερση της βίδας ή του pilot hole· καταγραφή από τους μυς της αντίστοιχης ρίζας. Χαμηλό κατώφλι ⇒ πιθανή ρήξη φλοιού.
+    </p>
+    <table class="threshold-table">
+      <thead><tr><th>Κατώφλι (mA)</th><th>Ερμηνεία</th><th>Ενέργεια</th></tr></thead>
+      <tbody>
+        <tr><td><span class="range safe">&gt; 10 mA</span></td><td><strong>Άθικτος αυχένας</strong> — ασφαλής τοποθέτηση</td><td>Συνεχίζει η επέμβαση</td></tr>
+        <tr><td><span class="range warn">5–10 mA</span></td><td><strong>Αμφίβολο</strong> — πιθανή λέπτυνση φλοιού</td><td>Επανεκτίμηση screw track, ψηλάφηση</td></tr>
+        <tr><td><span class="range danger">&lt; 5 mA</span></td><td><strong>Πιθανή ρήξη φλοιού</strong></td><td>Αφαίρεση / επανατοποθέτηση</td></tr>
+      </tbody>
+    </table>
+    <div class="ref-grid">
+      <div class="ref-card accent">
+        <div class="ref-title">Τεχνική</div>
+        <div class="ref-subtitle">Stimulation protocol</div>
+        <div class="ref-body">
+          <p><strong>Έλεγχος NMB</strong>: TOF 4/4 πριν τη μέτρηση. Ζήτα reversal αν χρειάζεται.</p>
+          <p><strong>Stimulator</strong>: μονοπολικό probe στο screw shaft ή pilot hole.</p>
+          <p><strong>Παράμετροι</strong>: τετραπλή σειρά παλμών, 0.2–0.3 ms duration, αύξηση από 0 mA.</p>
+          <p><strong>Επανάληψη</strong>: 2–3 φορές. Καταγραφή από αμφότερα μυικά κανάλια ρίζας.</p>
+        </div>
+      </div>
+      <div class="ref-card warn">
+        <div class="ref-title">Pitfalls</div>
+        <div class="ref-subtitle">Συχνές παγίδες</div>
+        <div class="ref-body">
+          <ul>
+            <li><strong>NMB</strong>: false high thresholds</li>
+            <li><strong>Διαρροή ρεύματος</strong>: αίμα/ορός γύρω από βίδα → false low</li>
+            <li><strong>Οστεοπόρωση</strong>: χαμηλότερα thresholds</li>
+            <li><strong>Cement / fusion mass</strong>: παρεμβολή</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+    <h2 class="section-title">Mυς ανά ρίζα (γρήγορη αναφορά)</h2>
+    <div class="ref-grid" id="pedicle-roots-grid"></div>
+  </section>
+
+  <!-- ============ CN TAB ============ -->
+  <section class="tab-content" id="tab-cn">
+    <h2 class="section-title">Πρότυπα επεμβάσεων ΩΡΛ / Νευροχειρουργικής</h2>
+    <p class="section-intro">Κλικ σε πρότυπο για να φορτωθούν τα προτεινόμενα CN. Ή χειροκίνητα από τα παρακάτω.</p>
+    <div class="templates" id="ent-templates"></div>
+
+    <h2 class="section-title">Κρανιακά νεύρα (μεμονωμένα)</h2>
+    <div class="levels" id="cn-levels"></div>
+
+    <div class="summary" id="cn-summary">
+      <div class="summary-empty">Επίλεξε κρανιακά νεύρα ή πρότυπο</div>
+    </div>
+  </section>
+
+  <!-- ============ THYROID TAB ============ -->
+  <section class="tab-content" id="tab-thyroid">
+    <h2 class="section-title">Παρακολούθηση Παλίνδρομου Λαρυγγικού (RLN)</h2>
+    <p class="section-intro">Κλάδος του πνευμονογαστρικού (CN X). Standard: NIM endotracheal tube με ηλεκτρόδια στις φωνητικές χορδές.</p>
+    <div class="ref-grid">
+      <div class="ref-card accent">
+        <div class="ref-title">RLN — Recurrent Laryngeal</div>
+        <div class="ref-subtitle">CN X branch · Vocalis</div>
+        <div class="ref-body">
+          <dl class="kv">
+            <dt>Setup</dt><dd>NIM ETT — surface electrodes ανάμεσα στις χορδές</dd>
+            <dt>Tube size</dt><dd>7.0 (♀) / 8.0 (♂)</dd>
+            <dt>Stim</dt><dd><code>1.0 mA</code>, response 100–800 μV</dd>
+            <dt>Latency</dt><dd>3.5 – 7.5 ms</dd>
+            <dt>Πρωτόκολλο</dt><dd>V1 → R1 → R2 → V2</dd>
+          </dl>
+          <p><strong>LOS</strong>: πτώση πλάτους >50% και/ή λανθάνουσα >10%.</p>
+        </div>
+      </div>
+      <div class="ref-card accent">
+        <div class="ref-title">eSLN — External Superior Laryngeal</div>
+        <div class="ref-subtitle">CN X branch · Cricothyroid</div>
+        <div class="ref-body">
+          <dl class="kv">
+            <dt>Setup</dt><dd>Επιφανειακά/βελονοειδή στον κρικοθυρεοειδή</dd>
+            <dt>Stim</dt><dd><code>1.0 mA</code> + ορατό twitch</dd>
+            <dt>Σημασία</dt><dd>Τόνος φωνής, υψηλές συχνότητες</dd>
+            <dt>Risk</dt><dd>Άνω πόλος → Berry's ligament</dd>
+          </dl>
+          <p>Κρίσιμο σε <strong>τραγουδιστές, εκπαιδευτικούς, επαγγελματίες ομιλίας</strong>.</p>
+        </div>
+      </div>
+      <div class="ref-card warn">
+        <div class="ref-title">Vagus baseline (V1/V2)</div>
+        <div class="ref-subtitle">Reference standards</div>
+        <div class="ref-body">
+          <p><strong>V1</strong>: stim στο vagus πριν την παρασκευή — επιβεβαιώνει σύστημα.</p>
+          <p><strong>V2</strong>: stim στο vagus μετά αφαίρεση — επιβεβαιώνει ακέραιο RLN.</p>
+        </div>
+      </div>
+      <div class="ref-card">
+        <div class="ref-title">Anesthesia notes</div>
+        <div class="ref-subtitle">For thyroid IONM</div>
+        <div class="ref-body">
+          <p><strong>NMB</strong>: ΧΩΡΙΣ μυοχάλαση μετά διασωλήνωση (ή sugammadex).</p>
+          <p><strong>ETT</strong>: μπλε γραμμή ορατή στις φωνητικές χορδές.</p>
+          <p><strong>Position</strong>: ETT shift κατά παρασκευή = false LOS.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ============ SAVED TAB ============ -->
+  <section class="tab-content" id="tab-saved">
+    <h2 class="section-title">Αποθηκευμένες περιπτώσεις</h2>
+    <p class="section-intro">Αποθηκευμένα locally στον browser. Δεν φεύγουν πουθενά.</p>
+    <div class="saved-list" id="saved-list"></div>
+  </section>
+
+</main>
+
+<div class="export-modal" id="export-modal">
+  <div class="export-modal-content">
+    <h3>Export coordinates</h3>
+    <p style="color:var(--text-dim); font-size:0.85rem;">
+      Αυτό είναι το JSON με τις τρέχουσες συντεταγμένες (defaults + οι αλλαγές σου). Αντικατάστησε τη μεταβλητή <code style="color:var(--accent); font-family:var(--font-mono);">MUSCLE_COORDS</code> στον κώδικα HTML για να τις κάνεις permanent. Οι αλλαγές σου ήδη αποθηκεύτηκαν στον browser σου.
+    </p>
+    <textarea id="export-textarea" readonly></textarea>
+    <div style="display:flex; gap:0.5rem; justify-content:flex-end;">
+      <button class="btn primary" id="copy-export-btn">📋 Copy</button>
+      <button class="btn" id="close-export-btn">Κλείσιμο</button>
+    </div>
+  </div>
+</div>
+
+<div class="export-modal" id="import-modal">
+  <div class="export-modal-content">
+    <h3>Import coordinates</h3>
+    <p style="color:var(--text-dim); font-size:0.85rem;">
+      Επικόλλησε JSON object με συντεταγμένες μυών. Δέχεται είτε καθαρό JSON είτε το format <code style="color:var(--accent); font-family:var(--font-mono);">const MUSCLE_COORDS = {...};</code>. Θα αντικαταστήσει τις τρέχουσες θέσεις των μυών που υπάρχουν στο JSON — οι υπόλοιποι μένουν ίδιοι.
+    </p>
+    <textarea id="import-textarea" placeholder='Παράδειγμα:&#10;{&#10;  "Iliopsoas": [&#10;    { "view": "anterior", "x": 24, "y": 42, "side": "L" },&#10;    { "view": "anterior", "x": 28, "y": 42, "side": "R" }&#10;  ]&#10;}'></textarea>
+    <div id="import-status" style="font-family:var(--font-mono); font-size:0.78rem; min-height:1.2em;"></div>
+    <div style="display:flex; gap:0.5rem; justify-content:flex-end;">
+      <button class="btn primary" id="apply-import-btn">✓ Εφαρμογή</button>
+      <button class="btn" id="close-import-btn">Άκυρο</button>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Εργαλείο αναφοράς · Standard IONM protocols · Πάντα με κλινική κρίση · Local-only data
+</footer>
+
+<script>
+// ==========================================================================
+// ΔΕΔΟΜΕΝΑ
+// ==========================================================================
+
+const ROOTS_LUMBAR = {
+  'L1': { muscles: [
+    { gr: 'Λαγονοψοΐτης', lat: 'Iliopsoas', placement: 'Άνω-έσω μηρός, 2–3 cm κάτω από βουβωνικό σύνδεσμο', action: 'Κάμψη ισχίου' },
+    { gr: 'Κρεμαστήρας', lat: 'Cremaster', placement: 'Όσχεο (μόνο σε άνδρες)', action: 'Κρεμαστηρικό αντανακλαστικό' }
+  ]},
+  'L2': { muscles: [
+    { gr: 'Λαγονοψοΐτης', lat: 'Iliopsoas', placement: 'Άνω-έσω μηρός, 2–3 cm κάτω από βουβωνικό σύνδεσμο', action: 'Κάμψη ισχίου' },
+    { gr: 'Μακρός προσαγωγός', lat: 'Adductor longus', placement: 'Έσω επιφάνεια μηρού, άνω 1/3', action: 'Προσαγωγή μηρού' }
+  ]},
+  'L3': { muscles: [
+    { gr: 'Έσω πλατύς (Τετρακέφαλος)', lat: 'Vastus medialis', placement: 'Έσω-πρόσθια επιφάνεια μηρού, ~10 cm άνω επιγονατίδας', action: 'Έκταση γόνατος' },
+    { gr: 'Μακρός προσαγωγός', lat: 'Adductor longus', placement: 'Έσω επιφάνεια μηρού, άνω 1/3', action: 'Προσαγωγή μηρού' }
+  ]},
+  'L4': { muscles: [
+    { gr: 'Έσω πλατύς (Τετρακέφαλος)', lat: 'Vastus medialis', placement: 'Έσω-πρόσθια επιφάνεια μηρού, ~10 cm άνω επιγονατίδας', action: 'Έκταση γόνατος' },
+    { gr: 'Πρόσθιος κνημιαίος', lat: 'Tibialis anterior', placement: 'Έξω-πρόσθια επιφάνεια κνήμης, άνω 1/3', action: 'Ραχιαία κάμψη ποδοκνημικής' }
+  ]},
+  'L5': { muscles: [
+    { gr: 'Πρόσθιος κνημιαίος', lat: 'Tibialis anterior', placement: 'Έξω-πρόσθια επιφάνεια κνήμης, άνω 1/3', action: 'Ραχιαία κάμψη ποδοκνημικής' },
+    { gr: 'Μακρός εκτείνων μεγάλου δακτύλου', lat: 'Extensor hallucis longus', placement: 'Πρόσθια κνήμη, μέσος-κάτω άξονας', action: 'Έκταση μεγάλου δακτύλου' },
+    { gr: 'Μακρός περονιαίος', lat: 'Peroneus longus', placement: 'Έξω επιφάνεια κνήμης, άνω 1/3', action: 'Πρηνισμός / πελματιαία κάμψη' },
+    { gr: 'Μέσος γλουτιαίος', lat: 'Gluteus medius', placement: 'Άνω-έξω γλουτιαία περιοχή', action: 'Απαγωγή ισχίου' }
+  ]},
+  'S1': { muscles: [
+    { gr: 'Γαστροκνήμιος (έσω κεφαλή)', lat: 'Gastrocnemius medial', placement: 'Έσω άνω 1/3 οπίσθιας κνήμης', action: 'Πελματιαία κάμψη' },
+    { gr: 'Απαγωγός μεγάλου δακτύλου', lat: 'Abductor hallucis', placement: 'Έσω επιφάνεια άκρου ποδός', action: 'Απαγωγή μεγάλου δακτύλου' },
+    { gr: 'Δικέφαλος μηριαίος', lat: 'Biceps femoris', placement: 'Οπίσθια έξω επιφάνεια μηρού', action: 'Κάμψη γόνατος' }
+  ]},
+  'S2': { muscles: [
+    { gr: 'Απαγωγός μεγάλου δακτύλου', lat: 'Abductor hallucis', placement: 'Έσω επιφάνεια άκρου ποδός', action: 'Απαγωγή μεγάλου δακτύλου' },
+    { gr: 'Έξω σφιγκτήρας πρωκτού', lat: 'External anal sphincter', placement: 'Περιπρωκτικά (4 & 8 ώρα)', action: 'Σύσπαση σφιγκτήρα — conus / cauda' }
+  ]},
+  'S3-S4': { muscles: [
+    { gr: 'Έξω σφιγκτήρας πρωκτού', lat: 'External anal sphincter', placement: 'Περιπρωκτικά (4 & 8 ώρα)', action: 'Pudendal — υποχρεωτικό σε χαμηλές επεμβάσεις' }
+  ]}
+};
+
+const ROOTS_CERVICAL = {
+  'C5': { muscles: [
+    { gr: 'Δελτοειδής', lat: 'Deltoid', placement: 'Μέσο τμήμα, 5 cm κάτω ακρωμίου', action: 'Απαγωγή βραχίονα' },
+    { gr: 'Δικέφαλος βραχιόνιος', lat: 'Biceps brachii', placement: 'Πρόσθιο μέσο βραχιόνιο', action: 'Κάμψη αγκώνα' }
+  ]},
+  'C6': { muscles: [
+    { gr: 'Δικέφαλος βραχιόνιος', lat: 'Biceps brachii', placement: 'Πρόσθιο μέσο βραχιόνιο', action: 'Κάμψη αγκώνα' },
+    { gr: 'Βραχιονοκερκιδικός', lat: 'Brachioradialis', placement: 'Έξω επιφάνεια αντιβραχίου, άνω 1/3', action: 'Κάμψη αγκώνα' },
+    { gr: 'Κερκιδικός εκτείνων του καρπού', lat: 'Extensor carpi radialis', placement: 'Ραχιαία επιφάνεια αντιβραχίου, έξω', action: 'Έκταση καρπού' }
+  ]},
+  'C7': { muscles: [
+    { gr: 'Τρικέφαλος βραχιόνιος', lat: 'Triceps brachii', placement: 'Οπίσθιο βραχιόνιο, μακρά κεφαλή', action: 'Έκταση αγκώνα' },
+    { gr: 'Κερκιδικός καμπτήρας του καρπού', lat: 'Flexor carpi radialis', placement: 'Πρόσθια επιφάνεια αντιβραχίου, έξω', action: 'Κάμψη καρπού' },
+    { gr: 'Κοινός εκτείνων δακτύλων', lat: 'Extensor digitorum', placement: 'Ραχιαία επιφάνεια αντιβραχίου', action: 'Έκταση δακτύλων' }
+  ]},
+  'C8': { muscles: [
+    { gr: 'Εν τω βάθει καμπτήρας δακτύλων', lat: 'Flexor digitorum profundus', placement: 'Πρόσθια αντιβραχίου, εν τω βάθει', action: 'Κάμψη απώτερων φαλάγγων' },
+    { gr: 'Απαγωγός μικρού δακτύλου', lat: 'Abductor digiti minimi', placement: 'Έσω χείλος παλάμης', action: 'Απαγωγή μικρού δακτύλου' }
+  ]},
+  'T1': { muscles: [
+    { gr: 'Βραχύς απαγωγός αντίχειρα', lat: 'Abductor pollicis brevis', placement: 'Θέναρ', action: 'Απαγωγή αντίχειρα' },
+    { gr: 'Πρώτος ραχιαίος μεσόστεος', lat: 'First dorsal interosseous', placement: 'Μεταξύ Ι και ΙΙ μετακαρπίου, ραχιαία', action: 'Απαγωγή δείκτη' }
+  ]}
+};
+
+const ROOTS_THORACIC = {
+  'T2-T6': { muscles: [
+    { gr: 'Μεσοπλεύριοι μύες', lat: 'Intercostals', placement: 'Δύσκολη πρόσβαση — σπάνια χρήση', action: 'Αναπνευστικοί · segmental' }
+  ]},
+  'T6-T8': { muscles: [
+    { gr: 'Ορθός κοιλιακός (άνω)', lat: 'Rectus abdominis (upper)', placement: 'Άνω 1/3 ορθού κοιλιακού', action: 'Segmental T6-T8' }
+  ]},
+  'T9-T11': { muscles: [
+    { gr: 'Ορθός κοιλιακός (μέσος)', lat: 'Rectus abdominis (mid)', placement: 'Μέσο 1/3 ορθού κοιλιακού', action: 'Segmental T9-T11' }
+  ]},
+  'T12': { muscles: [
+    { gr: 'Ορθός κοιλιακός (κάτω)', lat: 'Rectus abdominis (lower)', placement: 'Κάτω 1/3 ορθού κοιλιακού', action: 'Segmental T12' }
+  ]}
+};
+
+const DISCS_LUMBAR = {
+  'L1–L2': ['L1', 'L2'], 'L2–L3': ['L2', 'L3'], 'L3–L4': ['L3', 'L4'],
+  'L4–L5': ['L4', 'L5'], 'L5–S1': ['L5', 'S1'], 'S1–S2': ['S1', 'S2']
+};
+const DISCS_CERVICAL = {
+  'C4–C5': ['C5'], 'C5–C6': ['C5', 'C6'], 'C6–C7': ['C6', 'C7'], 'C7–T1': ['C7', 'C8', 'T1']
+};
+const DISCS_THORACIC = {
+  'T1–T6 (άνω)': ['T2-T6'], 'T6–T8': ['T6-T8'], 'T9–T11': ['T9-T11'],
+  'T11–T12': ['T9-T11', 'T12'], 'T12–L1': ['T12']
+};
+
+// ==========================================================================
+// ΣΥΝΤΕΤΑΓΜΕΝΕΣ ΓΙΑ BODY MAP
+// Σύστημα: x%, y% πάνω στην εικόνα body.jpg
+// ΔΙΑΣΤΑΣΕΙΣ ΕΙΚΟΝΑΣ: 587x612 px
+// Πρόσθια μορφή: x range 8.2-46.2%, κέντρο x=27.2%
+// Οπίσθια μορφή: x range 51.8-89.8%, κέντρο x=70.8%
+// Ύψος: y range 4.9-99.0%
+// L/R: αναφέρονται σε ανατομικά αριστερά/δεξιά (πατήσιος)
+//   Πρόσθια: L = δεξιά εικόνας (μεγαλύτερο x) · R = αριστερά εικόνας
+//   Οπίσθια: L = αριστερά εικόνας (μικρότερο x) · R = δεξιά εικόνας
+// ==========================================================================
+const MUSCLE_COORDS = {
+  // === ΟΣΦΥΪΚΗ - ΠΡΟΣΘΙΑ ===
+  'Iliopsoas': [
+    { view: 'anterior', x: 30.7, y: 42, side: 'L' },
+    { view: 'anterior', x: 23.7, y: 42, side: 'R' }
+  ],
+  'Cremaster': [{ view: 'anterior', x: 27.2, y: 41, side: 'C' }],
+  'Adductor longus': [
+    { view: 'anterior', x: 30.2, y: 46, side: 'L' },
+    { view: 'anterior', x: 24.2, y: 46, side: 'R' }
+  ],
+  'Vastus medialis': [
+    { view: 'anterior', x: 30.5, y: 58, side: 'L' },
+    { view: 'anterior', x: 23.9, y: 58, side: 'R' }
+  ],
+  'Tibialis anterior': [
+    { view: 'anterior', x: 29.7, y: 68, side: 'L' },
+    { view: 'anterior', x: 24.7, y: 68, side: 'R' }
+  ],
+  'Peroneus longus': [
+    { view: 'anterior', x: 32.2, y: 68, side: 'L' },
+    { view: 'anterior', x: 22.2, y: 68, side: 'R' }
+  ],
+  'Extensor hallucis longus': [
+    { view: 'anterior', x: 28.5, y: 78, side: 'L' },
+    { view: 'anterior', x: 25.9, y: 78, side: 'R' }
+  ],
+  'Abductor hallucis': [
+    { view: 'anterior', x: 29, y: 95, side: 'L' },
+    { view: 'anterior', x: 25.4, y: 95, side: 'R' }
+  ],
+  // === ΟΣΦΥΪΚΗ - ΟΠΙΣΘΙΑ ===
+  'Gluteus medius': [
+    { view: 'posterior', x: 66, y: 39, side: 'L' },
+    { view: 'posterior', x: 75.6, y: 39, side: 'R' }
+  ],
+  'Biceps femoris': [
+    { view: 'posterior', x: 66.3, y: 52, side: 'L' },
+    { view: 'posterior', x: 75.3, y: 52, side: 'R' }
+  ],
+  'Gastrocnemius medial': [
+    { view: 'posterior', x: 69, y: 68, side: 'L' },
+    { view: 'posterior', x: 72.6, y: 68, side: 'R' }
+  ],
+  'External anal sphincter': [{ view: 'posterior', x: 70.8, y: 42, side: 'C' }],
+
+  // === ΑΥΧΕΝΙΚΗ - ΠΡΟΣΘΙΑ ===
+  'Deltoid': [
+    { view: 'anterior', x: 39, y: 23, side: 'L' },
+    { view: 'anterior', x: 15.4, y: 23, side: 'R' }
+  ],
+  'Biceps brachii': [
+    { view: 'anterior', x: 39.5, y: 28, side: 'L' },
+    { view: 'anterior', x: 14.9, y: 28, side: 'R' }
+  ],
+  'Brachioradialis': [
+    { view: 'anterior', x: 41.5, y: 33, side: 'L' },
+    { view: 'anterior', x: 12.9, y: 33, side: 'R' }
+  ],
+  'Flexor carpi radialis': [
+    { view: 'anterior', x: 40, y: 36, side: 'L' },
+    { view: 'anterior', x: 14.4, y: 36, side: 'R' }
+  ],
+  'Flexor digitorum profundus': [
+    { view: 'anterior', x: 40.5, y: 39, side: 'L' },
+    { view: 'anterior', x: 13.9, y: 39, side: 'R' }
+  ],
+  'Abductor pollicis brevis': [
+    { view: 'anterior', x: 41, y: 44, side: 'L' },
+    { view: 'anterior', x: 13.4, y: 44, side: 'R' }
+  ],
+  'Abductor digiti minimi': [
+    { view: 'anterior', x: 43.5, y: 44.5, side: 'L' },
+    { view: 'anterior', x: 10.9, y: 44.5, side: 'R' }
+  ],
+  // === ΑΥΧΕΝΙΚΗ - ΟΠΙΣΘΙΑ ===
+  'Triceps brachii': [
+    { view: 'posterior', x: 64, y: 28, side: 'L' },
+    { view: 'posterior', x: 77.6, y: 28, side: 'R' }
+  ],
+  'Extensor carpi radialis': [
+    { view: 'posterior', x: 58, y: 33, side: 'L' },
+    { view: 'posterior', x: 83.6, y: 33, side: 'R' }
+  ],
+  'Extensor digitorum': [
+    { view: 'posterior', x: 58.5, y: 36, side: 'L' },
+    { view: 'posterior', x: 83.1, y: 36, side: 'R' }
+  ],
+  'First dorsal interosseous': [
+    { view: 'posterior', x: 62, y: 45, side: 'L' },
+    { view: 'posterior', x: 79.6, y: 45, side: 'R' }
+  ],
+
+  // === ΘΩΡΑΚΙΚΗ - ΠΡΟΣΘΙΑ (ορθός κοιλιακός) ===
+  'Intercostals': [{ view: 'anterior', x: 27.2, y: 24, side: 'C' }],
+  'Rectus abdominis (upper)': [
+    { view: 'anterior', x: 28.5, y: 28, side: 'L' },
+    { view: 'anterior', x: 25.9, y: 28, side: 'R' }
+  ],
+  'Rectus abdominis (mid)': [
+    { view: 'anterior', x: 28.5, y: 32, side: 'L' },
+    { view: 'anterior', x: 25.9, y: 32, side: 'R' }
+  ],
+  'Rectus abdominis (lower)': [
+    { view: 'anterior', x: 28.5, y: 36, side: 'L' },
+    { view: 'anterior', x: 25.9, y: 36, side: 'R' }
+  ],
+
+  // === ΚΡΑΝΙΑΚΑ ΝΕΥΡΑ - ΠΡΟΣΘΙΑ ===
+  'Medial rectus': [
+    { view: 'anterior', x: 28.3, y: 11.5, side: 'L' },
+    { view: 'anterior', x: 26.1, y: 11.5, side: 'R' }
+  ],
+  'Inferior rectus': [
+    { view: 'anterior', x: 28.3, y: 12.5, side: 'L' },
+    { view: 'anterior', x: 26.1, y: 12.5, side: 'R' }
+  ],
+  'Superior oblique': [
+    { view: 'anterior', x: 28.7, y: 10.5, side: 'L' },
+    { view: 'anterior', x: 25.7, y: 10.5, side: 'R' }
+  ],
+  'Lateral rectus': [
+    { view: 'anterior', x: 29.7, y: 11.5, side: 'L' },
+    { view: 'anterior', x: 24.7, y: 11.5, side: 'R' }
+  ],
+  'Masseter': [
+    { view: 'anterior', x: 29.7, y: 15, side: 'L' },
+    { view: 'anterior', x: 24.7, y: 15, side: 'R' }
+  ],
+  'Temporalis': [
+    { view: 'anterior', x: 31, y: 11, side: 'L' },
+    { view: 'anterior', x: 23.4, y: 11, side: 'R' }
+  ],
+  'Frontalis': [
+    { view: 'anterior', x: 28.5, y: 10, side: 'L' },
+    { view: 'anterior', x: 25.9, y: 10, side: 'R' }
+  ],
+  'Orbicularis oculi': [
+    { view: 'anterior', x: 29.7, y: 12, side: 'L' },
+    { view: 'anterior', x: 24.7, y: 12, side: 'R' }
+  ],
+  'Orbicularis oris': [
+    { view: 'anterior', x: 28, y: 15.5, side: 'L' },
+    { view: 'anterior', x: 26.4, y: 15.5, side: 'R' }
+  ],
+  'Mentalis': [{ view: 'anterior', x: 27.2, y: 16.5, side: 'C' }],
+  'Platysma': [
+    { view: 'anterior', x: 29, y: 18, side: 'L' },
+    { view: 'anterior', x: 25.4, y: 18, side: 'R' }
+  ],
+  'Auditory brainstem responses': [{ view: 'anterior', x: 27.2, y: 11, side: 'C' }],
+  'Stylopharyngeus': [{ view: 'anterior', x: 27.2, y: 14, side: 'C' }],
+  'Soft palate': [{ view: 'anterior', x: 27.2, y: 14, side: 'C' }],
+  'Vocalis (via NIM ETT)': [{ view: 'anterior', x: 27.2, y: 20, side: 'C' }],
+  'Cricothyroid': [{ view: 'anterior', x: 27.2, y: 20.5, side: 'C' }],
+  'Sternocleidomastoid': [
+    { view: 'anterior', x: 30.5, y: 19, side: 'L' },
+    { view: 'anterior', x: 23.9, y: 19, side: 'R' }
+  ],
+  'Genioglossus': [{ view: 'anterior', x: 27.2, y: 15, side: 'C' }],
+  // === ΚΡΑΝΙΑΚΑ ΝΕΥΡΑ - ΟΠΙΣΘΙΑ ===
+  'Trapezius (upper)': [
+    { view: 'posterior', x: 68.5, y: 21, side: 'L' },
+    { view: 'posterior', x: 73, y: 21, side: 'R' }
+  ]
+};
+
+// === SSEP ===
+const SSEP_DATA = [
+  { name: 'Median nerve', code: 'N20', indication: 'Αυχενική · brachial plexus · ICU · καρωτίδα',
+    stim: 'Καρπός (median), 2 cm proximal παλαμικής ραφής', intensity: '15–25 mA, 0.2–0.3 ms, 4.7 Hz',
+    record: ['Erb point', 'C2', "C3'/C4'"], latency: 'N20: ~20 ms',
+    notes: 'Gold standard για cervical surgery. Συνήθως αμφίπλευρα.' },
+  { name: 'Ulnar nerve', code: 'N20', indication: 'Lower brachial plexus · C8-T1',
+    stim: 'Καρπός — έσω επιφάνεια', intensity: '15–25 mA, 0.2–0.3 ms',
+    record: ['Erb point', 'C2', "C3'/C4'"], latency: 'N20: ~21 ms',
+    notes: 'Καλύπτει χαμηλότερες αυχενικές ρίζες.' },
+  { name: 'Posterior tibial nerve', code: 'P37', indication: 'Σπονδυλική · αορτή · scoliosis',
+    stim: 'Έσω σφυρό', intensity: '20–40 mA, 0.2–0.3 ms',
+    record: ['Popliteal fossa', 'L1', "Cz'"], latency: 'P37: ~37 ms',
+    notes: 'Ο πιο συχνός για spine. Καθυστερημένο σε ηλικιωμένους/διαβητικούς.' },
+  { name: 'Common peroneal', code: 'P37', indication: 'Εναλλακτικό κάτω άκρο · L4-L5-S1',
+    stim: 'Κεφαλή περόνης', intensity: '20–40 mA',
+    record: ['Popliteal fossa', "Cz'"], latency: 'P37: ~37 ms',
+    notes: 'Πιο εύκολο stim site σε prone.' }
+];
+
+const PEDICLE_ROOTS = [
+  { level: 'L1 screw', record: 'Λαγονοψοΐτης' },
+  { level: 'L2 screw', record: 'Λαγονοψοΐτης + Adductors' },
+  { level: 'L3 screw', record: 'Vastus medialis + Adductors' },
+  { level: 'L4 screw', record: 'Vastus medialis + Tibialis anterior' },
+  { level: 'L5 screw', record: 'Tibialis anterior + EHL + Peroneus longus' },
+  { level: 'S1 screw', record: 'Gastrocnemius + Abductor hallucis' },
+  { level: 'C5 screw', record: 'Deltoid + Biceps' },
+  { level: 'C6 screw', record: 'Biceps + Brachioradialis + ECR' },
+  { level: 'C7 screw', record: 'Triceps + EDC + FCR' },
+  { level: 'C8/T1 screw', record: 'FDP + APB + ADM' }
+];
+
+const CRANIAL_NERVES = {
+  'III': { name: 'Κοινό κινητικό', lat: 'Oculomotor', muscles: [
+    { gr: 'Έσω ορθός', lat: 'Medial rectus', placement: 'Βελονοειδές (από οφθαλμίατρο)', action: 'Προσαγωγή οφθαλμού' },
+    { gr: 'Κάτω ορθός', lat: 'Inferior rectus', placement: 'Βελονοειδές', action: 'Κάμψη οφθαλμού' }
+  ]},
+  'IV': { name: 'Τροχιλιακό', lat: 'Trochlear', muscles: [
+    { gr: 'Άνω λοξός', lat: 'Superior oblique', placement: 'Βελονοειδές', action: 'Κάτω-έσω στροφή' }
+  ]},
+  'V': { name: 'Τρίδυμο (κινητική)', lat: 'Trigeminal motor', muscles: [
+    { gr: 'Μασητήρας', lat: 'Masseter', placement: 'Πάνω από γωνία γνάθου', action: 'Σύσπαση μασητήρα' },
+    { gr: 'Κροταφίτης', lat: 'Temporalis', placement: 'Κροταφική περιοχή', action: 'Σύσπαση κροταφίτη' }
+  ]},
+  'VI': { name: 'Απαγωγό', lat: 'Abducens', muscles: [
+    { gr: 'Έξω ορθός', lat: 'Lateral rectus', placement: 'Βελονοειδές', action: 'Απαγωγή οφθαλμού' }
+  ]},
+  'VII': { name: 'Προσωπικό', lat: 'Facial', muscles: [
+    { gr: 'Μετωπιαίος', lat: 'Frontalis', placement: 'Μέτωπο, υπερκόγχιο', action: 'Κροταφικός κλάδος' },
+    { gr: 'Σφιγκτήρας οφθαλμού', lat: 'Orbicularis oculi', placement: 'Έξω κανθός', action: 'Ζυγωματικός κλάδος' },
+    { gr: 'Σφιγκτήρας στόματος', lat: 'Orbicularis oris', placement: 'Άνω χείλος', action: 'Παρειακός κλάδος' },
+    { gr: 'Πωγωνικός', lat: 'Mentalis', placement: 'Πώγων', action: 'Γναθιαίος κλάδος' },
+    { gr: 'Πλατύσμα', lat: 'Platysma', placement: 'Πρόσθιος τράχηλος', action: 'Τραχηλικός κλάδος' }
+  ]},
+  'VIII': { name: 'Ακουστικό (BAEP)', lat: 'Vestibulocochlear', muscles: [
+    { gr: 'BAEP', lat: 'Auditory brainstem responses', placement: 'Click 90 dB', action: 'Διατήρηση ακοής' }
+  ]},
+  'IX': { name: 'Γλωσσοφαρυγγικό', lat: 'Glossopharyngeal', muscles: [
+    { gr: 'Στυλοφαρυγγικός', lat: 'Stylopharyngeus', placement: 'Δύσκολη πρόσβαση', action: 'Ανύψωση φάρυγγα' },
+    { gr: 'Μαλακή υπερώα', lat: 'Soft palate', placement: 'Επιφανειακό βελονοειδές', action: 'Συνεκτιμάται με X' }
+  ]},
+  'X': { name: 'Πνευμονογαστρικό', lat: 'Vagus', muscles: [
+    { gr: 'Φωνητικές χορδές', lat: 'Vocalis (via NIM ETT)', placement: 'NIM ETT στις χορδές', action: 'RLN · stim 1 mA' },
+    { gr: 'Κρικοθυρεοειδής', lat: 'Cricothyroid', placement: 'Επιφανειακό/βελονοειδές', action: 'eSLN' }
+  ]},
+  'XI': { name: 'Παραπληρωματικό', lat: 'Spinal accessory', muscles: [
+    { gr: 'Τραπεζοειδής (άνω)', lat: 'Trapezius (upper)', placement: 'Άνω τραπεζοειδής, μέσο τμήμα', action: 'Ανύψωση ώμου' },
+    { gr: 'Στερνοκλειδομαστοειδής', lat: 'Sternocleidomastoid', placement: 'Μέσο τμήμα SCM', action: 'Στροφή κεφαλής' }
+  ]},
+  'XII': { name: 'Υπογλώσσιο', lat: 'Hypoglossal', muscles: [
+    { gr: 'Γλώσσα', lat: 'Genioglossus', placement: 'Βελονοειδές στο σώμα γλώσσας', action: 'Προβολή γλώσσας' }
+  ]}
+};
+
+const ENT_TEMPLATES = {
+  acoustic: { name: 'Ακουστικό νευρίνωμα', cns: ['V', 'VII', 'VIII', 'IX', 'X', 'XI'], note: 'CN VII obligatory. BAEP για ακοή.' },
+  parotid: { name: 'Παρωτιδεκτομή', cns: ['VII'], note: '4-channel facial monitoring.' },
+  posteriorFossa: { name: 'Όγκοι οπίσθιου βόθρου', cns: ['V', 'VII', 'IX', 'X', 'XI', 'XII'], note: 'Vagus critical.' },
+  skullBase: { name: 'Βάση κρανίου', cns: ['III', 'IV', 'V', 'VI', 'VII', 'VIII', 'IX', 'X', 'XI', 'XII'], note: 'Πλήρης CN coverage.' },
+  mvdTrigeminal: { name: 'MVD Τριδύμου', cns: ['V', 'VII', 'VIII'], note: 'Trigeminal neuralgia.' },
+  mvdFacial: { name: 'MVD Προσωπικού', cns: ['V', 'VII', 'VIII'], note: 'Lateral spread response (LSR).' },
+  cochlear: { name: 'Κοχλιακό / Mastoid', cns: ['VII'], note: 'CN VII στο fallopian canal.' },
+  cpAngle: { name: 'CP angle', cns: ['V', 'VII', 'VIII', 'IX', 'X'], note: 'Variable focus.' }
+};
+
+// ==========================================================================
+// STATE
+// ==========================================================================
+let activeTab = 'spine';
+const state = {
+  spine: { region: 'lumbar', mode: 'disc', selected: new Set() },
+  cn: { selected: new Set() }
+};
+const SPINE_DATA = {
+  cervical: { roots: ROOTS_CERVICAL, discs: DISCS_CERVICAL },
+  thoracic: { roots: ROOTS_THORACIC, discs: DISCS_THORACIC },
+  lumbar: { roots: ROOTS_LUMBAR, discs: DISCS_LUMBAR }
+};
+
+// ==========================================================================
+// SPINE
+// ==========================================================================
+const $spineLevels = document.getElementById('spine-levels');
+const $spineSummary = document.getElementById('spine-summary');
+
+function renderSpine() {
+  const { region, mode, selected } = state.spine;
+  const data = SPINE_DATA[region];
+  const items = mode === 'disc' ? Object.entries(data.discs) : Object.keys(data.roots).map(r => [r, [r]]);
+
+  $spineLevels.innerHTML = items.map(([label, roots]) => {
+    const isSelected = selected.has(label);
+    const muscleCount = roots.reduce((s, r) => s + (data.roots[r]?.muscles.length || 0), 0);
+    const metaText = mode === 'disc' ? `${muscleCount} μύες · ρίζες ${roots.join(' / ')}` : `${muscleCount} μύες`;
+    return `
+      <div class="level${isSelected ? ' selected' : ''}" data-label="${label}">
+        <div class="level-header">
+          <div class="level-label">${label}</div>
+          <div class="level-meta">${metaText}</div>
+        </div>
+        <div class="level-body"><div class="level-content">
+          ${roots.map(r => `
+            <div class="root-group">
+              <div class="root-tag">Ρίζα ${r}</div>
+              <ul class="muscles">
+                ${(data.roots[r]?.muscles || []).map(m => `
+                  <li class="muscle">
+                    <div><span class="muscle-name">${m.gr}</span><span class="muscle-name-lat">${m.lat}</span></div>
+                    <div class="muscle-detail"><b>Τοποθέτηση:</b>${m.placement}</div>
+                    <div class="muscle-detail"><b>Δράση:</b>${m.action}</div>
+                  </li>
+                `).join('')}
+              </ul>
+            </div>
+          `).join('')}
+        </div></div>
+      </div>`;
+  }).join('');
+
+  $spineLevels.querySelectorAll('.level').forEach(el => {
+    el.querySelector('.level-header').addEventListener('click', () => {
+      const label = el.dataset.label;
+      if (selected.has(label)) selected.delete(label);
+      else selected.add(label);
+      renderSpine();
+      renderBodyMap();
+    });
+  });
+  renderSpineSummary();
+}
+
+function renderSpineSummary() {
+  const { region, mode, selected } = state.spine;
+  if (selected.size === 0) {
+    $spineSummary.innerHTML = '<div class="summary-empty">Επίλεξε επίπεδα για συγκεντρωτική λίστα μυών</div>';
+    return;
+  }
+  const data = SPINE_DATA[region];
+  const muscleMap = new Map();
+  selected.forEach(label => {
+    const roots = mode === 'disc' ? data.discs[label] : [label];
+    roots.forEach(r => {
+      (data.roots[r]?.muscles || []).forEach(m => {
+        if (!muscleMap.has(m.gr)) muscleMap.set(m.gr, { muscle: m, roots: new Set() });
+        muscleMap.get(m.gr).roots.add(r);
+      });
+    });
+  });
+  const items = [...muscleMap.values()].sort((a, b) =>
+    [...a.roots].sort()[0].localeCompare([...b.roots].sort()[0])
+  );
+  const totalElectrodes = items.length * 2;
+
+  $spineSummary.innerHTML = `
+    <div class="summary-header">
+      <div>
+        <div class="summary-title">Λίστα ηλεκτροδίων</div>
+        <div class="summary-meta"><b>${items.length}</b> μύες · <b>${selected.size}</b> επίπεδα · αμφίπλευρα = <b>${totalElectrodes}</b> EMG channels</div>
+      </div>
+      <div class="summary-actions">
+        <button class="btn primary" id="spine-map-btn">🗺️ Δες στον χάρτη</button>
+        <button class="btn primary" id="spine-save-btn">💾 Αποθήκευση</button>
+        <button class="btn" id="spine-print-btn">Εκτύπωση</button>
+        <button class="btn danger" id="spine-clear-btn">Καθαρισμός</button>
+      </div>
+    </div>
+    <ul class="summary-list">
+      ${items.map(({ muscle, roots }) => `
+        <li class="summary-item">
+          <span class="summary-roots">${[...roots].sort().join(', ')}</span>
+          <div><span class="summary-name">${muscle.gr}</span><span class="summary-name-lat">${muscle.lat}</span></div>
+        </li>
+      `).join('')}
+    </ul>`;
+
+  document.getElementById('spine-clear-btn').addEventListener('click', () => {
+    state.spine.selected.clear(); renderSpine(); renderBodyMap();
+  });
+  document.getElementById('spine-print-btn').addEventListener('click', () => window.print());
+  document.getElementById('spine-save-btn').addEventListener('click', () => saveCurrentCase('spine'));
+  document.getElementById('spine-map-btn').addEventListener('click', () => switchTab('bodymap'));
+}
+
+document.getElementById('region-toggle').querySelectorAll('button').forEach(btn => {
+  if (btn.dataset.region === state.spine.region) btn.classList.add('active');
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#region-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.spine.region = btn.dataset.region;
+    state.spine.selected.clear();
+    renderSpine(); renderBodyMap();
+  });
+});
+document.getElementById('mode-toggle').querySelectorAll('button').forEach(btn => {
+  btn.addEventListener('click', () => {
+    document.querySelectorAll('#mode-toggle button').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    state.spine.mode = btn.dataset.mode;
+    state.spine.selected.clear();
+    renderSpine(); renderBodyMap();
+  });
+});
+
+// ==========================================================================
+// SSEP
+// ==========================================================================
+function renderSSEP() {
+  document.getElementById('ssep-grid').innerHTML = SSEP_DATA.map(s => `
+    <div class="ref-card accent">
+      <div class="ref-title">${s.name}</div>
+      <div class="ref-subtitle">${s.code} · ${s.indication}</div>
+      <div class="ref-body">
+        <dl class="kv">
+          <dt>Stim</dt><dd>${s.stim}</dd>
+          <dt>Intensity</dt><dd><code>${s.intensity}</code></dd>
+          <dt>Record</dt><dd>${s.record.join(' · ')}</dd>
+          <dt>Latency</dt><dd><code>${s.latency}</code></dd>
+        </dl>
+        <p>${s.notes}</p>
+      </div>
+    </div>`).join('');
+}
+
+function renderPedicleRoots() {
+  document.getElementById('pedicle-roots-grid').innerHTML = PEDICLE_ROOTS.map(p => `
+    <div class="ref-card">
+      <div class="ref-title">${p.level}</div>
+      <div class="ref-body"><p><strong>Καταγραφή από:</strong> ${p.record}</p></div>
+    </div>`).join('');
+}
+
+// ==========================================================================
+// CN
+// ==========================================================================
+const $cnLevels = document.getElementById('cn-levels');
+const $cnSummary = document.getElementById('cn-summary');
+const $entTemplates = document.getElementById('ent-templates');
+
+function renderEntTemplates() {
+  $entTemplates.innerHTML = Object.entries(ENT_TEMPLATES).map(([key, t]) => `
+    <button class="template" data-key="${key}">
+      <div class="template-name">${t.name}</div>
+      <div class="template-cns">CN ${t.cns.join(' · ')}</div>
+    </button>`).join('');
+  $entTemplates.querySelectorAll('.template').forEach(btn => {
+    btn.addEventListener('click', () => {
+      state.cn.selected = new Set(ENT_TEMPLATES[btn.dataset.key].cns);
+      renderCN(); renderBodyMap();
+    });
+  });
+}
+
+function renderCN() {
+  const { selected } = state.cn;
+  $cnLevels.innerHTML = Object.entries(CRANIAL_NERVES).map(([cn, data]) => {
+    const isSelected = selected.has(cn);
+    return `
+      <div class="level${isSelected ? ' selected' : ''}" data-cn="${cn}">
+        <div class="level-header">
+          <div class="level-label">CN ${cn}</div>
+          <div class="level-meta">${data.name}<br>${data.muscles.length} σημείο/α</div>
+        </div>
+        <div class="level-body"><div class="level-content">
+          <div class="root-group">
+            <div class="root-tag">${data.lat}</div>
+            <ul class="muscles">
+              ${data.muscles.map(m => `
+                <li class="muscle">
+                  <div><span class="muscle-name">${m.gr}</span><span class="muscle-name-lat">${m.lat}</span></div>
+                  <div class="muscle-detail"><b>Τοποθέτηση:</b>${m.placement}</div>
+                  <div class="muscle-detail"><b>Δράση:</b>${m.action}</div>
+                </li>
+              `).join('')}
+            </ul>
+          </div>
+        </div></div>
+      </div>`;
+  }).join('');
+  $cnLevels.querySelectorAll('.level').forEach(el => {
+    el.querySelector('.level-header').addEventListener('click', () => {
+      const cn = el.dataset.cn;
+      if (selected.has(cn)) selected.delete(cn);
+      else selected.add(cn);
+      renderCN(); renderBodyMap();
+    });
+  });
+  renderCNSummary();
+}
+
+function renderCNSummary() {
+  const { selected } = state.cn;
+  if (selected.size === 0) {
+    $cnSummary.innerHTML = '<div class="summary-empty">Επίλεξε κρανιακά νεύρα ή πρότυπο</div>';
+    return;
+  }
+  const items = [];
+  const order = ['III','IV','V','VI','VII','VIII','IX','X','XI','XII'];
+  [...selected].sort((a, b) => order.indexOf(a) - order.indexOf(b)).forEach(cn => {
+    CRANIAL_NERVES[cn].muscles.forEach(m => items.push({ cn, muscle: m }));
+  });
+  const totalElectrodes = items.length * 2;
+  $cnSummary.innerHTML = `
+    <div class="summary-header">
+      <div>
+        <div class="summary-title">Λίστα ηλεκτροδίων</div>
+        <div class="summary-meta"><b>${items.length}</b> σημεία · <b>${selected.size}</b> νεύρα · αμφίπλευρα = <b>${totalElectrodes}</b> EMG channels</div>
+      </div>
+      <div class="summary-actions">
+        <button class="btn primary" id="cn-map-btn">🗺️ Δες στον χάρτη</button>
+        <button class="btn primary" id="cn-save-btn">💾 Αποθήκευση</button>
+        <button class="btn" id="cn-print-btn">Εκτύπωση</button>
+        <button class="btn danger" id="cn-clear-btn">Καθαρισμός</button>
+      </div>
+    </div>
+    <ul class="summary-list">
+      ${items.map(({ cn, muscle }) => `
+        <li class="summary-item">
+          <span class="summary-roots">CN ${cn}</span>
+          <div><span class="summary-name">${muscle.gr}</span><span class="summary-name-lat">${muscle.lat}</span></div>
+        </li>
+      `).join('')}
+    </ul>`;
+  document.getElementById('cn-clear-btn').addEventListener('click', () => {
+    state.cn.selected.clear(); renderCN(); renderBodyMap();
+  });
+  document.getElementById('cn-print-btn').addEventListener('click', () => window.print());
+  document.getElementById('cn-save-btn').addEventListener('click', () => saveCurrentCase('cn'));
+  document.getElementById('cn-map-btn').addEventListener('click', () => switchTab('bodymap'));
+}
+
+// ==========================================================================
+// BODY MAP — pin rendering + CALIBRATION
+// ==========================================================================
+const $pinsLayer = document.getElementById('pins-layer');
+const $mapStatsNum = document.getElementById('map-stats-num');
+const $mapStatsDetail = document.getElementById('map-stats-detail');
+const $pinListUl = document.getElementById('pin-list-ul');
+const $mapCount = document.getElementById('map-count');
+const $bodymap = document.getElementById('bodymap');
+const $coordDisplay = document.getElementById('coord-display');
+const $crosshairH = document.getElementById('crosshair-h');
+const $crosshairV = document.getElementById('crosshair-v');
+const $editToolbar = document.getElementById('edit-toolbar');
+const $editModeBtn = document.getElementById('edit-mode-btn');
+const $editSelectedInfo = document.getElementById('edit-selected-info');
+
+// Custom coord overrides (saved in localStorage)
+const COORDS_STORAGE_KEY = 'ionm_coord_overrides_v1';
+let coordOverrides = {};
+try { coordOverrides = JSON.parse(localStorage.getItem(COORDS_STORAGE_KEY) || '{}'); }
+catch { coordOverrides = {}; }
+
+let editMode = false;
+let dragState = null; // { latName, coordIdx, pinEl }
+
+function getEffectiveCoords(latName) {
+  return coordOverrides[latName] || MUSCLE_COORDS[latName];
+}
+
+function saveOverrides() {
+  try { localStorage.setItem(COORDS_STORAGE_KEY, JSON.stringify(coordOverrides)); }
+  catch (e) { console.error('Save failed', e); }
+}
+
+// Edit mode toggle
+$editModeBtn.addEventListener('click', () => {
+  editMode = !editMode;
+  $bodymap.classList.toggle('edit-mode', editMode);
+  $editToolbar.classList.toggle('hidden', !editMode);
+  $editModeBtn.textContent = editMode ? '✓ Έξοδος' : '✏️ Calibration mode';
+  $editModeBtn.classList.toggle('primary', editMode);
+});
+
+// Mouse tracking στην εικόνα
+$bodymap.addEventListener('mousemove', (e) => {
+  if (!editMode) return;
+  const rect = $bodymap.getBoundingClientRect();
+  const x = ((e.clientX - rect.left) / rect.width) * 100;
+  const y = ((e.clientY - rect.top) / rect.height) * 100;
+  $coordDisplay.textContent = `x: ${x.toFixed(1)}% · y: ${y.toFixed(1)}%`;
+  $crosshairH.style.top = y + '%';
+  $crosshairV.style.left = x + '%';
+
+  if (dragState) {
+    dragState.pinEl.style.left = x + '%';
+    dragState.pinEl.style.top = y + '%';
+    dragState.currentX = x;
+    dragState.currentY = y;
+  }
+});
+
+// Drag handling on pins
+function startDrag(e, latName, coordIdx, pinEl) {
+  if (!editMode) return;
+  e.preventDefault();
+  e.stopPropagation();
+  pinEl.classList.add('dragging');
+  dragState = { latName, coordIdx, pinEl, currentX: 0, currentY: 0 };
+  $editSelectedInfo.classList.remove('empty');
+  $editSelectedInfo.textContent = `Μεταφορά: ${latName} #${coordIdx + 1}`;
+}
+
+function endDrag() {
+  if (!dragState) return;
+  const { latName, coordIdx, currentX, currentY, pinEl } = dragState;
+
+  // Save the new coordinate to overrides
+  if (currentX > 0 || currentY > 0) {
+    if (!coordOverrides[latName]) {
+      coordOverrides[latName] = JSON.parse(JSON.stringify(MUSCLE_COORDS[latName] || []));
+    }
+    if (coordOverrides[latName][coordIdx]) {
+      coordOverrides[latName][coordIdx].x = parseFloat(currentX.toFixed(2));
+      coordOverrides[latName][coordIdx].y = parseFloat(currentY.toFixed(2));
+    }
+    saveOverrides();
+    $editSelectedInfo.textContent = `✓ Αποθηκεύτηκε: ${latName} #${coordIdx + 1} → ${currentX.toFixed(1)}%, ${currentY.toFixed(1)}%`;
+  }
+
+  pinEl.classList.remove('dragging');
+  dragState = null;
+
+  // Re-render to be safe
+  setTimeout(renderBodyMap, 100);
+}
+
+document.addEventListener('mouseup', endDrag);
+
+// Reset overrides
+document.getElementById('reset-coords-btn').addEventListener('click', () => {
+  if (!confirm('Επαναφορά όλων των συντεταγμένων στις προεπιλογές; Θα χάσεις τις αλλαγές σου.')) return;
+  coordOverrides = {};
+  saveOverrides();
+  renderBodyMap();
+  $editSelectedInfo.textContent = 'Reset complete — όλες οι συντεταγμένες επιστράφηκαν στα defaults';
+});
+
+// Export
+document.getElementById('export-coords-btn').addEventListener('click', () => {
+  // Συνδυάζω defaults + overrides για να δώσω full picture
+  const merged = { ...MUSCLE_COORDS };
+  Object.keys(coordOverrides).forEach(k => merged[k] = coordOverrides[k]);
+
+  // Format καθαρά
+  const lines = ['const MUSCLE_COORDS = {'];
+  Object.entries(merged).forEach(([name, coords], i, arr) => {
+    const coordsStr = coords.map(c =>
+      `    { view: '${c.view}', x: ${c.x}, y: ${c.y}, side: '${c.side}' }`
+    ).join(',\n');
+    const comma = i < arr.length - 1 ? ',' : '';
+    lines.push(`  '${name}': [\n${coordsStr}\n  ]${comma}`);
+  });
+  lines.push('};');
+
+  document.getElementById('export-textarea').value = lines.join('\n');
+  document.getElementById('export-modal').classList.add('active');
+});
+
+document.getElementById('close-export-btn').addEventListener('click', () => {
+  document.getElementById('export-modal').classList.remove('active');
+});
+document.getElementById('copy-export-btn').addEventListener('click', () => {
+  const ta = document.getElementById('export-textarea');
+  ta.select();
+  document.execCommand('copy');
+  document.getElementById('copy-export-btn').textContent = '✓ Copied!';
+  setTimeout(() => document.getElementById('copy-export-btn').textContent = '📋 Copy', 1500);
+});
+
+// IMPORT logic
+document.getElementById('import-coords-btn').addEventListener('click', () => {
+  document.getElementById('import-textarea').value = '';
+  document.getElementById('import-status').textContent = '';
+  document.getElementById('import-status').style.color = '';
+  document.getElementById('import-modal').classList.add('active');
+});
+document.getElementById('close-import-btn').addEventListener('click', () => {
+  document.getElementById('import-modal').classList.remove('active');
+});
+document.getElementById('apply-import-btn').addEventListener('click', () => {
+  const $status = document.getElementById('import-status');
+  let raw = document.getElementById('import-textarea').value.trim();
+  if (!raw) {
+    $status.textContent = '⚠️ Κενό textarea';
+    $status.style.color = 'var(--warn)';
+    return;
+  }
+
+  // Καθαρισμός: αν είναι JS const declaration, αφαίρεσε το const ... = και το ;
+  raw = raw.replace(/^\s*(const|let|var)\s+\w+\s*=\s*/, '').replace(/;\s*$/, '');
+
+  let parsed;
+  try {
+    parsed = JSON.parse(raw);
+  } catch (e) {
+    // Δοκίμασε ως JS object (πχ με single quotes ή χωρίς quoted keys)
+    try {
+      parsed = (new Function('return (' + raw + ')'))();
+    } catch (e2) {
+      $status.textContent = '✗ Άκυρο JSON: ' + e.message;
+      $status.style.color = 'var(--danger)';
+      return;
+    }
+  }
+
+  // Validate schema
+  if (typeof parsed !== 'object' || Array.isArray(parsed)) {
+    $status.textContent = '✗ Το JSON πρέπει να είναι object { "MuscleName": [...], ... }';
+    $status.style.color = 'var(--danger)';
+    return;
+  }
+
+  let count = 0;
+  let pinCount = 0;
+  Object.entries(parsed).forEach(([key, value]) => {
+    if (!Array.isArray(value)) return;
+    const validCoords = value.filter(c =>
+      c && typeof c.x === 'number' && typeof c.y === 'number' &&
+      (c.view === 'anterior' || c.view === 'posterior')
+    );
+    if (validCoords.length > 0) {
+      coordOverrides[key] = validCoords;
+      count++;
+      pinCount += validCoords.length;
+    }
+  });
+
+  if (count === 0) {
+    $status.textContent = '⚠️ Δεν βρέθηκαν έγκυρες συντεταγμένες';
+    $status.style.color = 'var(--warn)';
+    return;
+  }
+
+  saveOverrides();
+  renderBodyMap();
+  $status.textContent = `✓ Εφαρμόστηκαν ${count} μύες, ${pinCount} pins`;
+  $status.style.color = 'var(--safe)';
+  setTimeout(() => {
+    document.getElementById('import-modal').classList.remove('active');
+  }, 1200);
+});
+
+function collectAllPins() {
+  const pins = [];
+  const { region, mode, selected } = state.spine;
+  const data = SPINE_DATA[region];
+  selected.forEach(label => {
+    const roots = mode === 'disc' ? data.discs[label] : [label];
+    const seen = new Set();
+    roots.forEach(r => {
+      (data.roots[r]?.muscles || []).forEach(m => {
+        if (seen.has(m.lat)) return;
+        seen.add(m.lat);
+        const coords = getEffectiveCoords(m.lat);
+        if (coords) {
+          coords.forEach((c, idx) => {
+            pins.push({
+              x: c.x, y: c.y, side: c.side,
+              category: 'spine',
+              name: m.gr, latName: m.lat,
+              tag: r, placement: m.placement,
+              coordIdx: idx
+            });
+          });
+        }
+      });
+    });
+  });
+  state.cn.selected.forEach(cn => {
+    CRANIAL_NERVES[cn].muscles.forEach(m => {
+      const coords = getEffectiveCoords(m.lat);
+      if (coords) {
+        coords.forEach((c, idx) => {
+          pins.push({
+            x: c.x, y: c.y, side: c.side,
+            category: 'cn',
+            name: m.gr, latName: m.lat,
+            tag: 'CN ' + cn, placement: m.placement,
+            coordIdx: idx
+          });
+        });
+      }
+    });
+  });
+  return pins;
+}
+
+function renderBodyMap() {
+  const pins = collectAllPins();
+
+  // Σε edit mode, αν δεν έχει επιλέξει τίποτα, εμφανίζω ΟΛΑ τα pins ώστε να μπορεί να τα ρυθμίσει
+  let pinsToShow = pins;
+  if (editMode && pins.length === 0) {
+    pinsToShow = [];
+    Object.keys(MUSCLE_COORDS).forEach(latName => {
+      const coords = getEffectiveCoords(latName);
+      coords.forEach((c, idx) => {
+        pinsToShow.push({
+          x: c.x, y: c.y, side: c.side,
+          category: 'spine',
+          name: latName, latName: latName,
+          tag: 'all', placement: '',
+          coordIdx: idx
+        });
+      });
+    });
+  }
+
+  $pinsLayer.innerHTML = pinsToShow.map((p, i) => `
+    <div class="pin ${p.category}" data-idx="${i}" data-lat="${p.latName}" data-coord-idx="${p.coordIdx}"
+         style="left: ${p.x}%; top: ${p.y}%;">
+      <div class="pin-tooltip">
+        <strong>${p.name}</strong>
+        <div class="tooltip-meta">${p.tag}${p.side && p.side !== 'C' ? ' · ' + p.side : ''}${editMode ? ' · ' + p.x.toFixed(1) + '%, ' + p.y.toFixed(1) + '%' : ''}</div>
+        ${p.placement ? `<div style="font-size:0.7rem; color:var(--text-faint); margin-top:3px; max-width:200px; white-space:normal;">${p.placement}</div>` : ''}
+      </div>
+    </div>`).join('');
+
+  // Attach drag handlers
+  $pinsLayer.querySelectorAll('.pin').forEach(pinEl => {
+    pinEl.addEventListener('mousedown', (e) => {
+      if (!editMode) return;
+      const latName = pinEl.dataset.lat;
+      const coordIdx = parseInt(pinEl.dataset.coordIdx);
+      startDrag(e, latName, coordIdx, pinEl);
+    });
+  });
+
+  // Stats
+  const uniqueMuscles = new Set(pins.map(p => p.latName)).size;
+  $mapStatsNum.textContent = pins.length;
+  if (pins.length === 0) {
+    $mapStatsDetail.textContent = editMode ? 'Edit mode — όλα τα pins εμφανίζονται για ρύθμιση' : 'Δεν έχεις κάνει επιλογές';
+    $pinListUl.innerHTML = '<li style="color:var(--text-faint); cursor:default;">—</li>';
+  } else {
+    $mapStatsDetail.innerHTML = `<b style="color:var(--accent)">${uniqueMuscles}</b> μοναδικοί μύες · αμφίπλευρα`;
+    const seen = new Set();
+    const listItems = [];
+    pins.forEach((p, i) => {
+      if (seen.has(p.latName)) return;
+      seen.add(p.latName);
+      listItems.push({ idx: i, ...p });
+    });
+    $pinListUl.innerHTML = listItems.map(p => `
+      <li class="${p.category}" data-target="${p.latName}">
+        <span>${p.name}</span>
+        <span class="pin-list-tag">${p.tag}</span>
+      </li>`).join('');
+    $pinListUl.querySelectorAll('li[data-target]').forEach(li => {
+      li.addEventListener('click', () => {
+        const target = li.dataset.target;
+        document.querySelectorAll('.pin').forEach(pinEl => {
+          pinEl.classList.remove('highlight');
+          if (pinEl.dataset.lat === target) {
+            pinEl.classList.add('highlight');
+            setTimeout(() => pinEl.classList.remove('highlight'), 3000);
+          }
+        });
+      });
+    });
+  }
+
+  if (pins.length > 0) {
+    $mapCount.style.display = 'inline-block';
+    $mapCount.textContent = pins.length;
+  } else {
+    $mapCount.style.display = 'none';
+  }
+}
+
+// ==========================================================================
+// SAVED CASES
+// ==========================================================================
+const STORAGE_KEY = 'ionm_saved_cases_v1';
+function loadSavedCases() {
+  try { return JSON.parse(localStorage.getItem(STORAGE_KEY)) || []; }
+  catch { return []; }
+}
+function persistSavedCases(cases) {
+  try { localStorage.setItem(STORAGE_KEY, JSON.stringify(cases)); updateSavedCount(); }
+  catch (e) { alert('Αποτυχία αποθήκευσης: ' + e.message); }
+}
+function saveCurrentCase(tab) {
+  const name = prompt('Όνομα περίπτωσης:');
+  if (!name) return;
+  const cases = loadSavedCases();
+  let snapshot;
+  if (tab === 'spine') {
+    snapshot = { tab: 'spine', region: state.spine.region, mode: state.spine.mode, selected: [...state.spine.selected] };
+  } else if (tab === 'cn') {
+    snapshot = { tab: 'cn', selected: [...state.cn.selected] };
+  }
+  cases.push({ id: Date.now(), name: name.trim(), date: new Date().toISOString(), snapshot });
+  persistSavedCases(cases);
+  alert('✓ Αποθηκεύτηκε: ' + name);
+  renderSavedCases();
+}
+function deleteCase(id) {
+  if (!confirm('Διαγραφή;')) return;
+  persistSavedCases(loadSavedCases().filter(c => c.id !== id));
+  renderSavedCases();
+}
+function loadCase(id) {
+  const c = loadSavedCases().find(x => x.id === id);
+  if (!c) return;
+  const s = c.snapshot;
+  if (s.tab === 'spine') {
+    state.spine.region = s.region;
+    state.spine.mode = s.mode;
+    state.spine.selected = new Set(s.selected);
+    document.querySelectorAll('#region-toggle button').forEach(b => b.classList.toggle('active', b.dataset.region === s.region));
+    document.querySelectorAll('#mode-toggle button').forEach(b => b.classList.toggle('active', b.dataset.mode === s.mode));
+    renderSpine(); renderBodyMap();
+    switchTab('spine');
+  } else if (s.tab === 'cn') {
+    state.cn.selected = new Set(s.selected);
+    renderCN(); renderBodyMap();
+    switchTab('cn');
+  }
+}
+function describeSnapshot(s) {
+  if (s.tab === 'spine') {
+    const rn = { cervical: 'Αυχενική', thoracic: 'Θωρακική', lumbar: 'Οσφυϊκή' }[s.region];
+    const mn = s.mode === 'disc' ? 'δίσκοι' : 'ρίζες';
+    return `Σπονδυλική · ${rn} · ${mn} · <b>${s.selected.join(', ') || '—'}</b>`;
+  }
+  if (s.tab === 'cn') return `Κρανιακά · <b>CN ${s.selected.join(', ') || '—'}</b>`;
+  return '—';
+}
+function renderSavedCases() {
+  const cases = loadSavedCases().sort((a, b) => b.id - a.id);
+  const $list = document.getElementById('saved-list');
+  if (cases.length === 0) {
+    $list.innerHTML = '<div class="saved-empty">Καμία αποθηκευμένη περίπτωση.<br>Επίλεξε επίπεδα/νεύρα και πάτα <b>Αποθήκευση</b>.</div>';
+    return;
+  }
+  $list.innerHTML = cases.map(c => `
+    <div class="saved-item">
+      <div class="saved-info">
+        <div class="saved-name">${c.name}</div>
+        <div class="saved-preview">${describeSnapshot(c.snapshot)}</div>
+        <div class="saved-date">${new Date(c.date).toLocaleString('el-GR')}</div>
+      </div>
+      <div class="summary-actions">
+        <button class="btn primary" data-load="${c.id}">Φόρτωση</button>
+        <button class="btn danger" data-delete="${c.id}">Διαγραφή</button>
+      </div>
+    </div>`).join('');
+  $list.querySelectorAll('[data-load]').forEach(b => b.addEventListener('click', () => loadCase(parseInt(b.dataset.load))));
+  $list.querySelectorAll('[data-delete]').forEach(b => b.addEventListener('click', () => deleteCase(parseInt(b.dataset.delete))));
+  updateSavedCount();
+}
+function updateSavedCount() {
+  const cases = loadSavedCases();
+  const $count = document.getElementById('saved-count');
+  if (cases.length > 0) { $count.style.display = 'inline-block'; $count.textContent = cases.length; }
+  else $count.style.display = 'none';
+}
+
+// ==========================================================================
+// TABS
+// ==========================================================================
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.toggle('active', b.dataset.tab === tab));
+  document.querySelectorAll('.tab-content').forEach(s => s.classList.toggle('active', s.id === 'tab-' + tab));
+}
+document.querySelectorAll('.tab-btn').forEach(btn => btn.addEventListener('click', () => switchTab(btn.dataset.tab)));
+
+// ==========================================================================
+// INIT
+// ==========================================================================
+renderSpine();
+renderSSEP();
+renderPedicleRoots();
+renderEntTemplates();
+renderCN();
+renderSavedCases();
+renderBodyMap();
+updateSavedCount();
+</script>
+
+</body>
+</html>

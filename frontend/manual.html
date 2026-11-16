@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>IONM Manual</title>
+  <link rel="stylesheet" href="/styles.css?v=20260622-features-v1">
+  <script src="/i18n.js?v=20260622-features-v1"></script>
+</head>
+<body class="manual-page">
+  <header class="topbar">
+    <div>
+      <h1 data-i18n="man.brand">IONM Manual</h1>
+      <p data-i18n="man.brand_sub">Οδηγός λειτουργικής παράδοσης για πιστοποιημένους χρήστες</p>
+    </div>
+    <nav class="top-nav" aria-label="Primary navigation">
+      <a class="nav-link" href="/" data-i18n="nav.home">Αρχική</a>
+      <a class="nav-link" href="/live.html" data-i18n="nav.live">Live</a>
+      <a class="nav-link" href="/cases.html" data-i18n="nav.cases">Περιστατικά</a>
+      <a class="nav-link" href="/academy.html" data-i18n="nav.academy">Ακαδημία</a>
+      <a class="nav-link active" href="/manual.html" data-i18n="nav.manual">Εγχειρίδιο</a>
+      <a class="nav-link" href="/admin.html" data-i18n="nav.admin">Διαχείριση</a>
+      <button class="nav-link nav-button" type="button" data-logout data-i18n="nav.logout">Αποσύνδεση</button>
+    </nav>
+  </header>
+
+  <main class="manual-shell">
+    <aside class="manual-toc">
+      <div class="panel-title" data-i18n="man.toc_title">Εγχειρίδιο</div>
+      <a href="#login" data-i18n="man.toc_login">Σύνδεση</a>
+      <a href="#roles" data-i18n="man.toc_roles">Admin vs User</a>
+      <a href="#users" data-i18n="man.toc_users">Χρήστες</a>
+      <a href="#credentials" data-i18n="man.toc_creds">Διαπιστευτήρια</a>
+      <a href="#kb" data-i18n="man.toc_kb">Knowledge Base</a>
+      <a href="#live" data-i18n="man.toc_live">Live Workstation</a>
+      <a href="#map" data-i18n="man.toc_map">Χάρτης σώματος</a>
+      <a href="#signals" data-i18n="man.toc_signals">Σήματα &amp; Alert</a>
+      <a href="#tele" data-i18n="man.toc_tele">Tele-IONM</a>
+      <a href="#archive" data-i18n="man.toc_archive">Αρχείο &amp; Ontology</a>
+      <a href="#cases" data-i18n="man.toc_cases">Cases</a>
+      <a href="#academy" data-i18n="man.toc_academy">Academy</a>
+      <a href="#ai" data-i18n="man.toc_ai">AI</a>
+      <a href="#acceptance" data-i18n="man.toc_checklist">Checklist</a>
+    </aside>
+
+    <section class="manual-content">
+      <article id="login" class="manual-section">
+        <div class="panel-title" data-i18n="man.login_pt">Σύνδεση</div>
+        <h2 data-i18n="man.login_h2">Σύνδεση στην πλατφόρμα</h2>
+        <p data-i18n="man.login_p1">Ο χρήστης ανοίγει τη σελίδα login, συμπληρώνει username και password και μεταφέρεται στο κεντρικό dashboard. Αν δεν υπάρχει ενεργό session, όλες οι βασικές σελίδες επιστρέφουν αυτόματα στο login.</p>
+        <ol data-i18n-html="man.login_steps">
+          <li>Άνοιξε τη σελίδα login.</li>
+          <li>Συμπλήρωσε username και password.</li>
+          <li>Πάτησε Login.</li>
+          <li>Μετά τη σύνδεση χρησιμοποίησε το επάνω navigation για Home, Live, Cases, Academy, Manual ή Admin.</li>
+        </ol>
+      </article>
+
+      <article id="roles" class="manual-section">
+        <div class="panel-title" data-i18n="man.roles_pt">Ρόλοι</div>
+        <h2 data-i18n="man.roles_h2">Admin vs User</h2>
+        <p data-i18n="man.roles_p1">Ο Admin διαχειρίζεται χρήστες, passwords, Knowledge Base uploads και body-map curation. Ο User χρησιμοποιεί την κλινική και εκπαιδευτική ροή χωρίς πρόσβαση στη σελίδα Admin.</p>
+        <ul data-i18n-html="man.roles_list">
+          <li><strong>Admin:</strong> δημιουργία χρήστη, reset password, PDF upload, Knowledge Documents, Body Map Curation.</li>
+          <li><strong>User:</strong> Home, Live, Academy, Cases, Reports, Manual και AI εργαλεία.</li>
+          <li>Αν απλός user προσπαθήσει να ανοίξει Admin, επιστρέφει στο dashboard.</li>
+        </ul>
+        <h3 data-i18n="man.roles_h3levels">Τα τέσσερα access levels</h3>
+        <ul data-i18n-html="man.roles_levels">
+          <li><strong>Learner</strong>, <strong>Clinician</strong> και <strong>Educator</strong> εργάζονται στις κλινικές/εκπαιδευτικές σελίδες (Live, Cases, Academy, Manual, AI).</li>
+          <li>Μόνο ο <strong>Admin</strong> ανοίγει τη σελίδα Admin και διαχειρίζεται χρήστες, κωδικούς και Knowledge Base.</li>
+          <li>Οι <strong>Clinician / Educator / Admin</strong> μπορούν να γίνουν ειδικοί στο Tele· ο <strong>Learner</strong> όχι.</li>
+          <li>Αναλυτικά για κάθε επίπεδο και πώς ανατίθεται, δες την ενότητα <strong>Χρήστες</strong>.</li>
+        </ul>
+      </article>
+
+      <article id="users" class="manual-section">
+        <div class="panel-title" data-i18n="man.users_pt">Χρήστες</div>
+        <h2 data-i18n="man.users_h2">Δημιουργία χρήστη και ρόλοι</h2>
+        <p data-i18n="man.users_p1">Η δημιουργία χρήστη γίνεται από τη σελίδα Admin (μόνο ρόλος Admin). Κάθε χρήστης έχει υποχρεωτικά και προαιρετικά στοιχεία, ένα access level (ρόλο) και μια κατάσταση (status).</p>
+
+        <h3 data-i18n="man.users_h3fields">Υποχρεωτικά &amp; προαιρετικά πεδία</h3>
+        <p data-i18n="man.users_fields_p">Συμπλήρωσε όλα τα υποχρεωτικά πεδία· τα προαιρετικά εμπλουτίζουν το προφίλ και τις αναφορές.</p>
+        <ul data-i18n-html="man.users_req">
+          <li><strong>Username</strong> — 3–80 χαρακτήρες, μοναδικό.</li>
+          <li><strong>Password</strong> — τουλάχιστον 8 χαρακτήρες (κουμπί «Δημιουργία» για ισχυρό τυχαίο).</li>
+          <li><strong>First name</strong> και <strong>Last name</strong>.</li>
+          <li><strong>Email</strong> — έγκυρη και μοναδική διεύθυνση.</li>
+          <li><strong>Phone</strong> — τηλέφωνο επικοινωνίας.</li>
+        </ul>
+        <ul data-i18n-html="man.users_opt">
+          <li>Professional title, Specialty.</li>
+          <li>Organization, Department.</li>
+          <li>City, Country.</li>
+          <li>License number.</li>
+          <li>Notes (ελεύθερες σημειώσεις).</li>
+        </ul>
+
+        <h3 data-i18n="man.users_h3level">Access level (ρόλος) &amp; status</h3>
+        <ul data-i18n-html="man.users_levels">
+          <li><strong>Learner:</strong> εκπαιδευόμενος — Academy, Cases, Manual, AI· δεν ανοίγει Admin, δεν εμφανίζεται ως ειδικός Tele.</li>
+          <li><strong>Clinician:</strong> κλινικός — πλήρης κλινική ροή· μπορεί να γίνει ειδικός στο Tele.</li>
+          <li><strong>Educator:</strong> εκπαιδευτής — κλινική + εκπαιδευτική ροή· μπορεί να γίνει ειδικός στο Tele.</li>
+          <li><strong>Admin:</strong> διαχειριστής — όλα τα παραπάνω + σελίδα Admin (χρήστες, reset password, Knowledge Base, body-map curation).</li>
+        </ul>
+        <ul data-i18n-html="man.users_status">
+          <li><strong>Active:</strong> ο χρήστης μπορεί να συνδεθεί κανονικά.</li>
+          <li><strong>Pending:</strong> ο λογαριασμός υπάρχει αλλά <em>δεν</em> επιτρέπεται σύνδεση ακόμη — άλλαξέ τον σε Active όταν είναι έτοιμος.</li>
+          <li><strong>Inactive:</strong> η σύνδεση είναι απενεργοποιημένη (π.χ. αποχώρηση)· μπορεί να επανενεργοποιηθεί.</li>
+        </ul>
+
+        <h3 data-i18n="man.users_h3rules">Κανόνες &amp; επικύρωση</h3>
+        <ul data-i18n-html="man.users_rules">
+          <li>Το <strong>email</strong> και το <strong>username</strong> είναι μοναδικά· αν υπάρχουν ήδη, η δημιουργία απορρίπτεται με σαφές μήνυμα.</li>
+          <li>Ο <strong>κωδικός</strong> πρέπει να έχει ≥ 8 χαρακτήρες· το κουμπί «Δημιουργία» φτιάχνει ισχυρό τυχαίο κωδικό 14 χαρακτήρων.</li>
+          <li>Δώσε τα αρχικά διαπιστευτήρια στον χρήστη με ασφάλεια· μπορεί να τα αλλάξει μόνος του από «Ο λογαριασμός μου».</li>
+          <li>Μόνο λογαριασμός με access level <strong>Admin</strong> βλέπει τη σελίδα Admin και δημιουργεί χρήστες.</li>
+        </ul>
+
+        <h3 data-i18n="man.users_h3steps">Βήμα-βήμα δημιουργία</h3>
+        <ol data-i18n-html="man.users_steps">
+          <li>Συνδέσου ως <strong>Admin</strong> και άνοιξε τη σελίδα <strong>Admin</strong>.</li>
+          <li>Πήγαινε στην ενότητα <strong>Create user</strong>.</li>
+          <li>Συμπλήρωσε τα υποχρεωτικά: username, password, first/last name, email, phone.</li>
+          <li>Προαιρετικά πάτησε <strong>Δημιουργία</strong> δίπλα στο password για ισχυρό τυχαίο κωδικό.</li>
+          <li>Πρόσθεσε προαιρετικά στοιχεία (title, specialty, organization, department, city, country, license, notes).</li>
+          <li>Διάλεξε <strong>access level</strong>: Learner, Clinician, Educator ή Admin.</li>
+          <li>Διάλεξε <strong>status</strong>: Active (για άμεση σύνδεση), Pending ή Inactive.</li>
+          <li>Πάτησε <strong>Create user</strong>· ο χρήστης εμφανίζεται στη λίστα.</li>
+          <li>Δώσε στον χρήστη το username και τον αρχικό κωδικό με ασφάλεια.</li>
+        </ol>
+      </article>
+
+      <article id="credentials" class="manual-section">
+        <div class="panel-title" data-i18n="man.creds_pt">Διαπιστευτήρια</div>
+        <h2 data-i18n="man.creds_h2">Διαπιστευτήρια &amp; ανάκτηση κωδικού</h2>
+        <p data-i18n="man.creds_p1">Υπάρχουν τρεις τρόποι διαχείρισης κωδικών και ονομάτων χρήστη, ανάλογα με τον ρόλο: (1) κάθε συνδεδεμένος αλλάζει μόνος του τα δικά του από «Ο λογαριασμός μου», (2) ο Admin κάνει reset τον κωδικό ενός χρήστη, (3) ο Owner ορίζει νέα διαπιστευτήρια για τον διαχειριστή μιας εταιρείας από το control plane.</p>
+
+        <h3 data-i18n="man.creds_h3self">Ο λογαριασμός μου — αλλάζεις τα δικά σου διαπιστευτήρια</h3>
+        <p data-i18n-html="man.creds_self_p">Στην κορυφή της σελίδας <strong>Admin</strong> υπάρχει η κάρτα <strong>«Ο λογαριασμός μου»</strong>. Όποιος έχει πρόσβαση στη σελίδα Admin — ο Owner και κάθε διαχειριστής εταιρείας — αλλάζει εκεί <strong>μόνος του</strong> τον κωδικό και το όνομα χρήστη του, χωρίς να χρειάζεται κανέναν άλλον. Οι αλλαγές ισχύουν άμεσα, χωρίς επανεκκίνηση, και χρειάζονται πάντα τον <strong>τρέχοντα κωδικό</strong> για επιβεβαίωση.</p>
+        <ol data-i18n-html="man.creds_self_steps">
+          <li>Άνοιξε τη σελίδα <strong>Admin</strong>· η κάρτα «Ο λογαριασμός μου» είναι στην κορυφή.</li>
+          <li>Για κωδικό: συμπλήρωσε <strong>Τρέχων κωδικός</strong> και <strong>Νέος κωδικός</strong> (≥ 8 χαρακτήρες, διαφορετικός από τον τρέχοντα). Προαιρετικά πάτησε «Δημιουργία» για τυχαίο ισχυρό κωδικό.</li>
+          <li>Πάτησε <strong>Ενημέρωση κωδικού</strong>· ισχύει στην επόμενη σύνδεση.</li>
+          <li>Για όνομα χρήστη: συμπλήρωσε <strong>Τρέχων κωδικός</strong> και <strong>Νέο όνομα χρήστη</strong> (3–80 χαρακτήρες) και πάτησε <strong>Ενημέρωση ονόματος</strong>.</li>
+          <li>Το νέο όνομα χρήστη ισχύει άμεσα· για διαχειριστές εταιρείας ανανεώνεται αυτόματα η ενεργή συνεδρία.</li>
+        </ol>
+
+        <h3 data-i18n="man.creds_h3reset">Reset κωδικού χρήστη (από Admin)</h3>
+        <p data-i18n="man.creds_reset_p">Όταν ένας χρήστης (learner, clinician ή educator) ξεχάσει τον κωδικό του, ο Admin τον επαναφέρει από τη λίστα Users. Δημιουργείται νέος ισχυρός κωδικός που εμφανίζεται στην οθόνη ώστε να δοθεί στον χρήστη· το reset επαναφέρει και τη δυνατότητα σύνδεσης.</p>
+        <ol data-i18n-html="man.creds_reset_steps">
+          <li>Άνοιξε τη σελίδα <strong>Admin</strong> και βρες τον χρήστη στη λίστα <strong>Users</strong>.</li>
+          <li>Πάτησε <strong>Reset password</strong> στη γραμμή του χρήστη.</li>
+          <li>Επιβεβαίωσε στο παράθυρο επιβεβαίωσης.</li>
+          <li>Το σύστημα παράγει νέο κωδικό 14 χαρακτήρων και τον <strong>εμφανίζει στην οθόνη</strong>.</li>
+          <li>Δώσε τον νέο κωδικό στον χρήστη με ασφάλεια· μπορεί μετά να τον αλλάξει μόνος του.</li>
+        </ol>
+
+        <h3 data-i18n="man.creds_h3owner">Owner — αλλαγή διαπιστευτηρίων διαχειριστή εταιρείας</h3>
+        <p data-i18n-html="man.creds_owner_p">Από το control plane (<strong>/owner.html</strong>, μόνο στο κεντρικό instance) ο Owner μπορεί να ορίσει <strong>νέα διαπιστευτήρια</strong> για τον διαχειριστή οποιασδήποτε εταιρείας — χρήσιμο όταν ο διαχειριστής έχασε τον κωδικό και δεν μπορεί να τον αλλάξει μόνος του. Η αλλαγή ακυρώνει αυτόματα οποιαδήποτε προηγούμενη self-service αλλαγή του διαχειριστή.</p>
+        <ol data-i18n-html="man.creds_owner_steps">
+          <li>Συνδέσου ως <strong>Owner</strong> και άνοιξε το <strong>/owner.html</strong>.</li>
+          <li>Βρες την εταιρεία στη λίστα και πάτησε <strong>Νέα διαπιστευτήρια</strong>.</li>
+          <li>Δώσε νέο κωδικό (≥ 8 χαρακτήρες) και προαιρετικά νέο όνομα χρήστη.</li>
+          <li>Υπόβαλε το αίτημα· εφαρμόζεται από το σύστημα και τα νέα διαπιστευτήρια ισχύουν.</li>
+          <li>Δώσε τα νέα διαπιστευτήρια στον διαχειριστή της εταιρείας.</li>
+        </ol>
+
+        <h3 data-i18n="man.creds_h3lost">Αν χαθεί ο κωδικός — τι κάνει ποιος</h3>
+        <ul data-i18n-html="man.creds_lost">
+          <li><strong>Χρήστης (learner/clinician/educator):</strong> ο <strong>Admin</strong> της εταιρείας κάνει <em>Reset password</em> από τη λίστα Users.</li>
+          <li><strong>Διαχειριστής εταιρείας (Admin):</strong> αν θυμάται τον κωδικό, τον αλλάζει από «Ο λογαριασμός μου»· αν δεν τον θυμάται, ο <strong>Owner</strong> ορίζει νέα διαπιστευτήρια από το /owner.html.</li>
+          <li><strong>Owner:</strong> αλλάζει τον δικό του κωδικό από «Ο λογαριασμός μου» όσο είναι συνδεδεμένος. Αν χαθεί εντελώς η πρόσβαση, η ανάκτηση γίνεται <strong>μόνο</strong> από τον διαχειριστή του server (break-glass: ρυθμίσεις περιβάλλοντος + επανεκκίνηση υπηρεσίας).</li>
+        </ul>
+        <p data-i18n-html="man.creds_note"><strong>Ασφάλεια:</strong> για κάθε αλλαγή ζητείται ο τρέχων κωδικός. Ο ρόλος ενός λογαριασμού δεν αλλάζει ποτέ μέσω self-service — μια αλλαγή κωδικού ή ονόματος δεν μπορεί να ανεβάσει δικαιώματα. Τα αρχικά διαπιστευτήρια του Owner και των διαχειριστών εταιρείας προέρχονται από ασφαλείς ρυθμίσεις περιβάλλοντος στον server.</p>
+      </article>
+
+      <article id="kb" class="manual-section">
+        <div class="panel-title" data-i18n="man.kb_pt">Knowledge Base</div>
+        <h2 data-i18n="man.kb_h2">Τι είναι και τι ανεβάζουμε</h2>
+        <p data-i18n="man.kb_p1">Η Knowledge Base είναι η επίσημη βιβλιοθήκη εγγράφων που χρησιμοποιεί η πλατφόρμα για evidence-aware αναζήτηση και AI απαντήσεις. Όταν ανέβει PDF, το σύστημα εξάγει κείμενο, κάνει OCR όπου χρειάζεται, το χωρίζει σε τμήματα και το κάνει διαθέσιμο για retrieval.</p>
+        <ul data-i18n-html="man.kb_list">
+          <li>Ανεβάζουμε επίσημα IONM protocols, SOPs, training manuals, procedure guidance, published references και εγκεκριμένες οδηγίες.</li>
+          <li>Αποφεύγουμε πρόχειρα drafts, διπλότυπα, μη εγκεκριμένο υλικό και έγγραφα με προσωπικά στοιχεία ασθενών.</li>
+          <li>Χρησιμοποιούμε καθαρό Title, Domain όπως spine/cranial/thyroid/ssep/pedicle/general και tags χωρισμένα με κόμμα.</li>
+          <li>Μετά το upload ελέγχουμε ότι το PDF εμφανίζεται στο Knowledge Documents.</li>
+        </ul>
+        <ol data-i18n-html="man.kb_steps">
+          <li>Άνοιξε Admin.</li>
+          <li>Στο AI Knowledge Base συμπλήρωσε Title, Domain και Tags.</li>
+          <li>Διάλεξε PDF.</li>
+          <li>Πάτησε Upload and index.</li>
+          <li>Έλεγξε τη λίστα Knowledge Documents.</li>
+        </ol>
+      </article>
+
+      <article id="live" class="manual-section">
+        <div class="panel-title" data-i18n="man.live_pt">Live</div>
+        <h2 data-i18n="man.live_h2">Κλινικός σταθμός εργασίας</h2>
+        <p data-i18n-html="man.live_p1">Το Live είναι το βασικό κλινικό workspace. Χωρίζεται σε τρεις στήλες: αριστερά το <strong>Decision Tree</strong>, στο κέντρο το <strong>Clinical Context</strong> του επιλεγμένου node, και δεξιά τα <strong>εργαλεία</strong>.</p>
+        <h3 data-i18n="man.live_h3a">Διάταξη οθόνης</h3>
+        <ul data-i18n-html="man.live_list1">
+          <li><strong>Decision Tree (αριστερά):</strong> διάλεξε διαδρομή (procedure → anatomy → protocol) μέχρι το σχετικό node.</li>
+          <li><strong>Clinical Context (κέντρο):</strong> readiness, channels, roots/CN, πρωτόκολλα, gaps και επόμενες αποφάσεις για το επιλεγμένο node.</li>
+          <li><strong>Εργαλεία (δεξιά):</strong> οργανωμένα σε <strong>καρτέλες</strong> ώστε να μη χρειάζεται ατελείωτο scroll.</li>
+        </ul>
+        <h3 data-i18n="man.live_h3b">Καρτέλες εργαλείων (δεξιά στήλη)</h3>
+        <p data-i18n="man.live_p2">Η δεξιά στήλη έχει πέντε καρτέλες. Πάτησε την καρτέλα για να εμφανιστεί η αντίστοιχη ομάδα εργαλείων:</p>
+        <ul data-i18n-html="man.live_list2">
+          <li><strong>Χάρτης:</strong> ο διαδραστικός χάρτης σώματος με τα ηλεκτρόδια (και ο κοινός χώρος για Tele). Προεπιλεγμένη καρτέλα.</li>
+          <li><strong>Σύνοδος:</strong> δημιουργία case, timeline events και AI Debrief.</li>
+          <li><strong>Σήματα:</strong> import EDF/EDF+ και Alert Response Protocol.</li>
+          <li><strong>AI:</strong> Clinical Copilot και DeepSeek Assistant.</li>
+          <li><strong>Tele:</strong> ζωντανή απομακρυσμένη επίβλεψη. Ένα badge στην καρτέλα ειδοποιεί για εισερχόμενο αίτημα ακόμη κι αν είσαι σε άλλη καρτέλα.</li>
+        </ul>
+        <h3 data-i18n="man.live_h3c">Τυπική ροή</h3>
+        <ol data-i18n-html="man.live_steps">
+          <li>Άνοιξε Live και διάλεξε node στο decision tree.</li>
+          <li>Έλεγξε readiness, channels, roots/CN, protocols και body-map coverage.</li>
+          <li>Στην καρτέλα <strong>Σύνοδος</strong> δημιούργησε case όταν χρειάζεται καταγραφή.</li>
+          <li>Κατέγραψε timeline events με καθαρή, μη αναγνωριστική περιγραφή.</li>
+          <li>Σε αλλαγή σήματος, χρησιμοποίησε την καρτέλα <strong>Σήματα</strong> για δομημένη αξιολόγηση.</li>
+          <li>Χρησιμοποίησε <strong>AI</strong> ή <strong>Tele</strong> για υποστήριξη απόφασης.</li>
+        </ol>
+        <h3 data-i18n="man.live_h3d">Clinical workbench: SSEP &amp; ειδικά πλάνα</h3>
+        <p data-i18n-html="man.live_ssep">Για SSEP nodes, το <strong>Clinical Context</strong> ομαδοποιεί αυτόματα τα κανάλια καταγραφής ανά <strong>γεννήτρια δυναμικού</strong>: <strong>περιφερικά</strong> (π.χ. N9/EP, N8, popliteal fossa), <strong>υποφλοιώδη</strong> (π.χ. N13, P14, N18, N22, P31) και <strong>φλοιώδη</strong> (π.χ. N20, P22, P37, N45). Η ομαδοποίηση δείχνει αμέσως αν λείπει φλοιώδες ή υποφλοιώδες κανάλι και βοηθά στον εντοπισμό του επιπέδου βλάβης (περιφέρεια έναντι νωτιαίου μυελού έναντι φλοιού). Όλα προκύπτουν ντετερμινιστικά από το καταχωρημένο SSEP montage του node.</p>
+        <p data-i18n-html="man.live_thyroid">Για χειρουργική <strong>θυρεοειδούς</strong> υπάρχει ειδικό procedure template (<strong>CIONM</strong>): παρακολούθηση του <strong>παλίνδρομου λαρυγγικού νεύρου (RLN)</strong> μέσω Vocalis με NIM ETT tube, του <strong>έξω κλάδου του άνω λαρυγγικού (EBSLN)</strong> μέσω κρικοθυρεοειδούς, και συνεχής διέγερση πνευμονογαστρικού (<strong>vagal CIONM</strong>) με APS ηλεκτρόδιο. Καταγράφεται η αλληλουχία <strong>V1/R1 → V2/R2</strong> και ο κανόνας <strong>LOS (loss of signal)</strong> για σταδιακή θυρεοειδεκτομή. Το πλήρες πρωτόκολλο φαίνεται στα Protocols του node.</p>
+      </article>
+
+      <article id="map" class="manual-section">
+        <div class="panel-title" data-i18n="man.map_pt">Χάρτης</div>
+        <h2 data-i18n="man.map_h2">Χάρτης σώματος</h2>
+        <p data-i18n="man.map_p1">Ο χάρτης σώματος δείχνει τις θέσεις των ηλεκτροδίων (pins) πάνω σε ανατομικό μοντέλο, βαθμονομημένες σε ποσοστό με laterality L/R/C. Είναι η προεπιλεγμένη καρτέλα της δεξιάς στήλης.</p>
+        <ul data-i18n-html="man.map_list">
+          <li><strong>Focus views:</strong> Full, Anterior, Posterior, Cranial, Upper limb, Posterior upper, Lumbosacral, Lower limb — εστιάζουν τον χάρτη στην περιοχή ενδιαφέροντος.</li>
+          <li><strong>Pins:</strong> κάθε pin αντιστοιχεί σε μυ/ηλεκτρόδιο του επιλεγμένου node. Ο μετρητής δείχνει πόσα pins φαίνονται στο τρέχον view.</li>
+          <li><strong>Κοινός χώρος Tele:</strong> κατά τη διάρκεια Tele συνεδρίας, εδώ εμφανίζονται τα shared annotations και ο συγχρονισμός view με τον συνεργάτη.</li>
+        </ul>
+        <ol data-i18n-html="man.map_steps">
+          <li>Διάλεξε node στο decision tree για να φορτωθούν τα pins.</li>
+          <li>Άνοιξε την καρτέλα <strong>Χάρτης</strong>.</li>
+          <li>Διάλεξε focus view για την περιοχή που σε ενδιαφέρει.</li>
+        </ol>
+      </article>
+
+      <article id="signals" class="manual-section">
+        <div class="panel-title" data-i18n="man.signals_pt">Σήματα</div>
+        <h2 data-i18n-html="man.signals_h2">Σήματα: Import &amp; Alert Response Protocol</h2>
+        <p data-i18n-html="man.signals_p1">Η καρτέλα <strong>Σήματα</strong> έχει δύο εργαλεία: vendor-neutral import πραγματικών recordings και το Alert Response Protocol για δομημένη αξιολόγηση αλλαγών σήματος με δημοσιευμένα κριτήρια.</p>
+        <h3 data-i18n="man.signals_h3a">1. Vendor-neutral import (EDF/EDF+)</h3>
+        <p data-i18n-html="man.signals_p2">Φόρτωσε export <code>.edf</code>, <code>.bdf</code> ή <code>.rec</code> από οποιοδήποτε σύστημα (Cadwell, Natus, IONOMED κ.ά.). Το σύστημα εξάγει τα κανάλια και πραγματικές μετρήσεις peak-to-peak — δεν υπάρχουν εικονικά δεδομένα.</p>
+        <ol data-i18n-html="man.signals_steps1">
+          <li>Άνοιξε την καρτέλα <strong>Σήματα</strong>.</li>
+          <li>Διάλεξε αρχείο EDF/EDF+ και πάτησε <strong>Import recording</strong>.</li>
+          <li>Δες τη λίστα καναλιών με τις μετρήσεις τους.</li>
+          <li>Πάτησε ένα κανάλι για να περαστεί αυτόματα στα πεδία του Alert Response Protocol.</li>
+        </ol>
+        <h3 data-i18n="man.signals_h3b">2. Alert Response Protocol</h3>
+        <p data-i18n="man.signals_p3">Συγκρίνει baseline → current και βγάζει ντετερμινιστικό αποτέλεσμα (none / watch / warning / critical) με δομημένο διαφορικό πρωτόκολλο. Όλα τα όρια είναι αγκυρωμένα σε δημοσιευμένα κριτήρια IONM — κανένα δεν είναι αυθαίρετο.</p>
+        <ol data-i18n-html="man.signals_steps2">
+          <li>Διάλεξε <strong>Modality</strong> (SSEP άνω/κάτω, TcMEP, D-wave, BAEP, Triggered EMG, Free-running/cranial EMG).</li>
+          <li>Συμπλήρωσε <strong>Channel</strong> και τιμές: baseline/current amplitude (µV), latency (ms), threshold (mA).</li>
+          <li>Όρισε τη <strong>signature</strong>: laterality, onset, scope, και αν έγινε μετά από χειρισμό.</li>
+          <li>Πάτησε <strong>Evaluate</strong> για το αποτέλεσμα και το πρωτόκολλο απόκρισης.</li>
+          <li>Πάτησε <strong>AI proposals</strong> για προτάσεις με evidence retrieval.</li>
+          <li>Πάτησε <strong>Log to timeline</strong> για να καταγραφεί στο ενεργό case.</li>
+        </ol>
+        <h3 data-i18n="man.signals_h3c">Δημοσιευμένα κριτήρια συναγερμού</h3>
+        <ul data-i18n-html="man.signals_list">
+          <li><strong>SSEP:</strong> πτώση amplitude ≥50% ή/και αύξηση latency ≥10% (ASNM/ACNS).</li>
+          <li><strong>TcMEP (muscle):</strong> πτώση CMAP amplitude ≥80%, αύξηση threshold &gt;100 V, ή all-or-none εξαφάνιση (critical).</li>
+          <li><strong>D-wave:</strong> πτώση amplitude ≥50% προβλέπει μόνιμο κινητικό έλλειμμα.</li>
+          <li><strong>BAEP:</strong> παράταση latency κύματος V ≥0.5–1.0 ms ή/και πτώση amplitude ≥50%.</li>
+          <li><strong>Triggered EMG (pedicle):</strong> threshold &lt;10–12 mA ύποπτο, &lt;5–8 mA υψηλή ανησυχία για παραβίαση τοιχώματος.</li>
+          <li><strong>Free-running EMG:</strong> παρατεταμένες neurotonic (train) εκφορτίσεις = μηχανικός/θερμικός ερεθισμός νεύρου.</li>
+        </ul>
+        <p data-i18n-html="man.signals_p4">Η ζώνη <strong>watch</strong> είναι συμβουλευτική τάση (60% του ορίου warning) και ξεχωρίζει πάντα από τα δημοσιευμένα όρια warning/critical.</p>
+      </article>
+
+      <article id="tele" class="manual-section">
+        <div class="panel-title" data-i18n="man.tele_pt">Tele-IONM</div>
+        <h2 data-i18n="man.tele_h2">Tele-IONM: ζωντανή απομακρυσμένη επίβλεψη</h2>
+        <p data-i18n-html="man.tele_p1">Το Tele-IONM επιτρέπει σε δύο συνδεδεμένους χρήστες να συνεργαστούν σε πραγματικό χρόνο: παρουσία ειδικών, αίτημα υποστήριξης, κοινός συγχρονισμένος χώρος (node + body map), shared annotations, chat, συγκατάθεση και πλήρες audit. Βρίσκεται στην καρτέλα <strong>Tele</strong> της δεξιάς στήλης.</p>
+        <h3 data-i18n="man.tele_h3a">Ποιος μπορεί να είναι ειδικός</h3>
+        <p data-i18n-html="man.tele_p2">Ειδικός μπορεί να γίνει χρήστης με access level <strong>Clinician, Educator ή Admin</strong> που ενεργοποιεί τον διακόπτη «Διαθέσιμος ως ειδικός». Οι Learners δεν εμφανίζονται ως ειδικοί.</p>
+        <h3 data-i18n="man.tele_h3b">Απαραίτητη προϋπόθεση</h3>
+        <p data-i18n-html="man.tele_p3">Χρειάζονται <strong>δύο συνδεδεμένοι χρήστες</strong>. Αν είσαι μόνος σου online, η λίστα ειδικών είναι κενή και το αίτημα είναι ανενεργό — αυτό είναι φυσιολογικό.</p>
+        <h3 data-i18n="man.tele_h3c">Ροή συνεδρίας</h3>
+        <ol data-i18n-html="man.tele_steps">
+          <li><strong>Ειδικός:</strong> ενεργοποίησε «Διαθέσιμος ως ειδικός» στην καρτέλα Tele.</li>
+          <li><strong>Αιτών:</strong> διάλεξε ειδικό από τη λίστα, γράψε προαιρετικό μήνυμα και πάτησε <strong>Request remote support</strong>.</li>
+          <li><strong>Ειδικός:</strong> το badge στην καρτέλα Tele ανάβει· πάτησε <strong>Accept</strong>.</li>
+          <li>Ανοίγει κοινή συνεδρία: chat, κοινός συγχρονισμένος node και body map.</li>
+          <li>Δώσε <strong>συγκατάθεση κοινής προβολής</strong> για να ενεργοποιηθεί ο πλήρης κοινός χώρος.</li>
+          <li>Στην καρτέλα <strong>Χάρτης</strong> κάνε κλικ για κοινά annotations· χρησιμοποίησε το pointer για δείκτη.</li>
+          <li>Πάτησε <strong>End session</strong> για τερματισμό και προαιρετικά <strong>Attach to active case</strong> για σύνδεση με το ενεργό case (το timeline ενημερώνεται).</li>
+        </ol>
+        <p data-i18n="man.tele_p4">Όλη η συνεδρία (αιτήματα, αποδοχές, μηνύματα, annotations, τερματισμός) καταγράφεται για audit.</p>
+      </article>
+
+      <article id="archive" class="manual-section">
+        <div class="panel-title" data-i18n="man.archive_pt">Αρχείο</div>
+        <h2 data-i18n-html="man.archive_h2">Canonical channel map &amp; σφραγισμένο αρχείο</h2>
+        <p data-i18n-html="man.archive_p1">Δύο εργαλεία μετατρέπουν τα recordings σε διασυστημικά, ντετερμινιστικά και αμετάβλητα κλινικά αρχεία: ο <strong>κανονικός χάρτης καναλιών</strong> (vendor-neutral ontology) και το <strong>σφραγισμένο αρχείο</strong> (tamper-evident hash chain). Ο κανόνας που διέπει τα πάντα: <strong>το AI προτείνει, ο άνθρωπος επιβεβαιώνει</strong>.</p>
+
+        <h3 data-i18n="man.archive_h3a">1. Canonical channel map (στην καρτέλα Σήματα)</h3>
+        <p data-i18n-html="man.archive_p2">Μόλις κάνεις import ένα recording, κάτω από τη λίστα καναλιών εμφανίζεται η κάρτα <strong>Canonical channel map</strong>. Κάθε ακατέργαστη ετικέτα κατασκευαστή (π.χ. <code>Lt Tibial P37</code>, <code>L-Tib</code>, <code>LTIB</code>) αντιστοιχίζεται σε έναν κανονικό κωδικό ανεξάρτητο κατασκευαστή (π.χ. <code>ssep:tibial:L</code>).</p>
+        <ul data-i18n-html="man.archive_list1">
+          <li><strong>AI proposes (συμβουλευτικό):</strong> το σύστημα προτείνει αντιστοίχιση με ετικέτα <em>heuristic</em> και confidence μικρότερο του 1.0. Η πρόταση δεν μπαίνει ποτέ μόνη της στο επίσημο αρχείο.</li>
+          <li><strong>Human confirms (ντετερμινιστικό):</strong> διάλεξε modality, anatomy και laterality και πάτησε <strong>Confirm</strong>. Η επιβεβαίωση γράφει μια <em>learned</em> αντιστοίχιση με confidence 1.0 και πλήρες audit.</li>
+          <li>Από εκεί και πέρα η ίδια (και κάθε κοσμητική παραλλαγή με παύλα/κενό/πεζά-κεφαλαία) επιλύεται ντετερμινιστικά ως <em>learned</em>. Κάθε ανθρώπινη διόρθωση κάνει το σύστημα εξυπνότερο.</li>
+          <li>Ο Admin μπορεί επιπλέον να επιλέξει <strong>promote σε global</strong> ώστε η αντιστοίχιση να ισχύει για όλη την πλατφόρμα· μόνο ο Admin έχει αυτό το δικαίωμα.</li>
+        </ul>
+
+        <h3 data-i18n="man.archive_h3b">2. Σφραγισμένο αρχείο (καρτέλα Αρχείο)</h3>
+        <p data-i18n-html="man.archive_p3">Η καρτέλα <strong>Αρχείο</strong> στη δεξιά στήλη σφραγίζει το ενεργό case σε ένα αμετάβλητο, κρυπτογραφικά αλυσιδωτό αρχείο. Κάθε σφραγίδα περιέχει το πλήρες περιεχόμενο (case, timeline, canonical channel map) και ένα hash που κλειδώνει πάνω στην προηγούμενη σφραγίδα.</p>
+        <ol data-i18n-html="man.archive_steps">
+          <li>Άνοιξε την καρτέλα <strong>Αρχείο</strong> με ενεργό case.</li>
+          <li>Πάτησε <strong>Σφράγισε &amp; κλείδωσε</strong> για να δημιουργηθεί η έκδοση 1 (v1) με μοναδικό hash.</li>
+          <li>Νέα σφράγιση χωρίς αλλαγή περιεχομένου <strong>δεν δημιουργεί νέα έκδοση</strong> (idempotent) — το σύστημα αναγνωρίζει ότι το περιεχόμενο είναι ταυτόσημο.</li>
+          <li>Μόλις αλλάξει κάτι (νέο timeline event, αλλαγή στον χάρτη καναλιών), η επόμενη σφράγιση δημιουργεί v2 που κλειδώνει στο hash του v1.</li>
+          <li>Πάτησε <strong>Επαλήθευση ακεραιότητας</strong> για να ελεγχθεί ολόκληρη η αλυσίδα. Αν κάποια εγγραφή έχει αλλοιωθεί, η επαλήθευση το εντοπίζει (broken chain / altered).</li>
+          <li>Η λίστα <strong>αρχείου</strong> δείχνει όλες τις σφραγισμένες εκδόσεις με την κατάσταση της αλυσίδας τους.</li>
+        </ol>
+        <p data-i18n="man.archive_p4">Έτσι το σύστημα γίνεται το αμετάβλητο, ελεγχόμενο «system of record» για IONM: ντετερμινιστικό, διασυστημικό και ανθεκτικό σε αλλοίωση. Το AI παραμένει πάντα συμβουλευτικό· μόνο ο άνθρωπος σφραγίζει το επίσημο αρχείο.</p>
+      </article>
+
+      <article id="cases" class="manual-section">
+        <div class="panel-title" data-i18n="man.cases_pt">Cases</div>
+        <h2 data-i18n="man.cases_h2">Cases, Report και Debrief</h2>
+        <p data-i18n="man.cases_p1">Τα Cases οργανώνουν περιστατικά ή σενάρια μέσα στην πλατφόρμα. Κάθε case μπορεί να έχει procedure context, timeline events, AI debrief και report.</p>
+        <ol data-i18n-html="man.cases_steps">
+          <li>Άνοιξε Cases για λίστα και αναζήτηση.</li>
+          <li>Άνοιξε case ή δημιούργησε νέο από Live.</li>
+          <li>Κατέγραψε events στο timeline.</li>
+          <li>Ζήτησε Debrief όταν υπάρχει αρκετή πληροφορία.</li>
+          <li>Άνοιξε Report για ανασκόπηση και export μέσω print/PDF.</li>
+        </ol>
+        <p data-i18n="man.cases_p2">Το Debrief συνοψίζει τα γεγονότα, εντοπίζει κρίσιμα σημεία και δίνει recommendations με βάση το διαθέσιμο context. Το Report παρουσιάζει case summary, timeline και debrief σε καθαρή μορφή.</p>
+      </article>
+
+      <article id="academy" class="manual-section">
+        <div class="panel-title" data-i18n="man.academy_pt">Academy</div>
+        <h2 data-i18n="man.academy_h2">Εκπαιδευτικός χώρος μάθησης</h2>
+        <p data-i18n="man.academy_p1">Το Academy είναι εκπαιδευτικό workspace με Lesson, Placement, Waveforms, Tutor και Evidence. Το progress αποθηκεύεται όταν επιλεγεί learner.</p>
+        <ol data-i18n-html="man.academy_steps">
+          <li>Επίλεξε learner από το Learner panel.</li>
+          <li>Πάτησε Start Academy ή Continue.</li>
+          <li>Διάβασε objectives, competencies, checklist και channel plan.</li>
+          <li>Στο Placement τοποθέτησε targets στον body map όπου υπάρχει lab.</li>
+          <li>Στο Waveforms άλλαξε amplitude drop, latency shift, threshold και noise για εκπαιδευτικά scenarios.</li>
+          <li>Ολοκλήρωσε checkpoints, waveform quiz και case scenarios.</li>
+          <li>Χρησιμοποίησε Tutor και Evidence για στοχευμένη επανάληψη.</li>
+        </ol>
+        <h3 data-i18n="man.academy_h3adaptive">Προσαρμοστική διαδρομή (adaptive path)</h3>
+        <p data-i18n-html="man.academy_adaptive_p">Όταν επιλεγεί learner, το Academy χτίζει αυτόματα μια <strong>προσαρμοστική διαδρομή</strong> με βάση το πραγματικό progress και τα λάθη του. Κάθε βήμα έχει προτεραιότητα: <strong>remediate</strong> (μάθημα με λάθη που χρειάζεται επανάληψη), <strong>continue</strong> (ξεκίνησε αλλά δεν ολοκληρώθηκε) και <strong>start</strong> (νέο μάθημα). Το κουμπί «Continue» πάει πάντα στο πιο επείγον βήμα της διαδρομής, ώστε η μάθηση να γίνεται case-driven και εξατομικευμένη αντί για στατική σειρά.</p>
+        <h3 data-i18n="man.academy_h3wave">Waveform Lab: σύγκριση με baseline</h3>
+        <p data-i18n-html="man.academy_wave_p">Στο <strong>Waveform Lab</strong> κάθε scenario (εκτός του baseline) προβάλλει τη <strong>baseline κυματομορφή</strong> ως διακεκομμένη γραμμή αναφοράς πίσω από την τρέχουσα, με <strong>βαθμονόμηση πλάτους σε µV</strong> και χρόνου. Κάτω από κάθε κανάλι εμφανίζεται η <strong>διαφορά από το baseline</strong>: ποσοστό πτώσης πλάτους και μετατόπιση latency, χρωματισμένα ok/warning/alarm σύμφωνα με τα δημοσιευμένα όρια. Έτσι ο εκπαιδευόμενος μαθαίνει να ερμηνεύει αλλαγές όπως στην πραγματική κλινική πράξη. Όλες οι κυματομορφές είναι εκπαιδευτική προσομοίωση, όχι καταγραφές ασθενούς.</p>
+      </article>
+
+      <article id="ai" class="manual-section">
+        <div class="panel-title" data-i18n="man.ai_pt">AI</div>
+        <h2 data-i18n="man.ai_h2">AI εργαλεία και evidence</h2>
+        <p data-i18n="man.ai_p1">Τα AI εργαλεία απαντούν με βάση το επιλεγμένο context: node, lesson, Knowledge Base, protocols, bibliography, case timeline και προηγούμενα mistakes. Χρησιμοποιούνται για υποστήριξη χειρισμού, reasoning και review — πάντα με ανθρώπινο έλεγχο.</p>
+        <h3 data-i18n="man.ai_h3a">Clinical Copilot (καρτέλα AI στο Live)</h3>
+        <p data-i18n="man.ai_p2">Δίνει δομημένο κλινικό brief για το επιλεγμένο node. Έχει τρεις εστιάσεις:</p>
+        <ul data-i18n-html="man.ai_list1">
+          <li><strong>Setup:</strong> προετοιμασία, montage, baselines και readiness.</li>
+          <li><strong>Signal:</strong> ερμηνεία αλλαγής σήματος και επόμενα βήματα.</li>
+          <li><strong>Evidence:</strong> τεκμηρίωση από Knowledge Base και βιβλιογραφία.</li>
+        </ul>
+        <p data-i18n-html="man.ai_p3">Πρόσθεσε προαιρετικά παρατήρηση/φάση (χωρίς προσωπικά δεδομένα) και πάτησε <strong>Run Clinical Copilot</strong>.</p>
+        <h3 data-i18n="man.ai_h3b">DeepSeek Assistant</h3>
+        <p data-i18n="man.ai_p4">Ελεύθερη ερώτηση με βάση το επιλεγμένο node. Κατάλληλο για στοχευμένες, σύντομες ερωτήσεις.</p>
+        <h3 data-i18n="man.ai_h3c">Άλλα AI</h3>
+        <ul data-i18n-html="man.ai_list2">
+          <li><strong>AI Tutor:</strong> ερωτήσεις πάνω στο επιλεγμένο Academy lesson.</li>
+          <li><strong>Case Debrief:</strong> ανασκόπηση timeline και recommendations (καρτέλα Σύνοδος / σελίδα Cases).</li>
+          <li><strong>Evidence retrieval:</strong> ανακτά σχετικά αποσπάσματα όπου υπάρχουν.</li>
+        </ul>
+        <p data-i18n="man.ai_p5">Καλή χρήση σημαίνει συγκεκριμένη ερώτηση, σωστό επιλεγμένο context και ανθρώπινος έλεγχος της απάντησης.</p>
+        <h3 data-i18n="man.ai_h3grounding">Τεκμηρίωση &amp; grounding (citations)</h3>
+        <p data-i18n-html="man.ai_grounding_p">Η ανάκτηση evidence γίνεται σε δύο στάδια: <strong>semantic embeddings</strong> και στη συνέχεια <strong>neural rerank</strong> (Jina reranker) που ανεβάζει τα πιο σχετικά αποσπάσματα — με αυτόματη υποχώρηση σε καθαρή ομοιότητα αν το rerank δεν είναι διαθέσιμο. Κάθε citation που επιστρέφει το AI ελέγχεται ντετερμινιστικά (<strong>grounding</strong>) απέναντι στα πραγματικά ανακτημένα έγγραφα: όσες πηγές επαληθεύονται σημειώνονται ως <em>grounded</em> με την προέλευσή τους (collection/key), ενώ όσες δεν αντιστοιχούν σε ανακτημένο υλικό επισημαίνονται ως μη τεκμηριωμένες. Έτσι ξεχωρίζεις άμεσα ποιες προτάσεις στηρίζονται σε πραγματική βιβλιογραφία.</p>
+      </article>
+
+      <article id="acceptance" class="manual-section">
+        <div class="panel-title" data-i18n="man.acc_pt">Checklist</div>
+        <h2 data-i18n="man.acc_h2">Λειτουργικός έλεγχος παράδοσης</h2>
+        <ol data-i18n-html="man.acc_steps">
+          <li>Admin login επιτυχημένο.</li>
+          <li>Normal user login επιτυχημένο.</li>
+          <li>Normal user δεν ανοίγει Admin.</li>
+          <li>Admin δημιουργεί user με username, password, first name, last name, email και phone.</li>
+          <li>Admin κάνει reset password.</li>
+          <li>Knowledge Base upload εμφανίζει το PDF στα documents.</li>
+          <li>Live ανοίγει node και εμφανίζει channel/body-map context.</li>
+          <li>Case δέχεται timeline events.</li>
+          <li>Debrief παράγεται και αποθηκεύεται.</li>
+          <li>Report ανοίγει για το case.</li>
+          <li>Academy lesson αποθηκεύει learner progress.</li>
+          <li>AI Tutor απαντά στο επιλεγμένο lesson context.</li>
+          <li>Η δεξιά στήλη του Live εναλλάσσει καρτέλες (Χάρτης, Σύνοδος, Σήματα, AI, Tele).</li>
+          <li>EDF/EDF+ import εμφανίζει κανάλια με πραγματικές μετρήσεις.</li>
+          <li>Alert Response Protocol βγάζει αποτέλεσμα και γράφεται στο timeline.</li>
+          <li>Tele-IONM: αίτημα, αποδοχή, κοινός χώρος, chat και σύνδεση με case.</li>
+        </ol>
+      </article>
+    </section>
+  </main>
+  <script src="/session.js?v=20260601-handoff-manual" type="module"></script>
+</body>
+</html>

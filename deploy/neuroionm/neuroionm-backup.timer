@@ -1,0 +1,11 @@
+[Unit]
+Description=Run NeuroIONM local backup after MedResearch backup window
+
+[Timer]
+OnCalendar=*-*-* 00:40:00 UTC
+RandomizedDelaySec=10min
+Persistent=true
+Unit=neuroionm-backup.service
+
+[Install]
+WantedBy=timers.target
